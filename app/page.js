@@ -84,9 +84,10 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <div className={styles.heroBadge}>
-            <ClapperboardIcon size={14} className={styles.badgeIcon} />
-            <span>Metrocinemas × Ventu</span>
+          <div className={styles.heroLogos}>
+            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={180} height={48} className={styles.heroLogoMetro} />
+            <span className={styles.heroLogosX}>×</span>
+            <Image src="/logos/ventu.webp" alt="Ventu Life Center" width={120} height={60} className={styles.heroLogoVentu} />
           </div>
           <h1 className={styles.heroTitle}>
             Tu Noche <br />
@@ -203,9 +204,9 @@ export default function Home() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
-            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={100} height={28} />
+            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={100} height={28} className={styles.logoMetroFooter} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.webp" alt="Ventu" width={64} height={32} />
+            <Image src="/logos/ventu.webp" alt="Ventu" width={64} height={32} className={styles.logoVentuFooter} />
           </div>
           <p className={styles.footerText}>Dinner & Movie Experience — Una alianza Metrocinemas × Ventu</p>
           <p className={styles.footerCopy}>© {new Date().getFullYear()} Todos los derechos reservados.</p>

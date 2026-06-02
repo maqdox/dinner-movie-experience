@@ -40,7 +40,7 @@
 }
 
 .logoVentu {
-  height: 36px;
+  height: 50px;
   width: auto;
   object-fit: contain;
 }
@@ -102,23 +102,34 @@
   animation: fadeInUp 0.8s ease;
 }
 
-.heroBadge {
-  display: inline-flex;
+.heroLogos {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  background: rgba(226, 232, 240, 0.05);
-  border: 1px solid rgba(226, 232, 240, 0.12);
-  border-radius: var(--radius-full);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--color-gold);
-  margin-bottom: 28px;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
-.badgeIcon {
-  color: var(--color-gold);
-  flex-shrink: 0;
+.heroLogoMetro {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+.heroLogosX {
+  font-family: var(--font-body);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}
+
+.heroLogoVentu {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
 
 .btnIcon {
@@ -379,8 +390,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.logoMetroFooter {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logoVentuFooter {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
 }
 
 .footerText {
