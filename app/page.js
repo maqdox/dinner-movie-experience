@@ -85,9 +85,9 @@ export default function Home() {
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <div className={styles.heroLogos}>
-            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={180} height={48} className={styles.heroLogoMetro} />
+            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
             <span className={styles.heroLogosX}>×</span>
-            <Image src="/logos/ventu.webp" alt="Ventu Life Center" width={120} height={60} className={styles.heroLogoVentu} />
+            <Image src="/logos/ventu.webp" alt="Ventu Life Center" width={160} height={80} className={styles.heroLogoVentu} />
           </div>
           <h1 className={styles.heroTitle}>
             Tu Noche <br />

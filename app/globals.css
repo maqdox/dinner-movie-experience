@@ -40,7 +40,7 @@
   --transition-slow: 0.5s ease;
 
   --max-width: 1200px;
-  --header-height: 72px;
+  --header-height: 80px;
 }
 
 /* Auto-invert black Ventu logo to silver-white for dark mode */
