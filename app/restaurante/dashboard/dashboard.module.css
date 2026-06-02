@@ -1,0 +1,175 @@
+.main {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
+}
+
+.headerTitle {
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.headerSub {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.logoutBtn:hover {
+  border-color: var(--color-red);
+  color: var(--color-red-light);
+}
+
+/* Content */
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+/* Search */
+.searchForm {
+  margin-bottom: 24px;
+}
+
+.searchTitle {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+  font-family: var(--font-body);
+}
+
+.searchDesc {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.searchRow {
+  display: flex;
+  gap: 12px;
+}
+
+.searchRow .form-input {
+  flex: 1;
+}
+
+/* Alerts */
+.alert {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.alertError {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: var(--color-red-light);
+}
+
+.alertSuccess {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--color-green);
+}
+
+/* Pass Result */
+.passResult {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.passResultHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.passResultId {
+  font-size: 1.4rem;
+  font-family: var(--font-display);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* Pass Grid */
+.passGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.passField {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.passFieldLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.passFieldValue {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Redeem Form */
+.redeemForm {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+  animation: fadeIn 0.3s ease;
+}
+
+.redeemForm h4 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: var(--color-gold);
+}
+
+.redeemButtons {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 480px) {
+  .passGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .searchRow {
+    flex-direction: column;
+  }
+}

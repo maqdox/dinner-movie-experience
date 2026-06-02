@@ -1,0 +1,296 @@
+.main {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--color-border-light);
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(12px);
+}
+
+.backLink {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.headerLogos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Loading & Error */
+.loadingScreen, .errorScreen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+}
+
+.errorIcon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+/* ===== PASS CONTAINER ===== */
+.passContainer {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* ===== PASS CARD ===== */
+.passCard {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.passStrip {
+  height: 6px;
+  background: var(--color-gold);
+}
+
+/* Pass Header */
+.passHeader {
+  text-align: center;
+  padding: 28px 24px 20px;
+}
+
+.passLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--color-gold);
+  text-transform: uppercase;
+}
+
+.passId {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 8px 0 16px;
+  color: var(--color-gold-light);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.statusActive {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  animation: pulse-silver 2s infinite;
+}
+
+.statusRedeemed {
+  background: rgba(226, 232, 240, 0.12);
+  color: var(--color-gold);
+  border: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.statusExpired {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--color-red-light);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+@keyframes pulse-silver {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
+
+/* QR Section */
+.qrSection {
+  text-align: center;
+  padding: 20px 24px;
+}
+
+.qrWrapper {
+  display: inline-flex;
+  padding: 16px;
+  background: #f0ece4;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.qrImage {
+  width: 220px;
+  height: 220px;
+  display: block;
+}
+
+.qrHint {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Redeemed / Expired */
+.redeemedSection, .expiredSection {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--color-text-secondary);
+}
+
+.redeemedIcon, .expiredIcon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.redeemedDate {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Divider */
+.passDivider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0 -1px;
+}
+
+.dividerCircleLeft, .dividerCircleRight {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  flex-shrink: 0;
+}
+
+.dividerCircleLeft {
+  margin-left: -10px;
+}
+
+.dividerCircleRight {
+  margin-right: -10px;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-border) 0,
+    var(--color-border) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+/* Pass Details */
+.passDetails {
+  padding: 20px 24px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.detailValue {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: right;
+  max-width: 60%;
+}
+
+.benefitValue {
+  color: var(--color-gold);
+  font-weight: 700;
+}
+
+/* Footer */
+.passFooter {
+  padding: 16px 24px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.timeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.timeLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeValue {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.countdown {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background: rgba(226, 232, 240, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.1);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+/* Footer Note */
+.footerNote {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.footerNote strong {
+  color: var(--color-gold);
+}
