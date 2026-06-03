@@ -40,7 +40,7 @@
 }
 
 .logoVentu {
-  height: 58px;
+  height: 45px;
   width: auto;
   object-fit: contain;
 }
@@ -125,8 +125,18 @@
   opacity: 0.8;
 }
 
+.heroCampaignLabel {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-gold);
+  margin-bottom: 24px;
+}
+
 .heroLogoVentu {
-  height: 84px;
+  height: 80px;
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1) drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
@@ -401,7 +411,7 @@
 }
 
 .logoVentuFooter {
-  height: 38px;
+  height: 48px;
   width: auto;
   object-fit: contain;
 }

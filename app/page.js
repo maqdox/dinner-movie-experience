@@ -53,7 +53,7 @@ const RESTAURANTS = [
   { name: "Limoncello", type: "Gourmet", location: "N7", logo: "/logos-restaurantes/limoncello.png" },
   { name: "Churrería Porfirio & Heladería Bahama", type: "Cafetería y Heladería", location: "N7", logo: ["/logos-restaurantes/porfirio.png", "/logos-restaurantes/bahama.jpeg"] },
   { name: "Alegría", type: "Bistro y Café", location: "N8", logo: "/logos-restaurantes/alegria.jpg" },
-  { name: "Bendita Pizza", type: "Pizzas Gourmet", location: "N8", emoji: "🍕" },
+  { name: "Bendita Pizza", type: "Pizzas Gourmet", location: "N8", logo: "/logos-restaurantes/benditapizza.jpeg" },
   { name: "Garibaldi Grill", type: "Mexicana Gourmet", location: "N8", logo: "/logos-restaurantes/garibaldi.png" },
   { name: "Tapachula", type: "Mexicana To Go", location: "N8", logo: "/logos-restaurantes/tapachula.jpg" },
   { name: "Finca 8", type: "Especialidad en Cortes", location: "N8", logo: "/logos-restaurantes/finca8.png" },
@@ -68,7 +68,7 @@ export default function Home() {
           <div className={styles.headerLogos}>
             <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.webp" alt="Ventu Life Center" width={80} height={40} className={styles.logoVentu} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={41} height={45} className={styles.logoVentu} />
           </div>
           <nav className={styles.headerNav}>
             <a href="#como-funciona">Cómo Funciona</a>
@@ -87,8 +87,11 @@ export default function Home() {
           <div className={styles.heroLogos}>
             <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
             <span className={styles.heroLogosX}>×</span>
-            <Image src="/logos/ventu.webp" alt="Ventu Life Center" width={160} height={80} className={styles.heroLogoVentu} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={73} height={80} className={styles.heroLogoVentu} />
           </div>
+          <p className={styles.heroCampaignLabel}>
+            Dinner & Movie Experience
+          </p>
           <h1 className={styles.heroTitle}>
             Tu Noche <br />
             <span className="gold-gradient">Continúa en Ventu</span>
@@ -206,7 +209,7 @@ export default function Home() {
           <div className={styles.footerLogos}>
             <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={100} height={28} className={styles.logoMetroFooter} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.webp" alt="Ventu" width={64} height={32} className={styles.logoVentuFooter} />
+            <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
           </div>
           <p className={styles.footerText}>Dinner & Movie Experience — Una alianza Metrocinemas × Ventu</p>
           <p className={styles.footerCopy}>© {new Date().getFullYear()} Todos los derechos reservados.</p>

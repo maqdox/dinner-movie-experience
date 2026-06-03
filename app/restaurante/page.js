@@ -53,7 +53,7 @@ export default function RestaurantLoginPage() {
       <div className={styles.loginWrapper}>
         <div className={styles.loginCard}>
           <div className={styles.loginHeader}>
-            <Image src="/logos/ventu.webp" alt="Ventu" width={80} height={40} />
+            <Image src="/logos/ventu.png" alt="Ventu" width={72} height={80} />
             <h1 className={styles.loginTitle}>Portal Restaurante</h1>
             <p className={styles.loginSubtitle}>Ingresa tu código de acceso para validar Movie Passes</p>
           </div>
