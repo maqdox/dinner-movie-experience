@@ -48,7 +48,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .statCard {
@@ -98,12 +98,50 @@
   color: white;
 }
 
-/* ── Financial Row ── */
-.financialRow {
+/* ── Overview Section (Chart + Financial) ── */
+.overviewGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
   margin-bottom: 2rem;
+}
+
+.chartCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.chartHeader {
+  margin-bottom: 1rem;
+}
+
+.chartTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+
+.chartSubtitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.chartWrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 1rem;
+}
+
+.financialStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .financialCard {
@@ -113,7 +151,10 @@
   padding: 1.1rem 1.25rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  flex: 1;
   gap: 0.6rem;
+  transition: border-color 0.2s ease;
 }
 
 .financialCard:hover {
@@ -363,14 +404,20 @@
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .financialRow {
+  .overviewGrid {
     grid-template-columns: 1fr;
+  }
+  .financialStack {
+    flex-direction: row;
   }
 }
 
 @media (max-width: 768px) {
   .statsGrid {
     grid-template-columns: 1fr;
+  }
+  .financialStack {
+    flex-direction: column;
   }
   .filtersBar {
     flex-direction: column;
