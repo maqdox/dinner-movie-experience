@@ -204,7 +204,7 @@ export default function AdminDashboard() {
     { label: "Expirados", value: expirados, icon: <ClockIcon /> },
   ];
 
-  const passRestaurants = [...new Set(passes.map(p => p.restaurante_id).filter(Boolean))];
+
 
   return (
     <main className={styles.main}>
@@ -301,10 +301,9 @@ export default function AdminDashboard() {
               <FilterIcon />
               <select className={styles.filterInput} value={restaurantFilter} onChange={(e) => setRestaurantFilter(e.target.value)}>
                 <option value="todos">Todos los restaurantes</option>
-                {passRestaurants.map(rId => {
-                  const r = RESTAURANTS.find(rest => rest.id === rId);
-                  return <option key={rId} value={rId}>{r ? r.name : rId}</option>;
-                })}
+                {RESTAURANTS.map(r => (
+                  <option key={r.id} value={r.id}>{r.name}</option>
+                ))}
               </select>
             </div>
           </div>
