@@ -1,3 +1,12 @@
+/* ── Accent color (cyan/teal from reference) ── */
+:root {
+  --accent: #0ea5e9;
+  --accent-dim: rgba(14, 165, 233, 0.12);
+  --accent-glow: rgba(14, 165, 233, 0.25);
+  --card-bg: rgba(15, 23, 42, 0.6);
+  --card-border: rgba(255, 255, 255, 0.06);
+}
+
 .main {
   min-height: 100vh;
   background: var(--color-bg);
@@ -11,27 +20,25 @@
   justify-content: center;
   gap: 16px;
   color: var(--color-text-secondary);
-  background: var(--color-bg);
 }
 
 /* ── Page Header ── */
 .pageHeader {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .pageHeader h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
 }
 
 .pageHeader p {
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
 }
 
-/* ── Content ── */
 .content {
   max-width: 100%;
 }
@@ -40,34 +47,35 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .statCard {
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  transition: border-color 0.2s ease, transform 0.15s ease;
+  gap: 0.85rem;
+  transition: border-color 0.2s ease;
 }
 
 .statCard:hover {
-  border-color: rgba(255, 255, 255, 0.12);
-  transform: translateY(-1px);
+  border-color: rgba(14, 165, 233, 0.2);
 }
 
 .statCardIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  background: var(--accent-dim);
+  color: var(--accent);
 }
 
 .statCardInfo {
@@ -75,62 +83,66 @@
   flex-direction: column;
 }
 
-.statValue {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--color-text);
+.statLabel {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.15rem;
+  font-weight: 400;
 }
 
-.statLabel {
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  margin-top: 0.2rem;
-  font-weight: 400;
+.statValue {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: white;
 }
 
 /* ── Financial Row ── */
 .financialRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 0.75rem;
   margin-bottom: 2rem;
 }
 
 .financialCard {
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
+}
+
+.financialCard:hover {
+  border-color: rgba(14, 165, 233, 0.2);
 }
 
 .financialTop {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .financialIcon {
   display: flex;
   align-items: center;
+  color: var(--accent);
   opacity: 0.7;
 }
 
 .financialLabel {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  font-weight: 400;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .financialValue {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--color-gold);
+  color: white;
 }
 
 /* ── Sections ── */
@@ -138,158 +150,141 @@
   margin-bottom: 2rem;
 }
 
-.sectionHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 1rem;
-}
-
 .sectionTitle {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: white;
+  margin-bottom: 0.75rem;
 }
 
 /* ── Restaurant Stats ── */
 .restaurantStats {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 0.75rem;
 }
 
 .restaurantStatCard {
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 1rem;
 }
 
 .restaurantStatCard h4 {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   color: white;
 }
 
 .restaurantStatGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 6px;
   text-align: center;
 }
 
 .miniStat {
   display: block;
   font-weight: 700;
-  font-size: 1rem;
-  color: var(--color-gold);
+  font-size: 0.95rem;
+  color: var(--accent);
 }
 
 .miniLabel {
-  font-size: 0.65rem;
-  color: var(--color-text-muted);
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
 }
 
-/* ── Filters Bar ── */
+/* ── Filters Bar (single row) ── */
 .filtersBar {
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
 }
 
 .statusFilters {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
 
 .filterBtn {
-  padding: 0.4rem 0.9rem;
+  padding: 0.38rem 0.75rem;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: transparent;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.78rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .filterBtn:hover {
   border-color: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .filterActive {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--color-gold);
-  color: var(--color-gold);
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
   font-weight: 500;
 }
 
-.advancedFilters {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.filterDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .filterGroup {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.4);
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .filterDash {
-  color: rgba(255, 255, 255, 0.2);
-  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.8rem;
 }
 
-.dateInput,
-.selectInput {
+.filterInput {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
-  padding: 0.4rem 0.6rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.8rem;
+  padding: 0.35rem 0.55rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.78rem;
   outline: none;
   transition: border-color 0.2s;
   color-scheme: dark;
 }
 
-.dateInput:focus,
-.selectInput:focus {
-  border-color: var(--color-gold);
-}
-
-.selectInput {
-  min-width: 180px;
+.filterInput:focus {
+  border-color: var(--accent);
 }
 
 .passesCount {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 0.5rem;
 }
 
 .passesCount strong {
-  color: white;
+  color: var(--accent);
 }
 
 /* ── Passes Table ── */
 .tableResponsive {
   overflow-x: auto;
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
 }
 
 .passesTable {
@@ -299,21 +294,21 @@
 }
 
 .passesTable th {
-  padding: 0.9rem 1rem;
-  font-size: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.35);
   font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--card-border);
   white-space: nowrap;
 }
 
 .passesTable td {
-  padding: 0.8rem 1rem;
-  font-size: 0.88rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.75);
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .passesTable tr:last-child td {
@@ -321,16 +316,16 @@
 }
 
 .passesTable tr:hover td {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: rgba(14, 165, 233, 0.03);
 }
 
 .codeCell {
   font-family: var(--font-display);
   font-weight: 600;
   color: white;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   letter-spacing: 0.03em;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--accent-dim);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
@@ -340,29 +335,27 @@
 }
 
 .ticketLink {
-  color: var(--color-gold);
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.85rem;
-  transition: opacity 0.2s;
+  font-size: 0.82rem;
 }
 
 .ticketLink:hover {
-  opacity: 0.8;
   text-decoration: underline;
 }
 
 .noTicket {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.15);
 }
 
 .empty {
   text-align: center;
-  padding: 3rem;
-  color: var(--color-text-muted);
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
+  padding: 2.5rem;
+  color: rgba(255, 255, 255, 0.35);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
 }
 
 /* ── Responsive ── */
@@ -379,10 +372,11 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
-  .advancedFilters {
+  .filtersBar {
     flex-direction: column;
+    align-items: flex-start;
   }
-  .statusFilters {
-    flex-wrap: wrap;
+  .filterDivider {
+    display: none;
   }
 }

@@ -6,41 +6,41 @@ import styles from "./admin.module.css";
 import { RESTAURANTS } from "@/lib/constants";
 
 /* ── SVG Icons (stroke style, matching landing) ── */
-const TicketIcon = ({ size = 22 }) => (
+const TicketIcon = ({ size = 20 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2Z" />
     <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
   </svg>
 );
 
-const CheckCircleIcon = ({ size = 22 }) => (
+const CheckCircleIcon = ({ size = 20 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <circle cx="12" cy="12" r="10" />
     <path d="m9 12 2 2 4-4" />
   </svg>
 );
 
-const StarIcon = ({ size = 22 }) => (
+const StarIcon = ({ size = 20 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
   </svg>
 );
 
-const ClockIcon = ({ size = 22 }) => (
+const ClockIcon = ({ size = 20 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <circle cx="12" cy="12" r="10" />
     <polyline points="12 6 12 12 16 14" />
   </svg>
 );
 
-const WalletIcon = ({ size = 20 }) => (
+const WalletIcon = ({ size = 18 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1" />
     <path d="M18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
   </svg>
 );
 
-const PercentIcon = ({ size = 20 }) => (
+const PercentIcon = ({ size = 18 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <line x1="19" y1="5" x2="5" y2="19" />
     <circle cx="6.5" cy="6.5" r="2.5" />
@@ -48,14 +48,14 @@ const PercentIcon = ({ size = 20 }) => (
   </svg>
 );
 
-const TrendUpIcon = ({ size = 20 }) => (
+const TrendUpIcon = ({ size = 18 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
     <polyline points="17 6 23 6 23 12" />
   </svg>
 );
 
-const CalendarIcon = ({ size = 16 }) => (
+const CalendarIcon = ({ size = 15 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
     <line x1="16" y1="2" x2="16" y2="6" />
@@ -64,10 +64,9 @@ const CalendarIcon = ({ size = 16 }) => (
   </svg>
 );
 
-const SearchIcon = ({ size = 16 }) => (
+const FilterIcon = ({ size = 15 }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
-    <circle cx="11" cy="11" r="8" />
-    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
   </svg>
 );
 
@@ -128,30 +127,19 @@ export default function AdminDashboard() {
     }
   });
 
-  // Filtered passes (status + date range + restaurant)
+  // Filtered passes
   const filtered = useMemo(() => {
     let result = passes;
-
-    if (filter !== "todos") {
-      result = result.filter((p) => p.estado === filter);
-    }
-
-    if (restaurantFilter !== "todos") {
-      result = result.filter((p) => p.restaurante_id === restaurantFilter);
-    }
-
+    if (filter !== "todos") result = result.filter((p) => p.estado === filter);
+    if (restaurantFilter !== "todos") result = result.filter((p) => p.restaurante_id === restaurantFilter);
     if (dateFrom) {
-      const from = new Date(dateFrom);
-      from.setHours(0, 0, 0, 0);
+      const from = new Date(dateFrom); from.setHours(0, 0, 0, 0);
       result = result.filter((p) => new Date(p.fecha_creacion) >= from);
     }
-
     if (dateTo) {
-      const to = new Date(dateTo);
-      to.setHours(23, 59, 59, 999);
+      const to = new Date(dateTo); to.setHours(23, 59, 59, 999);
       result = result.filter((p) => new Date(p.fecha_creacion) <= to);
     }
-
     return result;
   }, [passes, filter, dateFrom, dateTo, restaurantFilter]);
 
@@ -171,28 +159,25 @@ export default function AdminDashboard() {
   }
 
   const kpiCards = [
-    { label: "Total Passes", value: total, icon: <TicketIcon />, color: "#a78bfa", bg: "rgba(167, 139, 250, 0.1)" },
-    { label: "Activos", value: activos, icon: <CheckCircleIcon />, color: "#34d399", bg: "rgba(52, 211, 153, 0.1)" },
-    { label: "Redimidos", value: redimidos, icon: <StarIcon />, color: "var(--color-gold)", bg: "rgba(245, 158, 11, 0.1)" },
-    { label: "Expirados", value: expirados, icon: <ClockIcon />, color: "#f87171", bg: "rgba(248, 113, 113, 0.1)" },
+    { label: "Total Passes", value: total, icon: <TicketIcon /> },
+    { label: "Activos", value: activos, icon: <CheckCircleIcon /> },
+    { label: "Redimidos", value: redimidos, icon: <StarIcon /> },
+    { label: "Expirados", value: expirados, icon: <ClockIcon /> },
   ];
 
   const financialCards = [
-    { label: "Consumo Total Generado", value: `L ${totalConsumo.toLocaleString("es-HN", { minimumFractionDigits: 2 })}`, icon: <WalletIcon />, color: "var(--color-gold)" },
-    { label: "Descuentos Otorgados", value: `L ${totalDescuento.toLocaleString("es-HN", { minimumFractionDigits: 2 })}`, icon: <PercentIcon />, color: "#f87171" },
-    { label: "Tasa de Redención", value: `${tasaRedencion}%`, icon: <TrendUpIcon />, color: "#34d399" },
+    { label: "Consumo Total Generado", value: `L ${totalConsumo.toLocaleString("es-HN", { minimumFractionDigits: 2 })}`, icon: <WalletIcon /> },
+    { label: "Descuentos Otorgados", value: `L ${totalDescuento.toLocaleString("es-HN", { minimumFractionDigits: 2 })}`, icon: <PercentIcon /> },
+    { label: "Tasa de Redención", value: `${tasaRedencion}%`, icon: <TrendUpIcon /> },
   ];
 
-  // Unique restaurants in passes for the filter dropdown
   const passRestaurants = [...new Set(passes.map(p => p.restaurante_id).filter(Boolean))];
 
   return (
     <main className={styles.main}>
       <header className={styles.pageHeader}>
-        <div>
-          <h2>Dashboard</h2>
-          <p>Métricas generales de la promoción Dinner & Movie Experience</p>
-        </div>
+        <h2>Dashboard</h2>
+        <p>Métricas generales de la promoción Dinner & Movie Experience</p>
       </header>
 
       <div className={styles.content}>
@@ -200,12 +185,10 @@ export default function AdminDashboard() {
         <div className={styles.statsGrid}>
           {kpiCards.map((kpi) => (
             <div key={kpi.label} className={styles.statCard}>
-              <div className={styles.statCardIcon} style={{ background: kpi.bg, color: kpi.color }}>
-                {kpi.icon}
-              </div>
+              <div className={styles.statCardIcon}>{kpi.icon}</div>
               <div className={styles.statCardInfo}>
-                <span className={styles.statValue} style={{ color: kpi.color }}>{kpi.value}</span>
                 <span className={styles.statLabel}>{kpi.label}</span>
+                <span className={styles.statValue}>{kpi.value}</span>
               </div>
             </div>
           ))}
@@ -216,10 +199,10 @@ export default function AdminDashboard() {
           {financialCards.map((fc) => (
             <div key={fc.label} className={styles.financialCard}>
               <div className={styles.financialTop}>
-                <span className={styles.financialIcon} style={{ color: fc.color }}>{fc.icon}</span>
+                <span className={styles.financialIcon}>{fc.icon}</span>
                 <span className={styles.financialLabel}>{fc.label}</span>
               </div>
-              <span className={styles.financialValue} style={{ color: fc.color }}>{fc.value}</span>
+              <span className={styles.financialValue}>{fc.value}</span>
             </div>
           ))}
         </div>
@@ -245,13 +228,10 @@ export default function AdminDashboard() {
 
         {/* Passes Table */}
         <div className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h3 className={styles.sectionTitle}>Auditoría de Pases</h3>
-          </div>
+          <h3 className={styles.sectionTitle}>Auditoría de Pases</h3>
 
-          {/* Filters Bar */}
+          {/* Single-row filter bar */}
           <div className={styles.filtersBar}>
-            {/* Status Filters */}
             <div className={styles.statusFilters}>
               {["todos", "activo", "redimido", "expirado"].map((f) => (
                 <button key={f} onClick={() => setFilter(f)} className={`${styles.filterBtn} ${filter === f ? styles.filterActive : ""}`}>
@@ -260,29 +240,27 @@ export default function AdminDashboard() {
               ))}
             </div>
 
-            {/* Advanced Filters */}
-            <div className={styles.advancedFilters}>
-              <div className={styles.filterGroup}>
-                <CalendarIcon />
-                <input type="date" className={styles.dateInput} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} title="Fecha desde" />
-                <span className={styles.filterDash}>—</span>
-                <input type="date" className={styles.dateInput} value={dateTo} onChange={(e) => setDateTo(e.target.value)} title="Fecha hasta" />
-              </div>
+            <div className={styles.filterDivider} />
 
-              <div className={styles.filterGroup}>
-                <SearchIcon />
-                <select className={styles.selectInput} value={restaurantFilter} onChange={(e) => setRestaurantFilter(e.target.value)}>
-                  <option value="todos">Todos los restaurantes</option>
-                  {passRestaurants.map(rId => {
-                    const r = RESTAURANTS.find(rest => rest.id === rId);
-                    return <option key={rId} value={rId}>{r ? r.name : rId}</option>;
-                  })}
-                </select>
-              </div>
+            <div className={styles.filterGroup}>
+              <CalendarIcon />
+              <input type="date" className={styles.filterInput} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+              <span className={styles.filterDash}>—</span>
+              <input type="date" className={styles.filterInput} value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+            </div>
+
+            <div className={styles.filterGroup}>
+              <FilterIcon />
+              <select className={styles.filterInput} value={restaurantFilter} onChange={(e) => setRestaurantFilter(e.target.value)}>
+                <option value="todos">Todos los restaurantes</option>
+                {passRestaurants.map(rId => {
+                  const r = RESTAURANTS.find(rest => rest.id === rId);
+                  return <option key={rId} value={rId}>{r ? r.name : rId}</option>;
+                })}
+              </select>
             </div>
           </div>
 
-          {/* Passes Count */}
           <div className={styles.passesCount}>
             Mostrando <strong>{filtered.length}</strong> de {passes.length} pases
           </div>
