@@ -5,10 +5,23 @@
   color: var(--color-text);
 }
 
+/* ── Loading ── */
+.loadingScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+/* ── Sidebar ── */
 .sidebar {
   width: 260px;
-  background-color: var(--color-bg-card);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, #0f1318 0%, #111820 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -17,63 +30,132 @@
 }
 
 .sidebarHeader {
-  padding: 2rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.sidebarHeader h2 {
-  font-size: 1.2rem;
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logoArea h2 {
+  font-size: 1.05rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 0.2rem;
+  margin: 0;
+  line-height: 1.2;
 }
 
-.sidebarHeader p {
+.logoArea p {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 1px;
+  color: var(--color-gold);
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
+/* ── Navigation ── */
 .nav {
   flex: 1;
-  padding: 1.5rem 1rem;
+  padding: 1.25rem 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+}
+
+.navSection {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 0 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .navLink {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 0.8rem 1rem;
+  gap: 0.75rem;
+  padding: 0.7rem 0.75rem;
   border-radius: 8px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 400;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .navLink:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .navLink.active {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--color-gold);
+  background-color: rgba(255, 255, 255, 0.07);
+  color: white;
   font-weight: 500;
 }
 
+.navLink.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--color-gold);
+  border-radius: 0 3px 3px 0;
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.navLink.active .navIcon {
+  opacity: 1;
+  color: var(--color-gold);
+}
+
+/* ── Footer ── */
 .sidebarFooter {
-  padding: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.userAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
 }
 
 .userEmail {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -82,12 +164,12 @@
 .logoutBtn {
   width: 100%;
   background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 0.7rem;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0.55rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -96,13 +178,15 @@
 }
 
 .logoutBtn:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
+/* ── Main Content ── */
 .mainContent {
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 2.5rem;
   overflow-y: auto;
+  background: var(--color-bg);
 }
