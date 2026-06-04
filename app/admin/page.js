@@ -7,9 +7,9 @@ import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
-import styles from "./restaurante.module.css";
+import styles from "../restaurante/restaurante.module.css";
 
-export default function RestaurantLoginPage() {
+export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,31 +35,24 @@ export default function RestaurantLoginPage() {
       
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        if (userData.role !== "restaurant") {
-          setError("Este portal es exclusivo para restaurantes. Si eres administrador, ingresa por /admin");
+        
+        if (userData.role !== "admin") {
+          setError("Acceso denegado: No tienes permisos de administrador.");
           await auth.signOut();
           setLoading(false);
           return;
         }
 
         // Guardar en sessionStorage para compatibilidad con el dashboard actual
-        let codeParam = "";
         if (typeof window !== "undefined") {
           sessionStorage.setItem("restaurant", JSON.stringify({
             id: userData.restaurant_id || "admin",
-            name: userData.name || "Restaurante",
+            name: userData.name || "Administrador",
             role: userData.role
           }));
-          
-          const urlParams = new URLSearchParams(window.location.search);
-          codeParam = urlParams.get("code");
         }
 
-        if (codeParam) {
-          router.push(`/restaurante/dashboard?code=${codeParam}`);
-        } else {
-          router.push("/restaurante/dashboard");
-        }
+        router.push("/admin/dashboard");
       } else {
         setError("Usuario no tiene perfil asignado. Contacta a soporte.");
         await auth.signOut();
@@ -78,8 +71,8 @@ export default function RestaurantLoginPage() {
         <div className={styles.loginCard}>
           <div className={styles.loginHeader}>
             <Image src="/logos/ventu.png" alt="Ventu" width={72} height={80} />
-            <h1 className={styles.loginTitle}>Portal Restaurante</h1>
-            <p className={styles.loginSubtitle}>Inicia sesión para validar Movie Passes</p>
+            <h1 className={styles.loginTitle} style={{ color: "var(--color-gold)" }}>Portal Administrativo</h1>
+            <p className={styles.loginSubtitle}>Inicia sesión para gestionar el proyecto Vizion</p>
           </div>
 
           <form onSubmit={handleLogin}>
@@ -89,7 +82,7 @@ export default function RestaurantLoginPage() {
                 id="email"
                 type="email"
                 className="form-input"
-                placeholder="ejemplo@restaurante.com"
+                placeholder="admin@vizion.com"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setError(""); }}
                 autoFocus
@@ -107,7 +100,7 @@ export default function RestaurantLoginPage() {
               />
             </div>
             {error && <p className={styles.error}>{error}</p>}
-            <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: "100%" }}>
+            <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: "100%", backgroundColor: "var(--color-gold)", color: "black", borderColor: "var(--color-gold)" }}>
               {loading ? "Validando..." : "Ingresar"}
             </button>
           </form>

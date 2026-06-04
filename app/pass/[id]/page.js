@@ -13,8 +13,20 @@ export default function PassPage() {
   const [error, setError] = useState("");
   const [qrUrl, setQrUrl] = useState("");
 
+  const [restaurant, setRestaurant] = useState(null);
+  const [showRedeem, setShowRedeem] = useState(false);
+  const [redeemForm, setRedeemForm] = useState({ monto_consumo: "", personas_redencion: "" });
+  const [actionLoading, setActionLoading] = useState(false);
+  const [redeemSuccess, setRedeemSuccess] = useState("");
+  const [redeemError, setRedeemError] = useState("");
+
   useEffect(() => {
     async function fetchPass() {
+      if (typeof window !== "undefined") {
+        const stored = sessionStorage.getItem("restaurant");
+        if (stored) setRestaurant(JSON.parse(stored));
+      }
+
       try {
         const res = await fetch(`/api/passes/${id}`);
         const data = await res.json();
@@ -41,6 +53,37 @@ export default function PassPage() {
     }
     fetchPass();
   }, [id]);
+
+  const handleRedeem = async () => {
+    setActionLoading(true);
+    setRedeemError("");
+
+    try {
+      const monto = parseFloat(redeemForm.monto_consumo);
+      const descuento = monto * 0.3;
+
+      const res = await fetch(`/api/passes/${pass.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          monto_consumo: monto,
+          descuento_aplicado: descuento,
+          personas_redencion: parseInt(redeemForm.personas_redencion) || pass.personas,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      setRedeemSuccess(`✅ Pass redimido exitosamente. Descuento: L${descuento.toFixed(2)}`);
+      setPass(data.pass);
+      setShowRedeem(false);
+    } catch (err) {
+      setRedeemError(err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -191,6 +234,66 @@ export default function PassPage() {
             Presenta este código en <strong>{pass.restaurante_nombre}</strong> para obtener tu descuento.
             Válido por 48 horas desde su emisión.
           </p>
+        )}
+
+        {/* Restaurant Validation UI (Only visible to logged-in waiters) */}
+        {restaurant && pass.estado === "activo" && (
+          <div className={`glass-card`} style={{ marginTop: 24, padding: 20 }}>
+            <h3 style={{ color: "var(--color-gold)", marginBottom: 16 }}>Modo Restaurante</h3>
+            
+            {pass.restaurante_id !== restaurant.id ? (
+              <p style={{ color: "var(--color-red-light)" }}>⚠️ Este pase es para {pass.restaurante_nombre}, no para {restaurant.name}.</p>
+            ) : (
+              <>
+                {!showRedeem ? (
+                  <button onClick={() => setShowRedeem(true)} className="btn btn-success" style={{ width: "100%" }}>
+                    ✅ Validar y Cobrar
+                  </button>
+                ) : (
+                  <div>
+                    <div className="form-group">
+                      <label className="form-label">Monto Total del Consumo (L)</label>
+                      <input
+                        type="number"
+                        className="form-input"
+                        placeholder="Ej: 850"
+                        value={redeemForm.monto_consumo}
+                        onChange={(e) => setRedeemForm({ ...redeemForm, monto_consumo: e.target.value })}
+                      />
+                      {redeemForm.monto_consumo && (
+                        <p style={{ color: "var(--color-gold)", fontSize: "0.85rem", marginTop: 8 }}>
+                          Descuento (30%): <strong>L{(parseFloat(redeemForm.monto_consumo) * 0.3).toFixed(2)}</strong>
+                        </p>
+                      )}
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Personas en Mesa</label>
+                      <input
+                        type="number"
+                        className="form-input"
+                        placeholder={pass.personas}
+                        value={redeemForm.personas_redencion}
+                        onChange={(e) => setRedeemForm({ ...redeemForm, personas_redencion: e.target.value })}
+                      />
+                    </div>
+                    {redeemError && <p style={{ color: "var(--color-red-light)", marginBottom: 12 }}>{redeemError}</p>}
+                    <div style={{ display: "flex", gap: "12px", marginTop: "16px" }}>
+                      <button onClick={() => setShowRedeem(false)} className="btn btn-secondary" style={{ flex: 1 }}>Cancelar</button>
+                      <button onClick={handleRedeem} className="btn btn-success" disabled={!redeemForm.monto_consumo || actionLoading} style={{ flex: 2 }}>
+                        {actionLoading ? "Procesando..." : "Confirmar"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+        
+        {redeemSuccess && (
+          <div className="glass-card" style={{ marginTop: 24, padding: 20, textAlign: "center" }}>
+            <p style={{ color: "var(--color-green)", fontWeight: "bold" }}>{redeemSuccess}</p>
+          </div>
         )}
       </div>
     </main>

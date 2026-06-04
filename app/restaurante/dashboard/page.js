@@ -21,16 +21,32 @@ export default function RestaurantDashboard() {
 
   useEffect(() => {
     const stored = sessionStorage.getItem("restaurant");
+    
+    let codeParam = "";
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      codeParam = urlParams.get("code");
+    }
+
     if (!stored) {
-      router.push("/restaurante");
+      if (codeParam) {
+        router.push(`/restaurante?code=${codeParam}`);
+      } else {
+        router.push("/restaurante");
+      }
       return;
     }
     setRestaurant(JSON.parse(stored));
+
+    // Auto-completar si viene un código escaneado en la URL
+    if (typeof window !== "undefined" && codeParam) {
+      setPassCode(codeParam.toUpperCase());
+      executeSearch(codeParam);
+    }
   }, [router]);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!passCode.trim()) return;
+  const executeSearch = async (codeToSearch) => {
+    if (!codeToSearch.trim()) return;
 
     setLoading(true);
     setError("");
@@ -39,7 +55,7 @@ export default function RestaurantDashboard() {
     setSuccess("");
 
     try {
-      const res = await fetch(`/api/passes/${passCode.trim().toUpperCase()}`);
+      const res = await fetch(`/api/passes/${codeToSearch.trim().toUpperCase()}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setPass(data.pass);
@@ -48,6 +64,11 @@ export default function RestaurantDashboard() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    executeSearch(passCode);
   };
 
   const handleRedeem = async () => {

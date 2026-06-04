@@ -10,6 +10,11 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("todos");
 
+  // User Management State
+  const [newUser, setNewUser] = useState({ name: "", email: "", password: "", restaurant_id: "" });
+  const [userLoading, setUserLoading] = useState(false);
+  const [userMessage, setUserMessage] = useState("");
+
   useEffect(() => {
     const stored = sessionStorage.getItem("restaurant");
     if (!stored) {
@@ -17,7 +22,7 @@ export default function AdminDashboard() {
       return;
     }
     const parsed = JSON.parse(stored);
-    if (parsed.id !== "admin") {
+    if (parsed.role !== "admin" && parsed.id !== "admin") {
       router.push("/restaurante");
       return;
     }
@@ -41,6 +46,27 @@ export default function AdminDashboard() {
     router.push("/restaurante");
   };
 
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+    setUserLoading(true);
+    setUserMessage("");
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...newUser, role: "restaurant" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al crear usuario");
+      setUserMessage("✅ Restaurante creado exitosamente");
+      setNewUser({ name: "", email: "", password: "", restaurant_id: "" });
+    } catch (err) {
+      setUserMessage("❌ " + err.message);
+    } finally {
+      setUserLoading(false);
+    }
+  };
+
   // Stats
   const total = passes.length;
   const activos = passes.filter((p) => p.estado === "activo").length;
@@ -62,7 +88,6 @@ export default function AdminDashboard() {
     }
   });
 
-  // Filtered passes
   const filtered = filter === "todos" ? passes : passes.filter((p) => p.estado === filter);
 
   const statusLabels = {
@@ -148,10 +173,42 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {/* User Management */}
+        <div className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h3 className={styles.sectionTitle}>Gestión de Accesos</h3>
+          </div>
+          <div className={`glass-card ${styles.userManagementCard}`}>
+            <p style={{ marginBottom: "16px", color: "var(--color-text-secondary)" }}>
+              Crea nuevos accesos para los restaurantes. Estas credenciales les permitirán ingresar al portal de validación.
+            </p>
+            <form onSubmit={handleCreateUser} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+              <div className="form-group">
+                <input type="text" className="form-input" placeholder="Nombre (Ej. Finca 8)" value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
+              </div>
+              <div className="form-group">
+                <input type="text" className="form-input" placeholder="ID (Ej. f8)" value={newUser.restaurant_id} onChange={(e) => setNewUser({ ...newUser, restaurant_id: e.target.value })} required />
+              </div>
+              <div className="form-group">
+                <input type="email" className="form-input" placeholder="Correo electrónico" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
+              </div>
+              <div className="form-group">
+                <input type="password" className="form-input" placeholder="Contraseña temporal" value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
+              </div>
+              <div style={{ gridColumn: "1 / -1", display: "flex", alignItems: "center", gap: "16px" }}>
+                <button type="submit" disabled={userLoading} className="btn btn-primary" style={{ padding: "10px 24px" }}>
+                  {userLoading ? "Creando..." : "Crear Restaurante"}
+                </button>
+                {userMessage && <span style={{ color: userMessage.includes("❌") ? "var(--color-red-light)" : "var(--color-green)", fontSize: "0.9rem" }}>{userMessage}</span>}
+              </div>
+            </form>
+          </div>
+        </div>
+
         {/* Passes List */}
         <div className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h3 className={styles.sectionTitle}>Movie Passes</h3>
+            <h3 className={styles.sectionTitle}>Auditoría de Pases</h3>
             <div className={styles.filters}>
               {["todos", "activo", "redimido", "expirado"].map((f) => (
                 <button key={f} onClick={() => setFilter(f)} className={`${styles.filterBtn} ${filter === f ? styles.filterActive : ""}`}>
@@ -163,7 +220,7 @@ export default function AdminDashboard() {
 
           {filtered.length === 0 ? (
             <div className={styles.empty}>
-              <p>No hay passes {filter !== "todos" ? `con estado "${filter}"` : "registrados aún"}.</p>
+              <p>No hay pases {filter !== "todos" ? `con estado "${filter}"` : "registrados aún"}.</p>
             </div>
           ) : (
             <div className={styles.passesList}>
@@ -178,6 +235,9 @@ export default function AdminDashboard() {
                     <span>🎬 {p.pelicula}</span>
                     <span>🍽️ {p.restaurante_nombre}</span>
                     <span>📅 {new Date(p.fecha_creacion).toLocaleDateString("es-HN")}</span>
+                    {p.ticket_imagen && p.ticket_imagen !== "none" && p.ticket_imagen !== "upload_failed" && (
+                      <span>🎫 <a href={p.ticket_imagen} target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-gold)", textDecoration: "underline" }}>Ver Ticket de Cine</a></span>
+                    )}
                   </div>
                   {p.estado === "redimido" && p.monto_consumo && (
                     <div className={styles.passItemRedemption}>

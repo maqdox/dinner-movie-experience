@@ -1,21 +1,43 @@
 import { NextResponse } from "next/server";
-import { readPasses, addPass } from "@/lib/store";
-import { appendToSheet } from "@/lib/sheets";
+import { db, storage } from "@/lib/firebase";
+import { doc, setDoc, collection, getDocs, runTransaction } from "firebase/firestore";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
-function generatePassId() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code = "SPM-";
-  for (let i = 0; i < 5; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
+export const dynamic = 'force-dynamic';
+
+async function generateSequentialPassId() {
+  const counterRef = doc(db, "counters", "movie_passes");
+  try {
+    const newCount = await runTransaction(db, async (transaction) => {
+      const counterDoc = await transaction.get(counterRef);
+      if (!counterDoc.exists()) {
+        transaction.set(counterRef, { count: 1 });
+        return 1;
+      }
+      const nextCount = counterDoc.data().count + 1;
+      transaction.update(counterRef, { count: nextCount });
+      return nextCount;
+    });
+    // Devuelve un formato correlativo como SPM-00001
+    return `SPM-${String(newCount).padStart(5, '0')}`;
+  } catch (e) {
+    console.error("Error generando ID correlativo:", e);
+    // Fallback de seguridad en caso de que falle la transacción
+    const random = Math.floor(10000 + Math.random() * 90000);
+    return `SPM-${random}`;
   }
-  return code;
 }
 
 export async function GET() {
   try {
-    const passes = readPasses();
+    const querySnapshot = await getDocs(collection(db, "movie_passes"));
+    const passes = [];
+    querySnapshot.forEach((doc) => {
+      passes.push(doc.data());
+    });
     return NextResponse.json({ passes });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: "Error loading passes" }, { status: 500 });
   }
 }
@@ -30,11 +52,26 @@ export async function POST(request) {
       return NextResponse.json({ error: "Todos los campos son obligatorios" }, { status: 400 });
     }
 
+    const passId = await generateSequentialPassId();
+    let ticketUrl = "none";
+
+    // Upload image to Firebase Storage
+    if (ticket_base64) {
+      try {
+        const storageRef = ref(storage, `tickets/${passId}`);
+        await uploadString(storageRef, ticket_base64, 'data_url');
+        ticketUrl = await getDownloadURL(storageRef);
+      } catch (uploadErr) {
+        console.error("Error subiendo imagen:", uploadErr);
+        ticketUrl = "upload_failed";
+      }
+    }
+
     const now = new Date();
     const expiration = new Date(now.getTime() + 48 * 60 * 60 * 1000); // 48 hours
 
     const pass = {
-      id: generatePassId(),
+      id: passId,
       nombre,
       email,
       telefono,
@@ -42,7 +79,7 @@ export async function POST(request) {
       personas: parseInt(personas) || 2,
       restaurante_id,
       restaurante_nombre,
-      ticket_imagen: ticket_base64 ? "uploaded" : "none",
+      ticket_imagen: ticketUrl,
       estado: "activo",
       fecha_creacion: now.toISOString(),
       fecha_expiracion: expiration.toISOString(),
@@ -52,11 +89,8 @@ export async function POST(request) {
       personas_redencion: null,
     };
 
-    // Save locally
-    addPass(pass);
-
-    // Also save to Google Sheets if configured
-    await appendToSheet("movie_passes", pass);
+    // Save to Firestore
+    await setDoc(doc(db, "movie_passes", passId), pass);
 
     return NextResponse.json({
       success: true,

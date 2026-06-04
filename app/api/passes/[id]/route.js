@@ -1,25 +1,29 @@
 import { NextResponse } from "next/server";
-import { findPass, updatePass } from "@/lib/store";
-import { updateSheet } from "@/lib/sheets";
+import { db } from "@/lib/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    const pass = findPass(id);
+    
+    const docRef = doc(db, "movie_passes", id);
+    const docSnap = await getDoc(docRef);
 
-    if (!pass) {
+    if (!docSnap.exists()) {
       return NextResponse.json({ error: "Pass no encontrado" }, { status: 404 });
     }
+
+    const pass = docSnap.data();
 
     // Check expiration
     if (pass.estado === "activo" && new Date(pass.fecha_expiracion) < new Date()) {
       pass.estado = "expirado";
-      updatePass(id, { estado: "expirado" });
-      await updateSheet("movie_passes", "id", id, { estado: "expirado" });
+      await updateDoc(docRef, { estado: "expirado" });
     }
 
     return NextResponse.json({ pass });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: "Error al buscar pass" }, { status: 500 });
   }
 }
@@ -28,11 +32,15 @@ export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
-    const pass = findPass(id);
+    
+    const docRef = doc(db, "movie_passes", id);
+    const docSnap = await getDoc(docRef);
 
-    if (!pass) {
+    if (!docSnap.exists()) {
       return NextResponse.json({ error: "Pass no encontrado" }, { status: 404 });
     }
+
+    const pass = docSnap.data();
 
     if (pass.estado === "redimido") {
       return NextResponse.json({ error: "Este pass ya fue utilizado" }, { status: 400 });
@@ -50,11 +58,11 @@ export async function PUT(request, { params }) {
       personas_redencion: body.personas_redencion || null,
     };
 
-    const updated = updatePass(id, updates);
-    await updateSheet("movie_passes", "id", id, updates);
+    await updateDoc(docRef, updates);
 
-    return NextResponse.json({ success: true, pass: updated });
+    return NextResponse.json({ success: true, pass: { ...pass, ...updates } });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: "Error al redimir pass" }, { status: 500 });
   }
 }

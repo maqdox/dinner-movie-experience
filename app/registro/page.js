@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import imageCompression from "browser-image-compression";
 import styles from "./registro.module.css";
 
 const RESTAURANTS = [
@@ -98,6 +99,21 @@ export default function RegistroPage() {
     setError("");
 
     try {
+      // Comprimir la imagen si es archivo de tipo imagen
+      let fileToConvert = form.ticket;
+      if (fileToConvert.type.startsWith("image/")) {
+        const options = {
+          maxSizeMB: 0.15, // Max 150KB
+          maxWidthOrHeight: 1200,
+          useWebWorker: true,
+        };
+        try {
+          fileToConvert = await imageCompression(fileToConvert, options);
+        } catch (error) {
+          console.error("Error al comprimir la imagen:", error);
+        }
+      }
+
       // Convert ticket to base64
       const toBase64 = (file) =>
         new Promise((resolve, reject) => {
@@ -107,7 +123,7 @@ export default function RegistroPage() {
           reader.onerror = reject;
         });
 
-      const ticketBase64 = await toBase64(form.ticket);
+      const ticketBase64 = await toBase64(fileToConvert);
       const restaurant = RESTAURANTS.find((r) => r.id === form.restaurante);
 
       const res = await fetch("/api/passes", {
