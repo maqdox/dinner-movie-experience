@@ -10,10 +10,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("todos");
 
-  // User Management State
-  const [newUser, setNewUser] = useState({ name: "", email: "", password: "", restaurant_id: "" });
-  const [userLoading, setUserLoading] = useState(false);
-  const [userMessage, setUserMessage] = useState("");
+  // State for user management removed (moved to accesos page)
 
   useEffect(() => {
     const stored = sessionStorage.getItem("restaurant");
@@ -41,31 +38,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("restaurant");
-    router.push("/restaurante");
-  };
-
-  const handleCreateUser = async (e) => {
-    e.preventDefault();
-    setUserLoading(true);
-    setUserMessage("");
-    try {
-      const res = await fetch("/api/admin/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...newUser, role: "restaurant" }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Error al crear usuario");
-      setUserMessage("✅ Restaurante creado exitosamente");
-      setNewUser({ name: "", email: "", password: "", restaurant_id: "" });
-    } catch (err) {
-      setUserMessage("❌ " + err.message);
-    } finally {
-      setUserLoading(false);
-    }
-  };
+  // Logout and CreateUser moved to layout and accesos page
 
   // Stats
   const total = passes.length;
@@ -107,12 +80,9 @@ export default function AdminDashboard() {
 
   return (
     <main className={styles.main}>
-      <header className={styles.header}>
-        <div>
-          <h2 className={styles.headerTitle}>Panel Administrativo</h2>
-          <span className={styles.headerSub}>Dinner & Movie Experience</span>
-        </div>
-        <button onClick={handleLogout} className={styles.logoutBtn}>Salir</button>
+      <header style={{ marginBottom: "2rem" }}>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "600", color: "white" }}>Dashboard de Rendimiento</h2>
+        <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem" }}>Métricas generales de la promoción Dinner & Movie Experience</p>
       </header>
 
       <div className={styles.content}>
@@ -173,38 +143,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* User Management */}
-        <div className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h3 className={styles.sectionTitle}>Gestión de Accesos</h3>
-          </div>
-          <div className={`glass-card ${styles.userManagementCard}`}>
-            <p style={{ marginBottom: "16px", color: "var(--color-text-secondary)" }}>
-              Crea nuevos accesos para los restaurantes. Estas credenciales les permitirán ingresar al portal de validación.
-            </p>
-            <form onSubmit={handleCreateUser} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-              <div className="form-group">
-                <input type="text" className="form-input" placeholder="Nombre (Ej. Finca 8)" value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
-              </div>
-              <div className="form-group">
-                <input type="text" className="form-input" placeholder="ID (Ej. f8)" value={newUser.restaurant_id} onChange={(e) => setNewUser({ ...newUser, restaurant_id: e.target.value })} required />
-              </div>
-              <div className="form-group">
-                <input type="email" className="form-input" placeholder="Correo electrónico" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
-              </div>
-              <div className="form-group">
-                <input type="password" className="form-input" placeholder="Contraseña temporal" value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
-              </div>
-              <div style={{ gridColumn: "1 / -1", display: "flex", alignItems: "center", gap: "16px" }}>
-                <button type="submit" disabled={userLoading} className="btn btn-primary" style={{ padding: "10px 24px" }}>
-                  {userLoading ? "Creando..." : "Crear Restaurante"}
-                </button>
-                {userMessage && <span style={{ color: userMessage.includes("❌") ? "var(--color-red-light)" : "var(--color-green)", fontSize: "0.9rem" }}>{userMessage}</span>}
-              </div>
-            </form>
-          </div>
-        </div>
-
+        {/* User Management removed */}
         {/* Passes List */}
         <div className={styles.section}>
           <div className={styles.sectionHeader}>

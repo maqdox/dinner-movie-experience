@@ -32,3 +32,17 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message || "Error al crear usuario" }, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const snapshot = await adminDb.collection("users").orderBy("createdAt", "desc").get();
+    const users = snapshot.docs.map(doc => ({
+      uid: doc.id,
+      ...doc.data()
+    }));
+    return NextResponse.json({ users });
+  } catch (error) {
+    console.error("Error obteniendo usuarios:", error);
+    return NextResponse.json({ error: "Error al obtener usuarios" }, { status: 500 });
+  }
+}

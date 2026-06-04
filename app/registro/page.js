@@ -7,21 +7,7 @@ import { useRouter } from "next/navigation";
 import imageCompression from "browser-image-compression";
 import styles from "./registro.module.css";
 
-const RESTAURANTS = [
-  { id: "mirawa", name: "Mirawa", type: "Oriental / China", location: "PB" },
-  { id: "muka", name: "Muka", type: "Restaurante y Café", location: "PB" },
-  { id: "entre-tiempo", name: "Entre Tiempo", type: "Restaurante y Bar", location: "PB" },
-  { id: "el-morito", name: "El Morito", type: "Especialidad Mariscos", location: "N7" },
-  { id: "tamago", name: "Tamago", type: "Comida Koreana", location: "N7" },
-  { id: "puro-sabor", name: "Puro Sabor", type: "Buffet", location: "N7" },
-  { id: "limoncello", name: "Limoncello", type: "Gourmet", location: "N7" },
-  { id: "churreria-porfirio", name: "Churrería Porfirio & Heladería Bahama", type: "Cafetería y Heladería", location: "N7" },
-  { id: "alegria", name: "Alegría", type: "Bistro y Café", location: "N8" },
-  { id: "bendita-pizza", name: "Bendita Pizza", type: "Pizzas Gourmet", location: "N8" },
-  { id: "garibaldi-grill", name: "Garibaldi Grill", type: "Mexicana Gourmet", location: "N8" },
-  { id: "tapachula", name: "Tapachula", type: "Mexicana To Go", location: "N8" },
-  { id: "f8", name: "Finca 8", type: "Especialidad en Cortes", location: "N8" },
-];
+import { RESTAURANTS } from "@/lib/constants";
 
 export default function RegistroPage() {
   const router = useRouter();
