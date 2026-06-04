@@ -14,116 +14,128 @@
   background: var(--color-bg);
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--color-border-light);
-  background: var(--color-bg-secondary);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+/* ── Page Header ── */
+.pageHeader {
+  margin-bottom: 2rem;
 }
 
-.headerTitle {
-  font-size: 1.1rem;
-  font-family: var(--font-body);
+.pageHeader h2 {
+  font-size: 1.5rem;
   font-weight: 600;
+  color: white;
+  margin-bottom: 0.3rem;
 }
 
-.headerSub {
-  font-size: 0.75rem;
-  color: var(--color-gold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.logoutBtn {
-  background: none;
-  border: 1px solid var(--color-border);
+.pageHeader p {
   color: var(--color-text-secondary);
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
+  font-size: 0.9rem;
 }
 
-.logoutBtn:hover {
-  border-color: var(--color-red);
-  color: var(--color-red-light);
-}
-
+/* ── Content ── */
 .content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px 20px 60px;
+  max-width: 100%;
 }
 
-/* Stats Grid */
+/* ── KPI Stats Grid ── */
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .statCard {
   background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
-  padding: 20px 16px;
-  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.statCard:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.statCardIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statCardInfo {
+  display: flex;
+  flex-direction: column;
 }
 
 .statValue {
-  display: block;
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
+  line-height: 1;
   color: var(--color-text);
 }
 
 .statLabel {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-top: 0.2rem;
+  font-weight: 400;
 }
 
-/* Financial */
+/* ── Financial Row ── */
 .financialRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .financialCard {
-  text-align: center;
-  padding: 20px;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.financialTop {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.financialIcon {
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
 }
 
 .financialLabel {
-  display: block;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 8px;
+  font-weight: 400;
 }
 
 .financialValue {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--color-gold);
 }
 
-/* Section */
+/* ── Sections ── */
 .section {
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
 }
 
 .sectionHeader {
@@ -132,31 +144,34 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .sectionTitle {
-  font-size: 1.15rem;
-  font-family: var(--font-body);
+  font-size: 1.1rem;
   font-weight: 600;
+  color: white;
 }
 
-/* Restaurant Stats */
+/* ── Restaurant Stats ── */
 .restaurantStats {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
 }
 
 .restaurantStatCard {
-  padding: 16px;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 .restaurantStatCard h4 {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+  color: white;
 }
 
 .restaurantStatGrid {
@@ -169,7 +184,7 @@
 .miniStat {
   display: block;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--color-gold);
 }
 
@@ -179,98 +194,195 @@
   text-transform: uppercase;
 }
 
-/* Filters */
-.filters {
+/* ── Filters Bar ── */
+.filtersBar {
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
   display: flex;
-  gap: 6px;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.statusFilters {
+  display: flex;
+  gap: 0.4rem;
 }
 
 .filterBtn {
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: transparent;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.8rem;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
 .filterBtn:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .filterActive {
-  background: rgba(226, 232, 240, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--color-gold);
-  color: var(--color-gold-light);
+  color: var(--color-gold);
+  font-weight: 500;
 }
 
-/* Passes List */
-.passesList {
+.advancedFilters {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.passItem {
-  padding: 16px 20px;
-}
-
-.passItemHeader {
+.filterGroup {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.passItemId {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  letter-spacing: 0.05em;
-}
-
-.passItemDetails {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+.filterDash {
+  color: rgba(255, 255, 255, 0.2);
   font-size: 0.85rem;
-  color: var(--color-text-secondary);
 }
 
-.passItemRedemption {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--color-border-light);
+.dateInput,
+.selectInput {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.2s;
+  color-scheme: dark;
+}
+
+.dateInput:focus,
+.selectInput:focus {
+  border-color: var(--color-gold);
+}
+
+.selectInput {
+  min-width: 180px;
+}
+
+.passesCount {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.passesCount strong {
+  color: white;
+}
+
+/* ── Passes Table ── */
+.tableResponsive {
+  overflow-x: auto;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.passesTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.passesTable th {
+  padding: 0.9rem 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+.passesTable td {
+  padding: 0.8rem 1rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.passesTable tr:last-child td {
+  border-bottom: none;
+}
+
+.passesTable tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.codeCell {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: white;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.dateCell {
+  white-space: nowrap;
+}
+
+.ticketLink {
   color: var(--color-gold);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: opacity 0.2s;
+}
+
+.ticketLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.noTicket {
+  color: rgba(255, 255, 255, 0.2);
 }
 
 .empty {
   text-align: center;
-  padding: 40px;
+  padding: 3rem;
   color: var(--color-text-muted);
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ── Responsive ── */
+@media (max-width: 1024px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .financialRow {
     grid-template-columns: 1fr;
   }
-
-  .filters {
-    flex-wrap: wrap;
-  }
 }
 
-@media (max-width: 480px) {
-  .passItemDetails {
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .advancedFilters {
     flex-direction: column;
-    gap: 4px;
+  }
+  .statusFilters {
+    flex-wrap: wrap;
   }
 }

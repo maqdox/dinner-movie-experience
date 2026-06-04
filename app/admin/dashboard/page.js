@@ -1,16 +1,84 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./admin.module.css";
+import { RESTAURANTS } from "@/lib/constants";
+
+/* ── SVG Icons (stroke style, matching landing) ── */
+const TicketIcon = ({ size = 22 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2Z" />
+    <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
+  </svg>
+);
+
+const CheckCircleIcon = ({ size = 22 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
+const StarIcon = ({ size = 22 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+const ClockIcon = ({ size = 22 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const WalletIcon = ({ size = 20 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1" />
+    <path d="M18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+  </svg>
+);
+
+const PercentIcon = ({ size = 20 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <line x1="19" y1="5" x2="5" y2="19" />
+    <circle cx="6.5" cy="6.5" r="2.5" />
+    <circle cx="17.5" cy="17.5" r="2.5" />
+  </svg>
+);
+
+const TrendUpIcon = ({ size = 20 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+    <polyline points="17 6 23 6 23 12" />
+  </svg>
+);
+
+const CalendarIcon = ({ size = 16 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
+const SearchIcon = ({ size = 16 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+);
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [passes, setPasses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("todos");
-
-  // State for user management removed (moved to accesos page)
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [restaurantFilter, setRestaurantFilter] = useState("todos");
 
   useEffect(() => {
     const stored = sessionStorage.getItem("restaurant");
@@ -38,8 +106,6 @@ export default function AdminDashboard() {
     }
   };
 
-  // Logout and CreateUser moved to layout and accesos page
-
   // Stats
   const total = passes.length;
   const activos = passes.filter((p) => p.estado === "activo").length;
@@ -47,6 +113,7 @@ export default function AdminDashboard() {
   const expirados = passes.filter((p) => p.estado === "expirado").length;
   const totalConsumo = passes.filter((p) => p.monto_consumo).reduce((sum, p) => sum + parseFloat(p.monto_consumo), 0);
   const totalDescuento = passes.filter((p) => p.descuento_aplicado).reduce((sum, p) => sum + parseFloat(p.descuento_aplicado), 0);
+  const tasaRedencion = total > 0 ? Math.round((redimidos / total) * 100) : 0;
 
   // Restaurants stats
   const byRestaurant = {};
@@ -61,7 +128,32 @@ export default function AdminDashboard() {
     }
   });
 
-  const filtered = filter === "todos" ? passes : passes.filter((p) => p.estado === filter);
+  // Filtered passes (status + date range + restaurant)
+  const filtered = useMemo(() => {
+    let result = passes;
+
+    if (filter !== "todos") {
+      result = result.filter((p) => p.estado === filter);
+    }
+
+    if (restaurantFilter !== "todos") {
+      result = result.filter((p) => p.restaurante_id === restaurantFilter);
+    }
+
+    if (dateFrom) {
+      const from = new Date(dateFrom);
+      from.setHours(0, 0, 0, 0);
+      result = result.filter((p) => new Date(p.fecha_creacion) >= from);
+    }
+
+    if (dateTo) {
+      const to = new Date(dateTo);
+      to.setHours(23, 59, 59, 999);
+      result = result.filter((p) => new Date(p.fecha_creacion) <= to);
+    }
+
+    return result;
+  }, [passes, filter, dateFrom, dateTo, restaurantFilter]);
 
   const statusLabels = {
     activo: { text: "Activo", class: "badge-active" },
@@ -78,59 +170,67 @@ export default function AdminDashboard() {
     );
   }
 
+  const kpiCards = [
+    { label: "Total Passes", value: total, icon: <TicketIcon />, color: "#a78bfa", bg: "rgba(167, 139, 250, 0.1)" },
+    { label: "Activos", value: activos, icon: <CheckCircleIcon />, color: "#34d399", bg: "rgba(52, 211, 153, 0.1)" },
+    { label: "Redimidos", value: redimidos, icon: <StarIcon />, color: "var(--color-gold)", bg: "rgba(245, 158, 11, 0.1)" },
+    { label: "Expirados", value: expirados, icon: <ClockIcon />, color: "#f87171", bg: "rgba(248, 113, 113, 0.1)" },
+  ];
+
+  const financialCards = [
+    { label: "Consumo Total Generado", value: `L ${totalConsumo.toLocaleString("es-HN", { minimumFractionDigits: 2 })}`, icon: <WalletIcon />, color: "var(--color-gold)" },
+    { label: "Descuentos Otorgados", value: `L ${totalDescuento.toLocaleString("es-HN", { minimumFractionDigits: 2 })}`, icon: <PercentIcon />, color: "#f87171" },
+    { label: "Tasa de Redención", value: `${tasaRedencion}%`, icon: <TrendUpIcon />, color: "#34d399" },
+  ];
+
+  // Unique restaurants in passes for the filter dropdown
+  const passRestaurants = [...new Set(passes.map(p => p.restaurante_id).filter(Boolean))];
+
   return (
     <main className={styles.main}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: "600", color: "white" }}>Dashboard de Rendimiento</h2>
-        <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem" }}>Métricas generales de la promoción Dinner & Movie Experience</p>
+      <header className={styles.pageHeader}>
+        <div>
+          <h2>Dashboard</h2>
+          <p>Métricas generales de la promoción Dinner & Movie Experience</p>
+        </div>
       </header>
 
       <div className={styles.content}>
         {/* KPI Cards */}
         <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <span className={styles.statValue}>{total}</span>
-            <span className={styles.statLabel}>Total Passes</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue} style={{ color: "var(--color-green)" }}>{activos}</span>
-            <span className={styles.statLabel}>Activos</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue} style={{ color: "var(--color-gold)" }}>{redimidos}</span>
-            <span className={styles.statLabel}>Redimidos</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue} style={{ color: "var(--color-red-light)" }}>{expirados}</span>
-            <span className={styles.statLabel}>Expirados</span>
-          </div>
+          {kpiCards.map((kpi) => (
+            <div key={kpi.label} className={styles.statCard}>
+              <div className={styles.statCardIcon} style={{ background: kpi.bg, color: kpi.color }}>
+                {kpi.icon}
+              </div>
+              <div className={styles.statCardInfo}>
+                <span className={styles.statValue} style={{ color: kpi.color }}>{kpi.value}</span>
+                <span className={styles.statLabel}>{kpi.label}</span>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Financial KPIs */}
-        {totalConsumo > 0 && (
-          <div className={styles.financialRow}>
-            <div className={`glass-card ${styles.financialCard}`}>
-              <span className={styles.financialLabel}>Consumo Total Generado</span>
-              <span className={styles.financialValue}>L{totalConsumo.toLocaleString("es-HN", { minimumFractionDigits: 2 })}</span>
+        <div className={styles.financialRow}>
+          {financialCards.map((fc) => (
+            <div key={fc.label} className={styles.financialCard}>
+              <div className={styles.financialTop}>
+                <span className={styles.financialIcon} style={{ color: fc.color }}>{fc.icon}</span>
+                <span className={styles.financialLabel}>{fc.label}</span>
+              </div>
+              <span className={styles.financialValue} style={{ color: fc.color }}>{fc.value}</span>
             </div>
-            <div className={`glass-card ${styles.financialCard}`}>
-              <span className={styles.financialLabel}>Descuentos Otorgados</span>
-              <span className={styles.financialValue} style={{ color: "var(--color-red-light)" }}>L{totalDescuento.toLocaleString("es-HN", { minimumFractionDigits: 2 })}</span>
-            </div>
-            <div className={`glass-card ${styles.financialCard}`}>
-              <span className={styles.financialLabel}>Tasa de Redención</span>
-              <span className={styles.financialValue}>{total > 0 ? Math.round((redimidos / total) * 100) : 0}%</span>
-            </div>
-          </div>
-        )}
+          ))}
+        </div>
 
         {/* By Restaurant */}
         {Object.keys(byRestaurant).length > 0 && (
           <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Por Restaurante</h3>
+            <h3 className={styles.sectionTitle}>Rendimiento por Restaurante</h3>
             <div className={styles.restaurantStats}>
               {Object.entries(byRestaurant).sort((a, b) => b[1].redimidos - a[1].redimidos).map(([name, stats]) => (
-                <div key={name} className={`glass-card ${styles.restaurantStatCard}`}>
+                <div key={name} className={styles.restaurantStatCard}>
                   <h4>{name}</h4>
                   <div className={styles.restaurantStatGrid}>
                     <div><span className={styles.miniStat}>{stats.total}</span><span className={styles.miniLabel}>Passes</span></div>
@@ -143,18 +243,48 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* User Management removed */}
-        {/* Passes List */}
+        {/* Passes Table */}
         <div className={styles.section}>
           <div className={styles.sectionHeader}>
             <h3 className={styles.sectionTitle}>Auditoría de Pases</h3>
-            <div className={styles.filters}>
+          </div>
+
+          {/* Filters Bar */}
+          <div className={styles.filtersBar}>
+            {/* Status Filters */}
+            <div className={styles.statusFilters}>
               {["todos", "activo", "redimido", "expirado"].map((f) => (
                 <button key={f} onClick={() => setFilter(f)} className={`${styles.filterBtn} ${filter === f ? styles.filterActive : ""}`}>
                   {f === "todos" ? "Todos" : f.charAt(0).toUpperCase() + f.slice(1) + "s"}
                 </button>
               ))}
             </div>
+
+            {/* Advanced Filters */}
+            <div className={styles.advancedFilters}>
+              <div className={styles.filterGroup}>
+                <CalendarIcon />
+                <input type="date" className={styles.dateInput} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} title="Fecha desde" />
+                <span className={styles.filterDash}>—</span>
+                <input type="date" className={styles.dateInput} value={dateTo} onChange={(e) => setDateTo(e.target.value)} title="Fecha hasta" />
+              </div>
+
+              <div className={styles.filterGroup}>
+                <SearchIcon />
+                <select className={styles.selectInput} value={restaurantFilter} onChange={(e) => setRestaurantFilter(e.target.value)}>
+                  <option value="todos">Todos los restaurantes</option>
+                  {passRestaurants.map(rId => {
+                    const r = RESTAURANTS.find(rest => rest.id === rId);
+                    return <option key={rId} value={rId}>{r ? r.name : rId}</option>;
+                  })}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Passes Count */}
+          <div className={styles.passesCount}>
+            Mostrando <strong>{filtered.length}</strong> de {passes.length} pases
           </div>
 
           {filtered.length === 0 ? (
@@ -162,29 +292,39 @@ export default function AdminDashboard() {
               <p>No hay pases {filter !== "todos" ? `con estado "${filter}"` : "registrados aún"}.</p>
             </div>
           ) : (
-            <div className={styles.passesList}>
-              {filtered.map((p) => (
-                <div key={p.id} className={`glass-card ${styles.passItem}`}>
-                  <div className={styles.passItemHeader}>
-                    <strong className={styles.passItemId}>{p.id}</strong>
-                    <span className={`badge ${statusLabels[p.estado]?.class}`}>{statusLabels[p.estado]?.text}</span>
-                  </div>
-                  <div className={styles.passItemDetails}>
-                    <span>👤 {p.nombre}</span>
-                    <span>🎬 {p.pelicula}</span>
-                    <span>🍽️ {p.restaurante_nombre}</span>
-                    <span>📅 {new Date(p.fecha_creacion).toLocaleDateString("es-HN")}</span>
-                    {p.ticket_imagen && p.ticket_imagen !== "none" && p.ticket_imagen !== "upload_failed" && (
-                      <span>🎫 <a href={p.ticket_imagen} target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-gold)", textDecoration: "underline" }}>Ver Ticket de Cine</a></span>
-                    )}
-                  </div>
-                  {p.estado === "redimido" && p.monto_consumo && (
-                    <div className={styles.passItemRedemption}>
-                      Consumo: L{parseFloat(p.monto_consumo).toFixed(2)} | Descuento: L{parseFloat(p.descuento_aplicado).toFixed(2)}
-                    </div>
-                  )}
-                </div>
-              ))}
+            <div className={styles.tableResponsive}>
+              <table className={styles.passesTable}>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Película</th>
+                    <th>Restaurante</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Ticket</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((p) => (
+                    <tr key={p.id}>
+                      <td><code className={styles.codeCell}>{p.id}</code></td>
+                      <td>{p.nombre}</td>
+                      <td>{p.pelicula}</td>
+                      <td>{p.restaurante_nombre}</td>
+                      <td className={styles.dateCell}>{new Date(p.fecha_creacion).toLocaleDateString("es-HN")}</td>
+                      <td><span className={`badge ${statusLabels[p.estado]?.class}`}>{statusLabels[p.estado]?.text}</span></td>
+                      <td>
+                        {p.ticket_imagen && p.ticket_imagen !== "none" && p.ticket_imagen !== "upload_failed" ? (
+                          <a href={p.ticket_imagen} target="_blank" rel="noopener noreferrer" className={styles.ticketLink}>Ver</a>
+                        ) : (
+                          <span className={styles.noTicket}>—</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>
