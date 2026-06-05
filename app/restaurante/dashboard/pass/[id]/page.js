@@ -51,7 +51,7 @@ export default function RestaurantPassDetail() {
       router.push("/restaurante");
       return;
     }
-    setRestaurant(JSON.parse(stored));
+    setTimeout(() => setRestaurant(JSON.parse(stored)), 0);
 
     const fetchPass = async () => {
       try {

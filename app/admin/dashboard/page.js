@@ -120,14 +120,6 @@ export default function AdminDashboard() {
   const [dateTo, setDateTo] = useState("");
   const [restaurantFilter, setRestaurantFilter] = useState("todos");
 
-  useEffect(() => {
-    const stored = sessionStorage.getItem("restaurant");
-    if (!stored) { router.push("/restaurante"); return; }
-    const parsed = JSON.parse(stored);
-    if (parsed.role !== "admin" && parsed.id !== "admin") { router.push("/restaurante"); return; }
-    fetchPasses();
-  }, [router]);
-
   const fetchPasses = async () => {
     try {
       const res = await fetch("/api/passes");
@@ -136,6 +128,14 @@ export default function AdminDashboard() {
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem("restaurant");
+    if (!stored) { router.push("/restaurante"); return; }
+    const parsed = JSON.parse(stored);
+    if (parsed.role !== "admin" && parsed.id !== "admin") { router.push("/restaurante"); return; }
+    setTimeout(() => fetchPasses(), 0);
+  }, [router]);
 
   // Stats
   const total = passes.length;

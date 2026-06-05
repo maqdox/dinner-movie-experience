@@ -51,7 +51,7 @@ export default function AdminLayout({ children }) {
   useEffect(() => {
     // Only check auth state if we are NOT on the login page itself
     if (pathname === "/admin") {
-      setLoading(false);
+      setTimeout(() => setLoading(false), 0);
       return;
     }
 

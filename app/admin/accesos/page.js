@@ -13,10 +13,6 @@ export default function AccesosPage() {
   const [userLoading, setUserLoading] = useState(false);
   const [userMessage, setUserMessage] = useState("");
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   const fetchUsers = async () => {
     try {
       const res = await fetch("/api/admin/users");
@@ -28,6 +24,10 @@ export default function AccesosPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => fetchUsers(), 0);
+  }, []);
 
   const handleCreateUser = async (e) => {
     e.preventDefault();

@@ -17,7 +17,7 @@ export default function RestaurantScan() {
       router.push("/restaurante");
       return;
     }
-    setRestaurant(JSON.parse(stored));
+    setTimeout(() => setRestaurant(JSON.parse(stored)), 0);
   }, [router]);
 
   const playBeep = () => {

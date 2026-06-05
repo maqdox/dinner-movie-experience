@@ -10,7 +10,6 @@ export default function RestaurantDashboard() {
   const [restaurant, setRestaurant] = useState(null);
   const [passCode, setPassCode] = useState("");
   const [recentScans, setRecentScans] = useState([]);
-  const [recentScans, setRecentScans] = useState([]);
   const [metrics, setMetrics] = useState({ count: 0, totalDiscount: 0 });
 
 
@@ -32,7 +31,7 @@ export default function RestaurantDashboard() {
       }
       return;
     }
-    setRestaurant(JSON.parse(stored));
+    setTimeout(() => setRestaurant(JSON.parse(stored)), 0);
 
     // Auto-completar si viene un código escaneado en la URL
     if (typeof window !== "undefined") {
@@ -47,11 +46,13 @@ export default function RestaurantDashboard() {
       if (storedHistory) {
         try {
           const history = JSON.parse(storedHistory);
-          setRecentScans(history);
-          setMetrics({
-            count: history.length,
-            totalDiscount: history.reduce((acc, curr) => acc + (curr.descuento || 0), 0)
-          });
+          setTimeout(() => {
+            setRecentScans(history);
+            setMetrics({
+              count: history.length,
+              totalDiscount: history.reduce((acc, curr) => acc + (curr.descuento || 0), 0)
+            });
+          }, 0);
         } catch(e) {}
       }
     }
