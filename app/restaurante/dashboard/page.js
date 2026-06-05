@@ -40,6 +40,7 @@ export default function RestaurantDashboard() {
     const stored = sessionStorage.getItem("restaurant");
     
     let scanParam = "";
+    let codeParam = "";
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
       codeParam = urlParams.get("code");
