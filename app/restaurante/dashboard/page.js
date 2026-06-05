@@ -9,42 +9,19 @@ export default function RestaurantDashboard() {
   const router = useRouter();
   const [restaurant, setRestaurant] = useState(null);
   const [passCode, setPassCode] = useState("");
-  const [showScanner, setShowScanner] = useState(false);
+  const [recentScans, setRecentScans] = useState([]);
   const [recentScans, setRecentScans] = useState([]);
   const [metrics, setMetrics] = useState({ count: 0, totalDiscount: 0 });
 
-  const playBeep = () => {
-    try {
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      
-      oscillator.type = 'sine';
-      oscillator.frequency.value = 800;
-      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.01);
-      gainNode.gain.setValueAtTime(1, audioCtx.currentTime + 0.1);
-      gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.2);
-      
-      oscillator.start(audioCtx.currentTime);
-      oscillator.stop(audioCtx.currentTime + 0.2);
-    } catch(e) {
-      console.error("Audio not supported");
-    }
-  };
+
 
   useEffect(() => {
     const stored = sessionStorage.getItem("restaurant");
     
-    let scanParam = "";
     let codeParam = "";
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
       codeParam = urlParams.get("code");
-      scanParam = urlParams.get("scan");
     }
 
     if (!stored) {
@@ -60,11 +37,7 @@ export default function RestaurantDashboard() {
     // Auto-completar si viene un código escaneado en la URL
     if (typeof window !== "undefined") {
       if (codeParam) {
-        setPassCode(codeParam.toUpperCase());
-        executeSearch(codeParam);
-      }
-      if (scanParam === "true") {
-        setShowScanner(true);
+        router.push(`/restaurante/dashboard/pass/${codeParam.toUpperCase()}`);
       }
     }
 
@@ -84,37 +57,7 @@ export default function RestaurantDashboard() {
     }
   }, [router]);
 
-  const executeSearch = (codeToSearch) => {
-    if (!codeToSearch.trim()) return;
-    router.push(`/restaurante/dashboard/pass/${codeToSearch.trim().toUpperCase()}`);
-  };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    executeSearch(passCode);
-  };
-
-  const handleScanSuccess = (decodedText) => {
-    playBeep();
-    setShowScanner(false);
-    
-    // Extraer el código si lo que se escaneó fue un URL completo
-    let code = decodedText;
-    try {
-      const url = new URL(decodedText);
-      const parts = url.pathname.split('/');
-      const lastPart = parts[parts.length - 1];
-      if (lastPart) {
-        code = lastPart;
-      }
-    } catch(e) {
-      // No es un URL válido, usar el texto crudo
-    }
-
-    const finalCode = code.toUpperCase();
-    setPassCode(finalCode);
-    executeSearch(finalCode);
-  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("restaurant");
@@ -154,46 +97,24 @@ export default function RestaurantDashboard() {
           </div>
         </div>
 
-        {/* Search */}
-        <div className={styles.searchForm}>
-          <h3 className={styles.searchTitle}>Validar Movie Pass</h3>
-          <p className={styles.searchDesc}>Ingresa el código del cliente o escanea su QR</p>
-          
+        {/* Main CTA */}
+        <div style={{ marginTop: "32px", marginBottom: "32px" }}>
           <button 
             type="button" 
-            className={styles.qrBtn}
-            onClick={() => setShowScanner(true)}
+            className="btn btn-primary"
+            style={{ width: "100%", padding: "16px", fontSize: "1.2rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px", borderRadius: "16px" }}
+            onClick={() => router.push("/restaurante/dashboard/scan")}
           >
             <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
             </svg>
-            Escanear Código QR
+            Validar Nuevo Pase
           </button>
-
-          <form onSubmit={handleSearch} className={styles.searchRow}>
-            <input
-              type="text"
-              className="form-input"
-              placeholder="Código Manual (Ej: SPM-A8K3N)"
-              value={passCode}
-              onChange={(e) => setPassCode(e.target.value.toUpperCase())}
-              style={{ textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600 }}
-            />
-            <button type="submit" className="btn btn-primary" disabled={!passCode.trim()}>
-              Buscar
-            </button>
-          </form>
         </div>
 
 
 
-        {/* Scanner Modal */}
-        {showScanner && (
-          <QRScanner 
-            onScanSuccess={handleScanSuccess} 
-            onClose={() => setShowScanner(false)} 
-          />
-        )}
+
 
         {/* History Section */}
         {recentScans.length > 0 && (

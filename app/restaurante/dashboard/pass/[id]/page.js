@@ -258,7 +258,7 @@ export default function RestaurantPassDetail() {
 
             <div className={styles.successButtons}>
               <button 
-                onClick={() => router.push("/restaurante/dashboard?scan=true")} 
+                onClick={() => router.push("/restaurante/dashboard/scan")} 
                 className="btn btn-primary" 
                 style={{ padding: "16px", fontSize: "1.1rem" }}
               >
@@ -267,6 +267,26 @@ export default function RestaurantPassDetail() {
               <button 
                 onClick={() => router.push("/restaurante/dashboard")} 
                 className="btn btn-secondary"
+              >
+                Volver al Menú Principal
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Redeemed Modal Popup */}
+        {pass && pass.estado === "redimido" && !redeemSuccess && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modalContent}>
+              <div className={styles.modalIcon}>⚠️</div>
+              <h3 className={styles.modalTitle}>Pase Ya Utilizado</h3>
+              <p className={styles.modalText}>
+                Este pase ({pass.id}) ya fue redimido y no puede utilizarse nuevamente.
+              </p>
+              <button 
+                onClick={() => router.push("/restaurante/dashboard")} 
+                className="btn btn-primary"
+                style={{ width: "100%", marginTop: "24px", padding: "14px" }}
               >
                 Volver al Menú Principal
               </button>
