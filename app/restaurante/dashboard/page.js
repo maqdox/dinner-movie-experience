@@ -116,8 +116,23 @@ export default function RestaurantDashboard() {
   const handleScanSuccess = (decodedText) => {
     playBeep();
     setShowScanner(false);
-    setPassCode(decodedText.toUpperCase());
-    executeSearch(decodedText);
+    
+    // Extraer el código si lo que se escaneó fue un URL completo
+    let code = decodedText;
+    try {
+      const url = new URL(decodedText);
+      const parts = url.pathname.split('/');
+      const lastPart = parts[parts.length - 1];
+      if (lastPart) {
+        code = lastPart;
+      }
+    } catch(e) {
+      // No es un URL válido, usar el texto crudo
+    }
+
+    const finalCode = code.toUpperCase();
+    setPassCode(finalCode);
+    executeSearch(finalCode);
   };
 
   const handleRedeem = async () => {
