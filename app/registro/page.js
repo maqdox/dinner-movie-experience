@@ -41,7 +41,7 @@ export default function RegistroPage() {
         setError("El archivo no debe exceder 5MB");
         return;
       }
-      setForm({ ...form, ticket: file });
+      setForm({ ...form, ticket: file, pelicula: "", fecha_ticket: "" });
       setFileName(file.name);
       setError("");
 

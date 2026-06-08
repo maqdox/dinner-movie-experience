@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { User, Film, Utensils, Users, Gift, Download } from "lucide-react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import styles from "./pass.module.css";
 
 export default function PassPage() {
@@ -19,6 +22,7 @@ export default function PassPage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [redeemSuccess, setRedeemSuccess] = useState("");
   const [redeemError, setRedeemError] = useState("");
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
     async function fetchPass() {
@@ -85,6 +89,38 @@ export default function PassPage() {
     }
   };
 
+  const handleExportPDF = async () => {
+    setExporting(true);
+    try {
+      const passElement = document.getElementById("movie-pass-card");
+      if (!passElement) return;
+      
+      const canvas = await html2canvas(passElement, {
+        scale: 2,
+        backgroundColor: "#16161f",
+        useCORS: true
+      });
+      
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
+      pdf.addImage(imgData, "PNG", 0, 10, pdfWidth, pdfHeight);
+      pdf.save(`MoviePass_${pass.id}.pdf`);
+    } catch (err) {
+      console.error("Error exporting to PDF:", err);
+    } finally {
+      setExporting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className={styles.loadingScreen}>
@@ -137,8 +173,20 @@ export default function PassPage() {
       </header>
 
       <div className={styles.passContainer}>
+        {pass && (
+          <button 
+            onClick={handleExportPDF} 
+            disabled={exporting}
+            className="btn btn-secondary" 
+            style={{ marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px", width: "100%", justifyContent: "center" }}
+          >
+            <Download size={18} />
+            {exporting ? "Generando PDF..." : "Exportar a PDF"}
+          </button>
+        )}
+
         {/* Movie Pass Card */}
-        <div className={styles.passCard}>
+        <div id="movie-pass-card" className={styles.passCard}>
           {/* Top decorative strip */}
           <div className={styles.passStrip} />
 
@@ -190,23 +238,23 @@ export default function PassPage() {
           {/* Pass Details */}
           <div className={styles.passDetails}>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>👤 Cliente</span>
+              <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><User size={16} /> Cliente</span>
               <span className={styles.detailValue}>{pass.nombre}</span>
             </div>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>🎬 Película</span>
+              <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><Film size={16} /> Película</span>
               <span className={styles.detailValue}>{pass.pelicula}</span>
             </div>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>🍽️ Restaurante</span>
+              <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><Utensils size={16} /> Restaurante</span>
               <span className={styles.detailValue}>{pass.restaurante_nombre}</span>
             </div>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>👥 Personas</span>
+              <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><Users size={16} /> Personas</span>
               <span className={styles.detailValue}>{pass.personas}</span>
             </div>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>🎁 Beneficio</span>
+              <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><Gift size={16} /> Beneficio</span>
               <span className={`${styles.detailValue} ${styles.benefitValue}`}>30% Descuento</span>
             </div>
           </div>
