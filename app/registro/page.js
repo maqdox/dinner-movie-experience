@@ -16,14 +16,16 @@ export default function RegistroPage() {
   const [error, setError] = useState("");
   const [fileName, setFileName] = useState("");
   const [filePreview, setFilePreview] = useState(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [aiWarning, setAiWarning] = useState("");
 
   const [form, setForm] = useState({
     nombre: "",
     email: "",
     telefono: "",
     pelicula: "",
-    personas: "2",
     restaurante: "",
+    fecha_ticket: "",
     ticket: null,
   });
 
@@ -44,7 +46,42 @@ export default function RegistroPage() {
       setError("");
 
       const reader = new FileReader();
-      reader.onload = (ev) => setFilePreview(ev.target.result);
+      reader.onload = async (ev) => {
+        const base64Image = ev.target.result;
+        setFilePreview(base64Image);
+        
+        // Iniciar análisis de IA
+        setAnalyzing(true);
+        setAiWarning("");
+        try {
+          const res = await fetch("/api/analyze-ticket", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image_base64: base64Image })
+          });
+          const data = await res.json();
+          if (res.ok && data.success && data.data) {
+            const { pelicula, fecha, cine } = data.data;
+            
+            // Autocompletar form
+            setForm(prev => ({
+              ...prev,
+              pelicula: pelicula || prev.pelicula,
+              fecha_ticket: fecha || prev.fecha_ticket
+            }));
+            
+            // Validar cine
+            const cineLower = cine?.toLowerCase() || "";
+            if (!cineLower.includes("america") && !cineLower.includes("novacentro") && !cineLower.includes("miraflores")) {
+              setAiWarning(`La IA detectó el cine como "${cine}". Recuerda que solo participan Plaza América, Novacentro y Plaza Miraflores.`);
+            }
+          }
+        } catch (err) {
+          console.error("Error al analizar con IA:", err);
+        } finally {
+          setAnalyzing(false);
+        }
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -59,6 +96,25 @@ export default function RegistroPage() {
   const validateStep2 = () => {
     if (!form.pelicula.trim()) return "Ingresa la película que viste";
     if (!form.restaurante) return "Selecciona un restaurante";
+    if (!form.fecha_ticket) return "Ingresa la fecha de tu ticket";
+    
+    // Validar que la fecha no sea de hace más de 10 días ni en el futuro
+    const ticketDate = new Date(form.fecha_ticket);
+    const now = new Date();
+    // Ajustar horas para comparar solo fechas
+    ticketDate.setHours(0, 0, 0, 0);
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+    const diffTime = today - ticketDate;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 0) {
+      return "La fecha del ticket no puede ser en el futuro";
+    }
+    if (diffDays > 10) {
+      return "El ticket no puede tener más de 10 días de antigüedad";
+    }
+
     if (!form.ticket) return "Sube tu ticket de Metrocinemas";
     return null;
   };
@@ -123,6 +179,7 @@ export default function RegistroPage() {
           personas: form.personas,
           restaurante_id: form.restaurante,
           restaurante_nombre: restaurant?.name || "",
+          fecha_ticket: form.fecha_ticket,
           ticket_base64: ticketBase64,
         }),
       });
@@ -227,6 +284,15 @@ export default function RegistroPage() {
           {/* Step 2 */}
           {step === 2 && (
             <div className={styles.stepContent}>
+              <div className={styles.disclaimerBox} style={{ backgroundColor: "rgba(255, 215, 0, 0.1)", border: "1px solid var(--color-gold)", padding: "12px", borderRadius: "8px", marginBottom: "20px" }}>
+                <p style={{ color: "var(--color-gold)", fontSize: "0.85rem", margin: "0 0 8px 0" }}>
+                  <strong>⚠️ Importante:</strong> Esta promoción es válida únicamente presentando tickets de <strong>Metrocinemas Plaza América, Novacentro o Plaza Miraflores</strong>.
+                </p>
+                <p style={{ color: "var(--color-gold)", fontSize: "0.85rem", margin: 0 }}>
+                  Tu ticket debe tener <strong>máximo 10 días de antigüedad</strong>.
+                </p>
+              </div>
+
               <div className="form-group">
                 <label className="form-label" htmlFor="pelicula">Película que Viste</label>
                 <input
@@ -236,6 +302,18 @@ export default function RegistroPage() {
                   className="form-input"
                   placeholder="Ej: Inside Out 3"
                   value={form.pelicula}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="fecha_ticket">Fecha del Ticket</label>
+                <input
+                  id="fecha_ticket"
+                  name="fecha_ticket"
+                  type="date"
+                  className="form-input"
+                  value={form.fecha_ticket}
+                  max={new Date().toISOString().split("T")[0]}
                   onChange={handleChange}
                 />
               </div>
@@ -274,8 +352,16 @@ export default function RegistroPage() {
               </div>
               <div className="form-group">
                 <label className="form-label">Ticket de Metrocinemas</label>
-                <div className={`file-upload ${fileName ? "has-file" : ""}`}>
-                  <input type="file" accept="image/*,.pdf" onChange={handleFile} />
+                <div className={`file-upload ${fileName ? "has-file" : ""}`} style={{ position: "relative" }}>
+                  <input type="file" accept="image/*,.pdf" onChange={handleFile} disabled={analyzing} />
+                  
+                  {analyzing && (
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.7)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", borderRadius: "8px", zIndex: 10 }}>
+                      <span className="spinner" style={{ width: 30, height: 30, marginBottom: 10 }} />
+                      <p style={{ color: "#fff", fontSize: "0.9rem" }}>✨ Analizando con IA...</p>
+                    </div>
+                  )}
+
                   {filePreview ? (
                     <div className={styles.filePreview}>
                       <img src={filePreview} alt="Preview" className={styles.previewImage} />
@@ -292,6 +378,11 @@ export default function RegistroPage() {
                     </>
                   )}
                 </div>
+                {aiWarning && (
+                  <p style={{ color: "var(--color-red-light)", fontSize: "0.85rem", marginTop: "8px" }}>
+                    ⚠️ {aiWarning}
+                  </p>
+                )}
               </div>
 
               <div className={styles.stepButtons}>

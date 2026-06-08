@@ -45,11 +45,24 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { nombre, email, telefono, pelicula, personas, restaurante_id, restaurante_nombre, ticket_base64 } = body;
+    const { nombre, email, telefono, pelicula, personas, restaurante_id, restaurante_nombre, fecha_ticket, ticket_base64 } = body;
 
     // Validate required fields
-    if (!nombre || !email || !telefono || !pelicula || !restaurante_id) {
-      return NextResponse.json({ error: "Todos los campos son obligatorios" }, { status: 400 });
+    if (!nombre || !email || !telefono || !pelicula || !restaurante_id || !fecha_ticket) {
+      return NextResponse.json({ error: "Todos los campos son obligatorios, incluyendo la fecha del ticket" }, { status: 400 });
+    }
+
+    // Validar fecha del ticket
+    const ticketDate = new Date(fecha_ticket);
+    const serverNow = new Date();
+    ticketDate.setHours(0, 0, 0, 0);
+    const today = new Date(serverNow.getFullYear(), serverNow.getMonth(), serverNow.getDate());
+    
+    const diffTime = today - ticketDate;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 0 || diffDays > 10) {
+      return NextResponse.json({ error: "La fecha del ticket no es válida o excede los 10 días de antigüedad" }, { status: 400 });
     }
 
     const passId = await generateSequentialPassId();
@@ -81,6 +94,7 @@ export async function POST(request) {
       restaurante_nombre,
       ticket_imagen: ticketUrl,
       estado: "activo",
+      fecha_ticket,
       fecha_creacion: now.toISOString(),
       fecha_expiracion: expiration.toISOString(),
       fecha_redencion: null,
