@@ -294,6 +294,53 @@ export default function RegistroPage() {
               </div>
 
               <div className="form-group">
+                <label className="form-label" style={{ color: "var(--color-gold)" }}>1. Sube tu Ticket de Metrocinemas</label>
+                <div className={`file-upload ${fileName ? "has-file" : ""}`} style={{ position: "relative", marginTop: "8px" }}>
+                  <input type="file" accept="image/*,.pdf" onChange={handleFile} disabled={analyzing} />
+                  
+                  {analyzing && (
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.7)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", borderRadius: "8px", zIndex: 10 }}>
+                      <span className="spinner" style={{ width: 30, height: 30, marginBottom: 10 }} />
+                      <p style={{ color: "#fff", fontSize: "0.9rem" }}>✨ Analizando con IA...</p>
+                    </div>
+                  )}
+
+                  {filePreview ? (
+                    <div className={styles.filePreview}>
+                      <img src={filePreview} alt="Preview" className={styles.previewImage} />
+                      <p className={styles.fileName}>{fileName}</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="file-upload-icon" style={{ marginBottom: "12px" }}>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                          <polyline points="17 8 12 3 7 8"/>
+                          <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                      </div>
+                      <p className="file-upload-text">
+                        <strong>Toca para subir</strong> tu ticket
+                        <br />
+                        Foto, screenshot o PDF (máx 5MB)
+                      </p>
+                    </>
+                  )}
+                </div>
+                {aiWarning && (
+                  <p style={{ color: "var(--color-red-light)", fontSize: "0.85rem", marginTop: "8px" }}>
+                    ⚠️ {aiWarning}
+                  </p>
+                )}
+              </div>
+
+              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.1)", margin: "24px 0" }} />
+
+              <label className="form-label" style={{ color: "var(--color-gold)", marginBottom: "16px", display: "block" }}>
+                2. Verifica y completa tus datos
+              </label>
+
+              <div className="form-group">
                 <label className="form-label" htmlFor="pelicula">Película que Viste</label>
                 <input
                   id="pelicula"
@@ -350,47 +397,6 @@ export default function RegistroPage() {
                   ))}
                 </select>
               </div>
-              <div className="form-group">
-                <label className="form-label">Ticket de Metrocinemas</label>
-                <div className={`file-upload ${fileName ? "has-file" : ""}`} style={{ position: "relative" }}>
-                  <input type="file" accept="image/*,.pdf" onChange={handleFile} disabled={analyzing} />
-                  
-                  {analyzing && (
-                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.7)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", borderRadius: "8px", zIndex: 10 }}>
-                      <span className="spinner" style={{ width: 30, height: 30, marginBottom: 10 }} />
-                      <p style={{ color: "#fff", fontSize: "0.9rem" }}>✨ Analizando con IA...</p>
-                    </div>
-                  )}
-
-                  {filePreview ? (
-                    <div className={styles.filePreview}>
-                      <img src={filePreview} alt="Preview" className={styles.previewImage} />
-                      <p className={styles.fileName}>{fileName}</p>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="file-upload-icon" style={{ marginBottom: "12px" }}>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                          <polyline points="17 8 12 3 7 8"/>
-                          <line x1="12" y1="3" x2="12" y2="15"/>
-                        </svg>
-                      </div>
-                      <p className="file-upload-text">
-                        <strong>Toca para subir</strong> tu ticket
-                        <br />
-                        Foto, screenshot o PDF (máx 5MB)
-                      </p>
-                    </>
-                  )}
-                </div>
-                {aiWarning && (
-                  <p style={{ color: "var(--color-red-light)", fontSize: "0.85rem", marginTop: "8px" }}>
-                    ⚠️ {aiWarning}
-                  </p>
-                )}
-              </div>
-
               <div className={styles.stepButtons}>
                 <button type="button" onClick={() => setStep(1)} className="btn btn-secondary">
                   ← Atrás
