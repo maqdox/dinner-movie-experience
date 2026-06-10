@@ -71,6 +71,27 @@ export default function QRScanner({ onScanSuccess, onClose }) {
         </div>
         
         <p style={styles.hint}>Apunta la cámara al código QR del cliente</p>
+        
+        <div style={{ padding: "0 1.5rem 1.5rem 1.5rem" }}>
+          <button 
+            type="button" 
+            onClick={onClose} 
+            style={{ 
+              width: "100%", 
+              padding: "14px", 
+              backgroundColor: "rgba(255,255,255,0.1)", 
+              color: "#fff", 
+              border: "1px solid rgba(255,255,255,0.2)", 
+              borderRadius: "8px", 
+              fontSize: "1rem", 
+              fontWeight: 600, 
+              cursor: "pointer",
+              transition: "background-color 0.2s"
+            }}
+          >
+            Cancelar Escaneo
+          </button>
+        </div>
       </div>
     </div>
   );

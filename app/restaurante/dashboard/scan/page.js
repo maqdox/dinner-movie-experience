@@ -123,20 +123,12 @@ export default function RestaurantScan() {
           </div>
         ) : (
           <div className={styles.scannerWrapper}>
-            <p className={styles.scannerHint}>Apunta la cámara al código QR del cliente</p>
             <div className={styles.scannerBox}>
               <QRScanner 
                 onScanSuccess={handleScanSuccess} 
                 onClose={() => setShowScanner(false)} 
               />
             </div>
-            <button 
-              className="btn btn-secondary" 
-              onClick={() => setShowScanner(false)}
-              style={{ width: "100%", marginTop: "24px" }}
-            >
-              Cancelar Escaneo
-            </button>
           </div>
         )}
 
