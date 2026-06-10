@@ -225,9 +225,18 @@ export default function RestaurantPassDetail() {
 
             {/* Redeem Actions */}
             {pass.estado === "activo" && pass.restaurante_id === restaurant.id && !showRedeem && (
-              <button onClick={() => setShowRedeem(true)} className="btn btn-success" style={{ width: "100%", padding: "16px", fontSize: "1.1rem" }}>
-                ✅ Aplicar Beneficio
-              </button>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <button onClick={() => setShowRedeem(true)} className="btn btn-success" style={{ width: "100%", padding: "16px", fontSize: "1.1rem" }}>
+                  ✅ Aplicar Beneficio
+                </button>
+                <button 
+                  onClick={() => router.push("/restaurante/dashboard/scan")} 
+                  className="btn btn-secondary" 
+                  style={{ width: "100%", padding: "16px", fontSize: "1.1rem" }}
+                >
+                  Cancelar y Escanear Otro
+                </button>
+              </div>
             )}
 
             {/* Redeem Form */}
