@@ -26,6 +26,7 @@ export default function RegistroPage() {
     pelicula: "",
     restaurante: "",
     fecha_ticket: "",
+    numero_transaccion: "",
     ticket: null,
   });
 
@@ -41,7 +42,7 @@ export default function RegistroPage() {
         setError("El archivo no debe exceder 5MB");
         return;
       }
-      setForm({ ...form, ticket: file, pelicula: "", fecha_ticket: "" });
+      setForm({ ...form, ticket: file, pelicula: "", fecha_ticket: "", numero_transaccion: "" });
       setFileName(file.name);
       setError("");
 
@@ -61,13 +62,14 @@ export default function RegistroPage() {
           });
           const data = await res.json();
           if (res.ok && data.success && data.data) {
-            const { pelicula, fecha, cine } = data.data;
+            const { pelicula, fecha, cine, numero_transaccion } = data.data;
             
             // Autocompletar form
             setForm(prev => ({
               ...prev,
               pelicula: pelicula || prev.pelicula,
-              fecha_ticket: fecha || prev.fecha_ticket
+              fecha_ticket: fecha || prev.fecha_ticket,
+              numero_transaccion: numero_transaccion || prev.numero_transaccion
             }));
             
             // Validar cine
@@ -114,6 +116,8 @@ export default function RegistroPage() {
     if (diffDays > 10) {
       return "El ticket no puede tener más de 10 días de antigüedad";
     }
+    
+    if (!form.numero_transaccion.trim()) return "El número de transacción no fue detectado, por favor ingrésalo manualmente";
 
     if (!form.ticket) return "Sube tu ticket de Metrocinemas";
     return null;
@@ -180,6 +184,7 @@ export default function RegistroPage() {
           restaurante_id: form.restaurante,
           restaurante_nombre: restaurant?.name || "",
           fecha_ticket: form.fecha_ticket,
+          numero_transaccion: form.numero_transaccion,
           ticket_base64: ticketBase64,
         }),
       });
@@ -363,6 +368,19 @@ export default function RegistroPage() {
                   max={new Date().toISOString().split("T")[0]}
                   onChange={handleChange}
                 />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="numero_transaccion">Número de Ticket/Factura</label>
+                <input
+                  id="numero_transaccion"
+                  name="numero_transaccion"
+                  type="text"
+                  className="form-input"
+                  placeholder="FAC-000000"
+                  value={form.numero_transaccion}
+                  onChange={handleChange}
+                />
+                <p style={{ color: "var(--color-gold)", fontSize: "0.8rem", marginTop: "4px" }}>Este dato es necesario para evitar duplicados.</p>
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="personas">Cantidad de Personas</label>

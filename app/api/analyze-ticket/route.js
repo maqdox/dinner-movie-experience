@@ -26,13 +26,24 @@ export async function POST(request) {
       {
         "pelicula": "Nombre de la película",
         "fecha": "Fecha del ticket en formato YYYY-MM-DD",
-        "cine": "Nombre exacto de la sucursal del cine"
+        "cine": "Nombre exacto de la sucursal del cine",
+        "numero_transaccion": "El número de transacción, número de factura, boleto o recibo único que identifique este pago."
       }
       
       Reglas:
-      1. Extrae el título de la película.
-      2. Convierte la fecha al formato numérico YYYY-MM-DD (Ejemplo: si dice 06-jun-26, debe ser 2026-06-06).
-      3. Extrae la sucursal del cine (ej. "Plaza America", "Novacentro", "Plaza Miraflores", etc).
+      1. "pelicula": El nombre de la película que el cliente fue a ver.
+      2. "fecha": La fecha del ticket o de la función en formato "YYYY-MM-DD". Si no encuentras fecha explícita pero es obvia, infiérela.
+      3. "cine": El nombre de la sucursal del cine (ej. "Metrocinemas Plaza América", "Metrocinemas Novacentro", "Metrocinemas Metromall", etc.).
+      4. "numero_transaccion": El número de transacción, número de factura, boleto o recibo único que identifique este pago.
+
+      Devuelve ÚNICAMENTE un objeto JSON válido con estas 4 llaves. Nada de explicaciones, ni Markdown extra.
+      Ejemplo de salida:
+      {
+        "pelicula": "Inside Out 3",
+        "fecha": "2024-06-08",
+        "cine": "Metrocinemas Novacentro",
+        "numero_transaccion": "FAC-00012345"
+      }
     `;
 
     const response = await ai.models.generateContent({

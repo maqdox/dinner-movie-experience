@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db, storage } from "@/lib/firebase";
-import { doc, setDoc, collection, getDocs, runTransaction } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs, runTransaction, query, where } from "firebase/firestore";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 export const dynamic = 'force-dynamic';
@@ -45,11 +45,18 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { nombre, email, telefono, pelicula, personas, restaurante_id, restaurante_nombre, fecha_ticket, ticket_base64 } = body;
+    const { nombre, email, telefono, pelicula, personas, restaurante_id, restaurante_nombre, fecha_ticket, numero_transaccion, ticket_base64 } = body;
 
     // Validate required fields
-    if (!nombre || !email || !telefono || !pelicula || !restaurante_id || !fecha_ticket) {
-      return NextResponse.json({ error: "Todos los campos son obligatorios, incluyendo la fecha del ticket" }, { status: 400 });
+    if (!nombre || !email || !telefono || !pelicula || !restaurante_id || !fecha_ticket || !numero_transaccion) {
+      return NextResponse.json({ error: "Todos los campos son obligatorios, incluyendo el número de transacción" }, { status: 400 });
+    }
+
+    // Check for duplicate numero_transaccion
+    const duplicateQuery = query(collection(db, "movie_passes"), where("numero_transaccion", "==", numero_transaccion));
+    const duplicateSnapshot = await getDocs(duplicateQuery);
+    if (!duplicateSnapshot.empty) {
+      return NextResponse.json({ error: "Este ticket o factura ya fue utilizado para generar un Movie Pass anteriormente." }, { status: 400 });
     }
 
     // Validar fecha del ticket
@@ -93,6 +100,7 @@ export async function POST(request) {
       restaurante_id,
       restaurante_nombre,
       ticket_imagen: ticketUrl,
+      numero_transaccion,
       estado: "activo",
       fecha_ticket,
       fecha_creacion: now.toISOString(),
