@@ -382,7 +382,7 @@ export default function RegistroPage() {
                 />
                 <p style={{ color: "var(--color-gold)", fontSize: "0.8rem", marginTop: "4px" }}>Este dato es necesario para evitar duplicados.</p>
               </div>
-              <div className="form-group">
+              <div className="form-group" style={{ display: "none" }}>
                 <label className="form-label" htmlFor="personas">Cantidad de Personas</label>
                 <select
                   id="personas"

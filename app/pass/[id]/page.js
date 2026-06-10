@@ -249,7 +249,7 @@ export default function PassPage() {
               <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><Utensils size={16} /> Restaurante</span>
               <span className={styles.detailValue}>{pass.restaurante_nombre}</span>
             </div>
-            <div className={styles.detailRow}>
+            <div className={styles.detailRow} style={{ display: "none" }}>
               <span className={styles.detailLabel} style={{ display: "flex", alignItems: "center", gap: "6px" }}><Users size={16} /> Personas</span>
               <span className={styles.detailValue}>{pass.personas}</span>
             </div>

@@ -13,6 +13,7 @@ export default function RestaurantPassDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   
+  const [showTicket, setShowTicket] = useState(false);
   const [showRedeem, setShowRedeem] = useState(false);
   const [redeemSuccess, setRedeemSuccess] = useState(false);
   const [discountApplied, setDiscountApplied] = useState(0);
@@ -176,7 +177,7 @@ export default function RestaurantPassDetail() {
                 <span className={styles.passFieldLabel}>Restaurante</span>
                 <span className={styles.passFieldValue}>{pass.restaurante_nombre}</span>
               </div>
-              <div className={styles.passField}>
+              <div className={styles.passField} style={{ display: "none" }}>
                 <span className={styles.passFieldLabel}>Personas</span>
                 <span className={styles.passFieldValue}>{pass.personas}</span>
               </div>
@@ -197,6 +198,30 @@ export default function RestaurantPassDetail() {
               </div>
             )}
             {error && pass && <div className={styles.alertError + " " + styles.alert}>{error}</div>}
+
+            {/* View Ticket Action */}
+            {pass.ticket_imagen && pass.ticket_imagen !== "none" && pass.ticket_imagen !== "upload_failed" && !showRedeem && (
+              <button 
+                onClick={() => setShowTicket(true)} 
+                className="btn btn-secondary" 
+                style={{ width: "100%", padding: "12px", marginBottom: "16px", display: "flex", justifyContent: "center", alignItems: "center", gap: "8px" }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Ver Ticket Original
+              </button>
+            )}
+
+            {/* Ticket Viewer Modal */}
+            {showTicket && (
+              <div className={styles.modalOverlay} onClick={() => setShowTicket(false)} style={{ zIndex: 1000, display: "flex", flexDirection: "column" }}>
+                <div style={{ alignSelf: "flex-end", padding: "16px" }}>
+                  <button onClick={() => setShowTicket(false)} style={{ background: "rgba(0,0,0,0.5)", border: "none", color: "#fff", fontSize: "24px", cursor: "pointer", width: "40px", height: "40px", borderRadius: "50%" }}>✕</button>
+                </div>
+                <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center", padding: "0 16px 32px 16px" }} onClick={(e) => e.stopPropagation()}>
+                  <img src={pass.ticket_imagen} alt="Ticket Original" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: "8px" }} />
+                </div>
+              </div>
+            )}
 
             {/* Redeem Actions */}
             {pass.estado === "activo" && pass.restaurante_id === restaurant.id && !showRedeem && (
@@ -224,7 +249,7 @@ export default function RestaurantPassDetail() {
                     </p>
                   )}
                 </div>
-                <div className="form-group">
+                <div className="form-group" style={{ display: "none" }}>
                   <label className="form-label">Personas en Mesa</label>
                   <input
                     type="number"
