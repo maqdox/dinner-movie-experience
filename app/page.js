@@ -73,7 +73,7 @@ export default function Home() {
           <div className={styles.heroLogos}>
             <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
             <span className={styles.heroLogosX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={73} height={80} className={styles.heroLogoVentu} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={100} height={100} className={styles.heroLogoVentu} />
           </div>
           <p className={styles.heroCampaignLabel}>
             Dinner & Movie Experience • Vigencia del 19 de Junio a Agosto
@@ -151,7 +151,7 @@ export default function Home() {
                   {r.logos && r.logos.length > 0 ? (
                     <div style={{ display: "flex", gap: "8px", alignItems: "center", justifyContent: "center", height: "100%", width: "100%" }}>
                       {r.logos.map((logo, idx) => (
-                        <img key={idx} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain" }} />
+                        <img key={idx} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain", filter: r.invert && r.invert[idx] ? "brightness(0) invert(1)" : "none" }} />
                       ))}
                     </div>
                   ) : (

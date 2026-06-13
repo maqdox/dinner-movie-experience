@@ -421,7 +421,7 @@ export default function RegistroPage() {
                     >
                       <div style={{ display: "flex", gap: "8px", alignItems: "center", justifyContent: "center", height: "64px", width: "100%" }}>
                         {r.logos.map((logo, index) => (
-                          <img key={index} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain" }} />
+                          <img key={index} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain", filter: r.invert && r.invert[index] ? "brightness(0) invert(1)" : "none" }} />
                         ))}
                       </div>
                       <span style={{ color: form.restaurante === r.id ? "var(--color-gold)" : "#fff", fontWeight: 600, fontSize: "0.8rem", textAlign: "center", marginTop: "8px", lineHeight: "1.2" }}>{r.name}</span>
