@@ -209,7 +209,7 @@ export default function RegistroPage() {
           ← Inicio
         </Link>
         <div className={styles.headerLogos}>
-          <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={90} height={24} />
+          <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={90} height={24} />
           <span style={{ color: "var(--color-gold)", fontSize: "0.9rem" }}>×</span>
           <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} />
         </div>

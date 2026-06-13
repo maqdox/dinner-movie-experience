@@ -43,21 +43,7 @@ const PlateCutleryIcon = ({ className, size = 24 }) => (
   </svg>
 );
 
-const RESTAURANTS = [
-  { name: "Mirawa", type: "Oriental / China", location: "PB", logo: "/logos-restaurantes/mirawa.jpg" },
-  { name: "Muka", type: "Restaurante y Café", location: "PB", logo: "/logos-restaurantes/muka.jpeg" },
-  { name: "Entre Tiempo", type: "Restaurante y Bar", location: "PB", logo: "/logos-restaurantes/entre-tiempo.jpeg" },
-  { name: "El Morito", type: "Especialidad Mariscos", location: "N7", logo: "/logos-restaurantes/el-morito.png" },
-  { name: "Tamago", type: "Comida Koreana", location: "N7", logo: "/logos-restaurantes/tamago.jpeg" },
-  { name: "Puro Sabor", type: "Buffet", location: "N7", logo: "/logos-restaurantes/puro-sabor.webp" },
-  { name: "Limoncello", type: "Gourmet", location: "N7", logo: "/logos-restaurantes/limoncello.png" },
-  { name: "Churrería Porfirio & Heladería Bahama", type: "Cafetería y Heladería", location: "N7", logo: ["/logos-restaurantes/porfirio.png", "/logos-restaurantes/bahama.jpeg"] },
-  { name: "Alegría", type: "Bistro y Café", location: "N8", logo: "/logos-restaurantes/alegria.jpg" },
-  { name: "Bendita Pizza", type: "Pizzas Gourmet", location: "N8", logo: "/logos-restaurantes/benditapizza.jpeg" },
-  { name: "Garibaldi Grill", type: "Mexicana Gourmet", location: "N8", logo: "/logos-restaurantes/garibaldi.png" },
-  { name: "Tapachula", type: "Mexicana To Go", location: "N8", logo: "/logos-restaurantes/tapachula.jpg" },
-  { name: "Finca 8", type: "Especialidad en Cortes", location: "N8", logo: "/logos-restaurantes/finca8.png" },
-];
+import { RESTAURANTS } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -66,7 +52,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLogos}>
-            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
             <span className={styles.headerX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu Life Center" width={41} height={45} className={styles.logoVentu} />
           </div>
@@ -85,12 +71,12 @@ export default function Home() {
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <div className={styles.heroLogos}>
-            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
             <span className={styles.heroLogosX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu Life Center" width={73} height={80} className={styles.heroLogoVentu} />
           </div>
           <p className={styles.heroCampaignLabel}>
-            Dinner & Movie Experience
+            Dinner & Movie Experience • Vigencia del 19 de Junio a Agosto
           </p>
           <h1 className={styles.heroTitle}>
             Tu Noche <br />
@@ -162,17 +148,15 @@ export default function Home() {
             {RESTAURANTS.map((r, i) => (
               <div key={i} className={`glass-card ${styles.restaurantCard}`}>
                 <div className={styles.restaurantLogoContainer}>
-                  {r.logo ? (
-                    Array.isArray(r.logo) ? (
-                      r.logo.map((l, idx) => (
-                        <img key={idx} src={l} alt={r.name} className={styles.restaurantLogoDual} />
-                      ))
-                    ) : (
-                      <img src={r.logo} alt={r.name} className={styles.restaurantLogo} />
-                    )
+                  {r.logos && r.logos.length > 0 ? (
+                    <div style={{ display: "flex", gap: "8px", alignItems: "center", justifyContent: "center", height: "100%", width: "100%" }}>
+                      {r.logos.map((logo, idx) => (
+                        <img key={idx} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain" }} />
+                      ))}
+                    </div>
                   ) : (
                     <div className={styles.restaurantLogoPlaceholder}>
-                      <span className={styles.placeholderEmoji}>{r.emoji}</span>
+                      <span className={styles.placeholderEmoji}>🍽️</span>
                       <span className={styles.placeholderText}>{r.name}</span>
                     </div>
                   )}
@@ -183,6 +167,9 @@ export default function Home() {
                   <span className="badge badge-active">30% OFF</span>
                   <span className={styles.restaurantLocation}>📍 Nivel {r.location}</span>
                 </div>
+                <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", textAlign: "center", marginTop: "12px", width: "100%", fontStyle: "italic" }}>
+                  * Aplican restricciones en cada comercio.
+                </p>
               </div>
             ))}
           </div>
@@ -207,7 +194,7 @@ export default function Home() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
-            <Image src="/logos/metrocinemas.png" alt="Metrocinemas" width={100} height={28} className={styles.logoMetroFooter} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={100} height={28} className={styles.logoMetroFooter} />
             <span className={styles.headerX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
           </div>
