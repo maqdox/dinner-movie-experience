@@ -399,21 +399,36 @@ export default function RegistroPage() {
                 </select>
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="restaurante">Restaurante</label>
-                <select
-                  id="restaurante"
-                  name="restaurante"
-                  className="form-input"
-                  value={form.restaurante}
-                  onChange={handleChange}
-                >
-                  <option value="">Selecciona un restaurante</option>
+                <label className="form-label" style={{ marginBottom: "16px", display: "block" }}>Elige tu Restaurante</label>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "12px" }}>
                   {RESTAURANTS.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.name} — {r.type} (Nivel {r.location})
-                    </option>
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => { setForm({ ...form, restaurante: r.id }); setError(""); }}
+                      style={{
+                        background: form.restaurante === r.id ? "rgba(255, 215, 0, 0.15)" : "rgba(255,255,255,0.03)",
+                        border: form.restaurante === r.id ? "2px solid var(--color-gold)" : "2px solid rgba(255,255,255,0.05)",
+                        borderRadius: "12px",
+                        padding: "16px 12px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "8px",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease"
+                      }}
+                    >
+                      <div style={{ display: "flex", gap: "8px", alignItems: "center", justifyContent: "center", height: "64px", width: "100%" }}>
+                        {r.logos.map((logo, index) => (
+                          <img key={index} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain" }} />
+                        ))}
+                      </div>
+                      <span style={{ color: form.restaurante === r.id ? "var(--color-gold)" : "#fff", fontWeight: 600, fontSize: "0.8rem", textAlign: "center", marginTop: "8px", lineHeight: "1.2" }}>{r.name}</span>
+                      <span style={{ color: "var(--color-text-secondary)", fontSize: "0.7rem", textAlign: "center", letterSpacing: "0.5px" }}>Nivel {r.location}</span>
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
               <div className={styles.stepButtons}>
                 <button type="button" onClick={() => setStep(1)} className="btn btn-secondary">
