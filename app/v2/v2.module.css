@@ -169,7 +169,7 @@
 
 .v2BtnPrimary {
   background: linear-gradient(135deg, var(--v2-gold), var(--v2-gold-dark));
-  color: #070d1c;
+  color: #030a1c !important;
   box-shadow: var(--v2-shadow-gold);
 }
 
@@ -177,7 +177,7 @@
   background: linear-gradient(135deg, var(--v2-gold-light), var(--v2-gold));
   transform: translateY(-2px);
   box-shadow: 0 6px 30px rgba(249, 168, 37, 0.35);
-  color: #070d1c;
+  color: #030a1c !important;
 }
 
 .v2BtnSecondary {
@@ -311,14 +311,14 @@
   z-index: 1;
   background:
     linear-gradient(180deg,
-      rgba(0, 67, 210, 0.4) 0%,
-      rgba(0, 67, 210, 0.6) 40%,
-      rgba(0, 67, 210, 0.85) 80%,
+      rgba(0, 67, 210, 0.1) 0%,
+      rgba(0, 67, 210, 0.3) 40%,
+      rgba(0, 67, 210, 0.7) 80%,
       var(--v2-bg) 100%
     ),
-    radial-gradient(ellipse at 50% 30%, rgba(255, 171, 3, 0.15) 0%, transparent 60%);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+    radial-gradient(ellipse at 50% 30%, rgba(255, 171, 3, 0.25) 0%, transparent 60%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   pointer-events: none;
 }
 

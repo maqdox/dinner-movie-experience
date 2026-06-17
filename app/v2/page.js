@@ -186,7 +186,7 @@ export default function HomeV2() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="/images/8255.jpg"
+            src="/images/IMG_6120.JPG"
             alt="Toy Story - Blockbuster Summer"
             fill
             priority
