@@ -199,9 +199,9 @@ export default function HomeV2() {
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
             <div className={styles.heroLogos}>
-              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={90} className={styles.heroLogoMetro} />
+              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={160} height={60} className={styles.heroLogoMetro} />
               <span className={styles.heroLogosX}>×</span>
-              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={82} height={90} className={styles.heroLogoVentu} />
+              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={55} height={60} className={styles.heroLogoVentu} />
             </div>
 
             <p className={styles.heroCampaignLabel}>
