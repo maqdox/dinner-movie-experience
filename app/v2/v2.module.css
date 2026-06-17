@@ -25,19 +25,19 @@
 
 /* ===== V2 SCOPED STYLES ===== */
 .v2Root {
-  --v2-bg: #030a1c;
-  --v2-bg-secondary: #001640;
-  --v2-bg-card: #002b8f;
-  --v2-bg-glass: rgba(0, 22, 64, 0.75);
-  --v2-gold: #ffab03;
-  --v2-gold-light: #ffbb33;
-  --v2-gold-dark: #cc8902;
+  --v2-bg: #ffab03;
+  --v2-bg-secondary: #ffffff;
+  --v2-bg-card: #ffffff;
+  --v2-bg-glass: rgba(255, 171, 3, 0.85);
+  --v2-gold: #0043d2;
+  --v2-gold-light: #0055ff;
+  --v2-gold-dark: #002b8f;
   --v2-accent: #0043d2;
-  --v2-text: #eae9da;
-  --v2-text-secondary: rgba(234, 233, 218, 0.7);
-  --v2-text-muted: rgba(234, 233, 218, 0.5);
-  --v2-border: rgba(255, 171, 3, 0.25);
-  --v2-border-light: rgba(234, 233, 218, 0.1);
+  --v2-text: #030a1c;
+  --v2-text-secondary: rgba(3, 10, 28, 0.8);
+  --v2-text-muted: rgba(3, 10, 28, 0.6);
+  --v2-border: rgba(0, 67, 210, 0.25);
+  --v2-border-light: rgba(0, 67, 210, 0.1);
   --v2-radius-sm: 8px;
   --v2-radius-md: 12px;
   --v2-radius-lg: 16px;
