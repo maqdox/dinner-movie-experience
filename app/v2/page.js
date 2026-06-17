@@ -167,9 +167,9 @@ export default function HomeV2() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.logoMetro} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={41} height={45} className={styles.logoVentu} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.logoVentu} />
           </div>
           <nav className={styles.headerNav}>
             <a href="#estrenos">Experiencias</a>
@@ -187,54 +187,71 @@ export default function HomeV2() {
         <div className={styles.heroBg}>
           <Image
             src="/images/8255.jpg"
-            alt="Toy Story - Blockbuster Summer"
+            alt="Fondo azul Toy Story"
             fill
             priority
             unoptimized
-            style={{ objectFit: "cover", objectPosition: "center top" }}
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
         </div>
         <div className={styles.heroOverlay} />
-        <div className={styles.heroContent}>
-          <div className={styles.heroLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
-            <span className={styles.heroLogosX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={100} height={100} className={styles.heroLogoVentu} />
+        
+        <div className={styles.heroContentWrapper}>
+          <div className={styles.heroContentText}>
+            <div className={styles.heroLogos}>
+              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.heroLogoMetro} />
+              <span className={styles.heroLogosX}>×</span>
+              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.heroLogoVentu} />
+            </div>
+
+            <p className={styles.heroCampaignLabel}>
+              Blockbuster Summer 2026 • 18 Jun — 30 Ago
+            </p>
+            <h1 className={styles.heroTitle}>
+              Este Verano, Cada Estreno Tiene <br />
+              <span className={styles.v2GoldGradient}>Una Segunda Función</span>
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Después de la película, vive nuevas <strong>experiencias, sabores y momentos</strong> en Ventu. Presenta tu ticket de Metrocinemas y obtén hasta un <strong>30% de descuento</strong>.
+            </p>
+            
+            <div className={styles.heroCtas}>
+              <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
+                <TicketIcon size={18} className={styles.btnIcon} />
+                Obtener Mi Movie Pass
+              </Link>
+              <a href="#como-funciona" className={`${styles.v2Btn} ${styles.v2BtnSecondary}`}>
+                Saber Más
+              </a>
+            </div>
+
+            <div className={styles.heroStats}>
+              <div className={styles.heroStat}>
+                <span className={styles.heroStatNumber}>13</span>
+                <span className={styles.heroStatLabel}>Restaurantes</span>
+              </div>
+              <div className={styles.heroStatDivider} />
+              <div className={styles.heroStat}>
+                <span className={styles.heroStatNumber}>30%</span>
+                <span className={styles.heroStatLabel}>Descuento</span>
+              </div>
+              <div className={styles.heroStatDivider} />
+              <div className={styles.heroStat}>
+                <span className={styles.heroStatNumber}>5</span>
+                <span className={styles.heroStatLabel}>Días para usar</span>
+              </div>
+            </div>
           </div>
-          <p className={styles.heroCampaignLabel}>
-            Blockbuster Summer 2026 • 18 Jun — 30 Ago
-          </p>
-          <h1 className={styles.heroTitle}>
-            Este Verano, Cada Estreno Tiene <br />
-            <span className={styles.v2GoldGradient}>Una Segunda Función</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Después de la película, vive nuevas <strong>experiencias, sabores y momentos</strong> en Ventu. Presenta tu ticket de Metrocinemas y obtén hasta un <strong>30% de descuento</strong>.
-          </p>
-          <div className={styles.heroCtas}>
-            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
-              <TicketIcon size={18} className={styles.btnIcon} />
-              Obtener Mi Movie Pass
-            </Link>
-            <a href="#como-funciona" className={`${styles.v2Btn} ${styles.v2BtnSecondary}`}>
-              Saber Más
-            </a>
-          </div>
-          <div className={styles.heroStats}>
-            <div className={styles.heroStat}>
-              <span className={styles.heroStatNumber}>13</span>
-              <span className={styles.heroStatLabel}>Restaurantes</span>
-            </div>
-            <div className={styles.heroStatDivider} />
-            <div className={styles.heroStat}>
-              <span className={styles.heroStatNumber}>30%</span>
-              <span className={styles.heroStatLabel}>Descuento</span>
-            </div>
-            <div className={styles.heroStatDivider} />
-            <div className={styles.heroStat}>
-              <span className={styles.heroStatNumber}>5</span>
-              <span className={styles.heroStatLabel}>Días para Usar</span>
-            </div>
+          
+          <div className={styles.heroContentImage}>
+            <Image 
+              src="/images/image-Photoroom.png" 
+              alt="Toy Story" 
+              width={735} 
+              height={1307} 
+              className={styles.heroFloatImage}
+              priority
+            />
           </div>
         </div>
       </section>

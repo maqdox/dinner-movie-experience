@@ -313,19 +313,46 @@
   pointer-events: none;
 }
 
-.heroContent {
+.heroContentWrapper {
   position: relative;
   z-index: 2;
-  text-align: center;
-  max-width: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: var(--v2-max-width);
+  margin: 0 auto;
   padding: 0 24px;
+  width: 100%;
+}
+
+.heroContentText {
+  flex: 1;
+  max-width: 650px;
   animation: v2FadeInUp 0.8s ease;
+  text-align: left;
+}
+
+.heroContentImage {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  animation: v2FadeInUp 1s ease;
+}
+
+.heroFloatImage {
+  width: auto;
+  height: 70vh;
+  max-height: 700px;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+  animation: v2Float 6s ease-in-out infinite;
 }
 
 .heroLogos {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 32px;
   margin-bottom: 40px;
   margin-top: 32px;
@@ -389,23 +416,20 @@
 
 .heroCtas {
   display: flex;
-  gap: 16px;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 56px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 48px;
 }
 
 .heroStats {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 32px;
-  background: rgba(7, 13, 28, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--v2-border);
-  border-radius: var(--v2-radius-xl);
-  padding: 20px 40px;
+  justify-content: flex-start;
+  gap: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .heroStat {
@@ -879,10 +903,38 @@
     font-size: 1.5rem;
   }
 
+  .heroContentWrapper {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 60px;
+  }
+
+  .heroContentText {
+    text-align: center;
+  }
+
+  .heroContentImage {
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .heroFloatImage {
+    height: 45vh;
+  }
+
   .heroLogos {
     gap: 16px;
     margin-bottom: 24px;
     margin-top: 16px;
+    justify-content: center;
+  }
+
+  .heroCtas {
+    justify-content: center;
+  }
+
+  .heroStats {
+    justify-content: center;
   }
 
   .v2Btn {
