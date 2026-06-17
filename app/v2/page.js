@@ -126,10 +126,10 @@ const FAQ_ITEMS = [
 ];
 
 const EXPERIENCE_IMAGES = [
-  { src: "/images/experience-ventu-night.png", alt: "Experiencia nocturna en Ventu Life Center" },
-  { src: "/images/experience-muka.png", alt: "Experiencia gastronómica en Muka Café" },
-  { src: "/images/experience-ventu-group.png", alt: "Amigos disfrutando en Ventu" },
-  { src: "/images/experience-ventu-solo.png", alt: "Experiencia individual en Ventu" },
+  { src: "/images/Gemini_Generated_Image_3pr1qs3pr1qs3pr1.png", alt: "Estreno 1" },
+  { src: "/images/Gemini_Generated_Image_9wdtan9wdtan9wdt.png", alt: "Estreno 2" },
+  { src: "/images/Gemini_Generated_Image_giq6zkgiq6zkgiq6.png", alt: "Estreno 3" },
+  { src: "/images/Gemini_Generated_Image_qbiqfqbiqfqbiqfq.png", alt: "Estreno 4" },
 ];
 
 const BENEFITS = [
