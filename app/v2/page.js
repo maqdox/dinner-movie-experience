@@ -245,7 +245,7 @@ export default function HomeV2() {
           
           <div className={styles.heroContentImage}>
             <Image 
-              src="/images/toystory-promo.png" 
+              src="/images/toystory-promo.jpg" 
               alt="Toy Story Promo" 
               width={1856} 
               height={2304} 
