@@ -186,8 +186,8 @@ export default function HomeV2() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="/images/experience-ventu-night.png"
-            alt="Ventu Life Center de noche"
+            src="/images/8255.jpg"
+            alt="Toy Story - Blockbuster Summer"
             fill
             priority
             unoptimized
