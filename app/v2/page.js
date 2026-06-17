@@ -175,7 +175,7 @@ export default function HomeV2() {
             <a href="#estrenos">Experiencias</a>
             <a href="#como-funciona">Cómo Funciona</a>
             <a href="#restaurantes">Restaurantes</a>
-            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`} style={{ padding: "10px 24px", fontSize: "0.85rem" }}>
+            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`} style={{ padding: "10px 24px", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
               Obtener Movie Pass
             </Link>
           </nav>
@@ -186,7 +186,7 @@ export default function HomeV2() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="/images/IMG_6120.JPG"
+            src="/images/8255.jpg"
             alt="Toy Story - Blockbuster Summer"
             fill
             priority
