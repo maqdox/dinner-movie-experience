@@ -167,7 +167,7 @@ export default function HomeV2() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLogos}>
-            <Image src="/logos/metrocinemas-azul.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
             <span className={styles.headerX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu Life Center" width={41} height={45} className={styles.logoVentu} />
           </div>
@@ -197,7 +197,7 @@ export default function HomeV2() {
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <div className={styles.heroLogos}>
-            <Image src="/logos/metrocinemas-azul.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
             <span className={styles.heroLogosX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu Life Center" width={100} height={100} className={styles.heroLogoVentu} />
           </div>
@@ -386,7 +386,7 @@ export default function HomeV2() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
-            <Image src="/logos/metrocinemas-azul.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
             <span className={styles.headerX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
           </div>
