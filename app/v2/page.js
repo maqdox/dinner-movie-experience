@@ -190,6 +190,7 @@ export default function HomeV2() {
             alt="Ventu Life Center de noche"
             fill
             priority
+            unoptimized
             style={{ objectFit: "cover", objectPosition: "center top" }}
           />
         </div>
@@ -256,6 +257,7 @@ export default function HomeV2() {
                   width={600}
                   height={800}
                   className={styles.experienceImg}
+                  unoptimized
                 />
                 <div className={styles.experienceOverlay} />
               </div>
