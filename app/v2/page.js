@@ -167,9 +167,9 @@ export default function HomeV2() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.logoMetro} style={{ width: "auto", objectFit: "contain" }} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={160} height={60} className={styles.logoMetro} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.logoVentu} style={{ width: "auto", objectFit: "contain" }} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={55} height={60} className={styles.logoVentu} />
           </div>
           <nav className={styles.headerNav}>
             <a href="#estrenos">Experiencias</a>
@@ -199,9 +199,9 @@ export default function HomeV2() {
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
             <div className={styles.heroLogos}>
-              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.heroLogoMetro} style={{ width: "auto", objectFit: "contain" }} />
+              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={90} className={styles.heroLogoMetro} />
               <span className={styles.heroLogosX}>×</span>
-              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.heroLogoVentu} style={{ width: "auto", objectFit: "contain" }} />
+              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={82} height={90} className={styles.heroLogoVentu} />
             </div>
 
             <p className={styles.heroCampaignLabel}>
