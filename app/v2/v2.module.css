@@ -340,13 +340,14 @@
   animation: v2FadeInUp 1s ease;
 }
 
-.heroFloatImage {
-  width: auto;
-  height: 70vh;
-  max-height: 700px;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+.heroPromoImage {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: var(--v2-radius-xl);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
   animation: v2Float 6s ease-in-out infinite;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .heroLogos {
@@ -918,8 +919,8 @@
     margin-top: 32px;
   }
 
-  .heroFloatImage {
-    height: 45vh;
+  .heroPromoImage {
+    max-width: 80%;
   }
 
   .heroLogos {

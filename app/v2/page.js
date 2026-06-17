@@ -167,9 +167,9 @@ export default function HomeV2() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.logoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.logoMetro} style={{ width: "auto", objectFit: "contain" }} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.logoVentu} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.logoVentu} style={{ width: "auto", objectFit: "contain" }} />
           </div>
           <nav className={styles.headerNav}>
             <a href="#estrenos">Experiencias</a>
@@ -199,9 +199,9 @@ export default function HomeV2() {
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
             <div className={styles.heroLogos}>
-              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.heroLogoMetro} />
+              <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={525} height={198} className={styles.heroLogoMetro} style={{ width: "auto", objectFit: "contain" }} />
               <span className={styles.heroLogosX}>×</span>
-              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.heroLogoVentu} />
+              <Image src="/logos/ventu.png" alt="Ventu Life Center" width={495} height={545} className={styles.heroLogoVentu} style={{ width: "auto", objectFit: "contain" }} />
             </div>
 
             <p className={styles.heroCampaignLabel}>
@@ -245,11 +245,11 @@ export default function HomeV2() {
           
           <div className={styles.heroContentImage}>
             <Image 
-              src="/images/image-Photoroom.png" 
-              alt="Toy Story" 
-              width={735} 
-              height={1307} 
-              className={styles.heroFloatImage}
+              src="/images/toystory-promo.png" 
+              alt="Toy Story Promo" 
+              width={1856} 
+              height={2304} 
+              className={styles.heroPromoImage}
               priority
             />
           </div>
