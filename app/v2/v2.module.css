@@ -884,12 +884,13 @@
 }
 
 @media (max-width: 768px) {
-  .headerNav a:not(.v2BtnPrimary) {
+  .headerNav {
     display: none;
   }
 
-  .headerNav {
-    gap: 12px;
+  .headerLogos {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .logoMetro {
@@ -915,7 +916,8 @@
   .heroContentWrapper {
     flex-direction: column;
     text-align: center;
-    padding-top: 60px;
+    padding-top: 100px;
+    padding-bottom: 20px;
   }
 
   .heroContentText {
@@ -939,20 +941,20 @@
   }
 
   .heroCtas {
-    justify-content: center;
-  }
-
-  .heroStats {
-    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
   }
 
   .v2Btn {
-    padding: 8px 16px !important;
-    font-size: 0.75rem !important;
+    padding: 14px 24px !important;
+    font-size: 0.95rem !important;
+    width: 100%;
   }
 
   .heroTitle {
-    padding: 60px 0;
+    margin-bottom: 20px;
+    font-size: clamp(2rem, 8vw, 2.8rem);
   }
 
   .v2Container {
@@ -966,12 +968,35 @@
   }
 
   .heroStats {
-    gap: 20px;
-    padding: 16px 24px;
+    gap: 8px;
+    padding: 24px 8px 40px 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .heroStat {
+    flex: 1 1 30%;
+    min-width: 100px;
   }
 
   .heroStatNumber {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+  }
+
+  .heroStatLabel {
+    font-size: 0.65rem;
+  }
+
+  .floatingWhatsapp {
+    width: 50px;
+    height: 50px;
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .floatingWhatsapp svg {
+    width: 24px;
+    height: 24px;
   }
 
   .restaurantGrid {
