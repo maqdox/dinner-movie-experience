@@ -94,7 +94,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "¿Cuál es la vigencia de la promoción?",
-    answer: "La promoción Blockbuster Summer estará vigente del 18 de junio al 30 de agosto de 2026."
+    answer: "La promoción Blockbuster Summer estará vigente del 18 de junio al 31 de agosto de 2026."
   },
   {
     question: "¿La promoción aplica para cualquier película o estreno?",
@@ -102,7 +102,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "¿Qué restaurantes participan?",
-    answer: "Actualmente participan 13 restaurantes y establecimientos gastronómicos ubicados en Ventu Life Center, ofreciendo una amplia variedad de experiencias gastronómicas. Puedes consultar la lista completa en la sección \"Restaurantes Participantes\"."
+    answer: "Actualmente participan 10 restaurantes y establecimientos gastronómicos ubicados en Ventu Life Center, ofreciendo una amplia variedad de experiencias gastronómicas. Puedes consultar la lista completa en la sección \"Restaurantes Participantes\"."
   },
   {
     question: "¿Cómo obtengo mi Movie Pass?",
@@ -159,10 +159,10 @@ const EXPERIENCE_IMAGES = [
 
 const BENEFITS = [
   "Hasta un 30% de descuento en restaurantes participantes de Ventu",
-  "13 restaurantes participantes",
+  "10 restaurantes participantes",
   "Válido con tickets Metrocinemas",
   "Proceso digital en minutos",
-  "Vigente hasta 30 de agosto",
+  "Vigente hasta 31 de agosto",
 ];
 
 function FAQItem({ item, isOpen, onToggle }) {
@@ -259,13 +259,13 @@ export default function HomeV2() {
 
             <div className={styles.heroStats}>
               <div className={styles.heroStat}>
-                <span className={styles.heroStatNumber}>13</span>
+                <span className={styles.heroStatNumber}>10</span>
                 <span className={styles.heroStatLabel}>Restaurantes<br/>participantes</span>
               </div>
               <div className={styles.heroStatDivider} />
               <div className={styles.heroStat}>
-                <span className={styles.heroStatNumber}>30</span>
-                <span className={styles.heroStatLabel}>Hasta 30<br/>de agosto</span>
+                <span className={styles.heroStatNumber}>31</span>
+                <span className={styles.heroStatLabel}>Hasta 31<br/>de agosto</span>
               </div>
               <div className={styles.heroStatDivider} />
               <div className={styles.heroStat}>
@@ -321,7 +321,7 @@ export default function HomeV2() {
           <h2 className={styles.v2SectionTitle}>
             Restaurantes <span className={styles.v2GoldGradient}>Participantes</span>
           </h2>
-          <p className={styles.v2SectionSubtitle}>13 experiencias gastronómicas donde podrás disfrutar hasta un 30% de descuento al presentar tu Movie Pass.</p>
+          <p className={styles.v2SectionSubtitle}>10 experiencias gastronómicas donde podrás disfrutar hasta un 30% de descuento al presentar tu Movie Pass.</p>
           <div className={styles.restaurantGrid}>
             {RESTAURANTS.map((r, i) => (
               <div key={i} className={`${styles.v2GlassCard} ${styles.restaurantCard}`}>
