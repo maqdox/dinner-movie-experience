@@ -1,6 +1,22 @@
+"use client";
+
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+
+const WhatsappIcon = ({ size = 24 }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  </svg>
+);
+
+const ArrowUpIcon = ({ size = 24 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
+    <path d="M12 19V5" />
+    <path d="M5 12l7-7 7 7" />
+  </svg>
+);
 
 const ClapperboardIcon = ({ className, size = 24 }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}>
@@ -43,23 +59,149 @@ const PlateCutleryIcon = ({ className, size = 24 }) => (
   </svg>
 );
 
+const ChevronIcon = ({ size = 20, isOpen }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}
+    style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease", color: "var(--v2-gold)", flexShrink: 0 }}>
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
+
+const CheckIcon = ({ size = 20 }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}
+    style={{ color: "var(--v2-gold)", flexShrink: 0 }}>
+    <path d="M20 6L9 17l-5-5" />
+  </svg>
+);
+
 import { RESTAURANTS } from "@/lib/constants";
 
-export default function Home() {
+const FAQ_ITEMS = [
+  {
+    question: "¿En cuáles sucursales de Metrocinemas aplica la promoción?",
+    answer: "La promoción Blockbuster Summer aplica únicamente para compras realizadas en las siguientes sucursales de Metrocinemas en Tegucigalpa: Plaza América, Novacentro y Miraflores. Las compras realizadas en otras sucursales o ciudades no serán elegibles para generar un Movie Pass."
+  },
+  {
+    question: "¿Cuál es la vigencia de la promoción?",
+    answer: "La promoción Blockbuster Summer estará vigente del 18 de junio al 30 de agosto de 2026."
+  },
+  {
+    question: "¿La promoción aplica para cualquier película o estreno?",
+    answer: "Sí. La promoción aplica para cualquier película o estreno exhibido en Metrocinemas durante el período de vigencia de la campaña, sujeto a los términos y condiciones establecidos."
+  },
+  {
+    question: "¿Qué restaurantes participan?",
+    answer: "Actualmente participan 13 restaurantes y establecimientos gastronómicos ubicados en Ventu Life Center, ofreciendo una amplia variedad de experiencias gastronómicas. Puedes consultar la lista completa en la sección \"Restaurantes Participantes\"."
+  },
+  {
+    question: "¿Cómo obtengo mi Movie Pass?",
+    answer: "1. Compra tu ticket de cine en Metrocinemas Plaza América, Novacentro o Miraflores.\n2. Ingresa a la plataforma Blockbuster Summer.\n3. Registra tus datos y sube tu factura de compra.\n4. Selecciona el restaurante participante.\n5. Genera tu Movie Pass y disfruta tu beneficio."
+  },
+  {
+    question: "¿Cuánto tiempo tengo para utilizar mi Movie Pass?",
+    answer: "Tu Movie Pass deberá utilizarse dentro de los 5 días hábiles posteriores a la fecha y hora de emisión de tu factura de compra en Metrocinemas."
+  },
+  {
+    question: "¿Qué necesito presentar para recibir mi descuento?",
+    answer: "Para recibir tu beneficio deberás presentar tu Movie Pass vigente al momento de solicitar tu cuenta en el restaurante participante."
+  },
+  {
+    question: "¿Cuántos Movie Pass puedo generar?",
+    answer: "Se podrá generar un (1) Movie Pass por cada factura de compra de Metrocinemas registrada y aprobada."
+  },
+  {
+    question: "¿Puedo utilizar varios Movie Pass al mismo tiempo?",
+    answer: "No. Cada Movie Pass es individual y únicamente podrá aplicarse a una sola factura de consumo en un restaurante participante."
+  },
+  {
+    question: "¿Puedo cambiar el restaurante seleccionado después de generar mi Movie Pass?",
+    answer: "No. Una vez generado el Movie Pass y seleccionado el restaurante participante, no será posible realizar cambios."
+  },
+  {
+    question: "¿Puedo combinar esta promoción con otras promociones o descuentos?",
+    answer: "No. Esta promoción no puede utilizarse en conjunto con otras promociones, descuentos, beneficios o programas vigentes de Ventu o de los restaurantes participantes."
+  },
+  {
+    question: "¿Aplica para bebidas alcohólicas?",
+    answer: "No. Los descuentos y beneficios de Blockbuster Summer no aplican sobre bebidas alcohólicas."
+  },
+  {
+    question: "¿Todos los restaurantes ofrecen el mismo descuento?",
+    answer: "No. Los beneficios y porcentajes de descuento pueden variar según el restaurante participante. Cada establecimiento mostrará claramente el beneficio aplicable antes de la redención."
+  },
+  {
+    question: "¿Existe un límite de consumo?",
+    answer: "Sí. Los montos máximos de consumo elegibles para la promoción podrán variar según las condiciones establecidas por cada restaurante participante. Te recomendamos consultar las condiciones específicas antes de utilizar tu Movie Pass."
+  },
+  {
+    question: "¿Qué hago si mi factura es rechazada o tengo problemas?",
+    answer: "Te recomendamos intentar nuevamente verificando que la imagen de la factura de compra de Metrocinemas sea legible y que toda la información esté visible. Si el problema persiste, puedes contactarnos en: info@ventuhn.com"
+  }
+];
+
+const EXPERIENCE_IMAGES = [
+  { src: "/images/Gemini_Generated_Image_3pr1qs3pr1qs3pr1.png", alt: "Estreno 1" },
+  { src: "/images/Gemini_Generated_Image_9wdtan9wdtan9wdt.png", alt: "Estreno 2" },
+  { src: "/images/Gemini_Generated_Image_giq6zkgiq6zkgiq6.png", alt: "Estreno 3" },
+  { src: "/images/Gemini_Generated_Image_qbiqfqbiqfqbiqfq.png", alt: "Estreno 4" },
+];
+
+const BENEFITS = [
+  "Hasta un 30% de descuento en restaurantes participantes de Ventu",
+  "13 restaurantes participantes",
+  "Válido con tickets Metrocinemas",
+  "Proceso digital en minutos",
+  "Vigente hasta 30 de agosto",
+];
+
+function FAQItem({ item, isOpen, onToggle }) {
   return (
-    <main className={styles.main}>
+    <div className={`${styles.faqItem} ${isOpen ? styles.faqItemOpen : ""}`}>
+      <button className={styles.faqQuestion} onClick={onToggle} aria-expanded={isOpen}>
+        <span>{item.question}</span>
+        <ChevronIcon size={20} isOpen={isOpen} />
+      </button>
+      <div className={styles.faqAnswer} style={{ maxHeight: isOpen ? "500px" : "0px" }}>
+        <div className={styles.faqAnswerInner}>
+          {item.answer.split("\n").map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function HomeV2() {
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <div className={styles.v2Root}>
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetro} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={160} height={60} className={styles.logoMetro} />
             <span className={styles.headerX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={41} height={45} className={styles.logoVentu} />
+            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={55} height={60} className={styles.logoVentu} />
           </div>
           <nav className={styles.headerNav}>
+            <a href="#estrenos">Experiencias</a>
             <a href="#como-funciona">Cómo Funciona</a>
             <a href="#restaurantes">Restaurantes</a>
-            <Link href="/registro" className="btn btn-primary" style={{ padding: "10px 24px", fontSize: "0.85rem" }}>
+            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`} style={{ padding: "10px 24px", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
               Obtener Movie Pass
             </Link>
           </nav>
@@ -68,65 +210,113 @@ export default function Home() {
 
       {/* Hero */}
       <section className={styles.hero}>
+        <div className={styles.heroBg}>
+          <Image
+            src="/images/8255.jpg"
+            alt="Fondo azul Toy Story"
+            fill
+            priority
+            unoptimized
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+        </div>
         <div className={styles.heroOverlay} />
-        <div className={styles.heroContent}>
-          <div className={styles.heroLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={240} height={64} className={styles.heroLogoMetro} />
-            <span className={styles.heroLogosX}>×</span>
-            <Image src="/logos/ventu.png" alt="Ventu Life Center" width={100} height={100} className={styles.heroLogoVentu} />
+        
+        <div className={styles.heroContentWrapper}>
+          <div className={styles.heroContentText}>
+            <p className={styles.heroCampaignLabel}>
+              Blockbuster Summer 2026 • 18 Jun — 30 Ago
+            </p>
+            <h1 className={styles.heroTitle}>
+              Este Verano, Cada Estreno Tiene <br />
+              <span className={styles.v2GoldGradient}>Una Segunda Función</span>
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Después de la película, vive nuevas <strong>experiencias, sabores y momentos</strong> en Ventu. Presenta tu ticket de Metrocinemas y obtén hasta un <strong>30% de descuento</strong>.
+            </p>
+            
+            <div className={styles.heroCtas}>
+              <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
+                <TicketIcon size={18} className={styles.btnIcon} />
+                Obtener Mi Movie Pass
+              </Link>
+              <a href="#como-funciona" className={`${styles.v2Btn} ${styles.v2BtnSecondary}`}>
+                Saber Más
+              </a>
+            </div>
+
+            <div className={styles.heroStats}>
+              <div className={styles.heroStat}>
+                <span className={styles.heroStatNumber}>13</span>
+                <span className={styles.heroStatLabel}>Restaurantes</span>
+              </div>
+              <div className={styles.heroStatDivider} />
+              <div className={styles.heroStat}>
+                <span className={styles.heroStatNumber}>30%</span>
+                <span className={styles.heroStatLabel}>Descuento</span>
+              </div>
+              <div className={styles.heroStatDivider} />
+              <div className={styles.heroStat}>
+                <span className={styles.heroStatNumber}>5</span>
+                <span className={styles.heroStatLabel}>Días para usar</span>
+              </div>
+            </div>
           </div>
-          <p className={styles.heroCampaignLabel}>
-            Dinner & Movie Experience • Vigencia del 19 de Junio a Agosto
-          </p>
-          <h1 className={styles.heroTitle}>
-            Tu Noche <br />
-            <span className="gold-gradient">Continúa en Ventu</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Presenta tu ticket de Metrocinemas y obtén un <strong>30% de descuento</strong> en los mejores restaurantes de Ventu Life Center.
-          </p>
-          <div className={styles.heroCtas}>
-            <Link href="/registro" className="btn btn-primary">
-              <TicketIcon size={18} className={styles.btnIcon} />
-              Obtener Mi Movie Pass
-            </Link>
-            <a href="#como-funciona" className="btn btn-secondary">
-              Saber Más
-            </a>
+          
+          <div className={styles.heroContentImage}>
+            <Image 
+              src="/images/toystory-promo.jpg" 
+              alt="Toy Story Promo" 
+              width={1856} 
+              height={2304} 
+              className={styles.heroPromoImage}
+              priority
+            />
           </div>
-          <div className={styles.heroStats}>
-            <div className={styles.heroStat}>
-              <span className={styles.heroStatNumber}>13</span>
-              <span className={styles.heroStatLabel}>Restaurantes</span>
-            </div>
-            <div className={styles.heroStatDivider} />
-            <div className={styles.heroStat}>
-              <span className={styles.heroStatNumber}>30%</span>
-              <span className={styles.heroStatLabel}>Descuento</span>
-            </div>
-            <div className={styles.heroStatDivider} />
-            <div className={styles.heroStat}>
-              <span className={styles.heroStatNumber}>48h</span>
-              <span className={styles.heroStatLabel}>Para Usar</span>
-            </div>
+        </div>
+      </section>
+
+      {/* Estrenos / Experiencias */}
+      <section id="estrenos" className={`${styles.v2Section} ${styles.experiences}`}>
+        <div className={styles.v2Container}>
+          <h2 className={styles.v2SectionTitle}>
+            Grandes Estrenos del <span className={styles.v2GoldGradient}>Verano</span>
+          </h2>
+          <p className={styles.v2SectionSubtitle}>
+            Este verano, cada estreno tiene una segunda función. Después de la película, vive nuevas experiencias, sabores y momentos en Ventu.
+          </p>
+          <div className={styles.experienceGrid}>
+            {EXPERIENCE_IMAGES.map((img, i) => (
+              <div key={i} className={styles.experienceCard}>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={600}
+                  height={800}
+                  className={styles.experienceImg}
+                  unoptimized
+                />
+                <div className={styles.experienceOverlay} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Cómo Funciona */}
-      <section id="como-funciona" className={`section ${styles.howItWorks}`}>
-        <div className="container">
-          <h2 className="section-title">
-            Cómo <span className="gold-gradient">Funciona</span>
+      <section id="como-funciona" className={`${styles.v2Section} ${styles.howItWorks}`}>
+        <div className={styles.v2Container}>
+          <h2 className={styles.v2SectionTitle}>
+            ¿Cómo <span className={styles.v2GoldGradient}>Funciona</span>?
           </h2>
-          <p className="section-subtitle">En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
+          <p className={styles.v2SectionSubtitle}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
           <div className={styles.steps}>
             {[
-              { num: "1", icon: <ClapperboardIcon size={32} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas y guarda tu ticket o comprobante de compra." },
-              { num: "2", icon: <PhoneTicketIcon size={32} className={styles.stepSvg} />, title: "Obtén tu Movie Pass", desc: "Regístrate aquí, sube tu ticket y selecciona tu restaurante favorito en Ventu." },
-              { num: "3", icon: <PlateCutleryIcon size={32} className={styles.stepSvg} />, title: "Disfruta tu Descuento", desc: "Presenta tu Movie Pass digital en el restaurante y obtén 30% de descuento en tu consumo." },
+              { num: "1", icon: <ClapperboardIcon size={32} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas y guarda tu factura de compra." },
+              { num: "2", icon: <PhoneTicketIcon size={32} className={styles.stepSvg} />, title: "Obtén tu Movie Pass", desc: "Sube tu factura y selecciona tu restaurante favorito en Ventu." },
+              { num: "3", icon: <PlateCutleryIcon size={32} className={styles.stepSvg} />, title: "Disfruta tu Descuento", desc: "Presenta tu Movie Pass y recibe hasta un 30% de descuento en restaurantes de Ventu." },
             ].map((step, i) => (
-              <div key={i} className={`glass-card ${styles.stepCard} animate-fade-in-up stagger-${i + 1}`}>
+              <div key={i} className={`${styles.v2GlassCard} ${styles.stepCard}`}>
                 <div className={styles.stepNum}>{step.num}</div>
                 <div className={styles.stepIcon}>{step.icon}</div>
                 <h3>{step.title}</h3>
@@ -138,15 +328,15 @@ export default function Home() {
       </section>
 
       {/* Restaurantes */}
-      <section id="restaurantes" className={`section ${styles.restaurants}`}>
-        <div className="container">
-          <h2 className="section-title">
-            Restaurantes <span className="gold-gradient">Participantes</span>
+      <section id="restaurantes" className={`${styles.v2Section} ${styles.restaurants}`}>
+        <div className={styles.v2Container}>
+          <h2 className={styles.v2SectionTitle}>
+            Restaurantes <span className={styles.v2GoldGradient}>Participantes</span>
           </h2>
-          <p className="section-subtitle">Descubre la variedad gastronómica que Ventu Life Center tiene para ti.</p>
+          <p className={styles.v2SectionSubtitle}>13 experiencias gastronómicas donde podrás disfrutar hasta un 30% de descuento al presentar tu Movie Pass.</p>
           <div className={styles.restaurantGrid}>
             {RESTAURANTS.map((r, i) => (
-              <div key={i} className={`glass-card ${styles.restaurantCard}`}>
+              <div key={i} className={`${styles.v2GlassCard} ${styles.restaurantCard}`}>
                 <div className={styles.restaurantLogoContainer}>
                   {r.logos && r.logos.length > 0 ? (
                     <div style={{ display: "flex", gap: "8px", alignItems: "center", justifyContent: "center", height: "100%", width: "100%" }}>
@@ -164,7 +354,7 @@ export default function Home() {
                 <h3 className={styles.restaurantName}>{r.name}</h3>
                 <p className={styles.restaurantType}>{r.type}</p>
                 <div className={styles.restaurantMeta}>
-                  <span className="badge badge-active">30% OFF</span>
+                  <span className={styles.v2Badge}>30% OFF</span>
                   <span className={styles.restaurantLocation}>📍 Nivel {r.location}</span>
                 </div>
                 <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", textAlign: "center", marginTop: "12px", width: "100%", fontStyle: "italic" }}>
@@ -176,32 +366,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Final */}
+      {/* CTA Final — Movie Pass */}
       <section className={styles.ctaSection}>
-        <div className="container">
+        <div className={styles.v2Container}>
           <div className={styles.ctaCard}>
-            <h2>¿Listo para tu experiencia?</h2>
-            <p>Obtén tu Movie Pass ahora y disfruta de los mejores sabores después del cine.</p>
-            <Link href="/registro" className="btn btn-primary">
-              <TicketIcon size={18} className={styles.btnIcon} />
-              Obtener Mi Movie Pass
-            </Link>
+            <div className={styles.ctaContent}>
+              <h2>¿Listo para Continuar <span className={styles.v2GoldGradient}>la Experiencia</span>?</h2>
+              <p className={styles.ctaSubtext}>Obtén tu Movie Pass ahora y disfruta de los mejores sabores después del cine.</p>
+              <ul className={styles.ctaBenefits}>
+                {BENEFITS.map((b, i) => (
+                  <li key={i}>
+                    <CheckIcon size={18} />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
+                <TicketIcon size={18} className={styles.btnIcon} />
+                Obtener Mi Movie Pass
+              </Link>
+            </div>
+            <div className={styles.ctaImageWrap}>
+              <Image
+                src="/images/popcorn.png"
+                alt="Popcorn"
+                width={300}
+                height={300}
+                className={styles.ctaPopcorn}
+              />
+            </div>
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <section id="faq" className={`${styles.v2Section} ${styles.faqSection}`}>
+        <div className={styles.v2Container}>
+          <h2 className={styles.v2SectionTitle}>
+            Preguntas <span className={styles.v2GoldGradient}>Frecuentes</span>
+          </h2>
+          <p className={styles.v2SectionSubtitle}>Todo lo que necesitas saber sobre Blockbuster Summer.</p>
+          <div className={styles.faqList}>
+            {FAQ_ITEMS.map((item, i) => (
+              <FAQItem
+                key={i}
+                item={item}
+                isOpen={openFaq === i}
+                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Floating Buttons */}
+      <a href="https://wa.me/50431861032" target="_blank" rel="noopener noreferrer" className={styles.floatingWhatsapp} aria-label="WhatsApp">
+        <WhatsappIcon size={32} />
+      </a>
+      
+      <button 
+        className={`${styles.floatingBackToTop} ${showScrollTop ? styles.showBackToTop : ""}`} 
+        onClick={scrollToTop} 
+        aria-label="Volver arriba"
+      >
+        <ArrowUpIcon size={24} />
+      </button>
 
       {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={100} height={28} className={styles.logoMetroFooter} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
             <span className={styles.headerX}>×</span>
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
           </div>
-          <p className={styles.footerText}>Dinner & Movie Experience — Una alianza Metrocinemas × Ventu</p>
+          <p className={styles.footerText}>Blockbuster Summer 2026 — Una alianza Metrocinemas × Ventu</p>
+          <p className={styles.footerLinks}>
+            <a href="mailto:info@ventuhn.com">info@ventuhn.com</a>
+          </p>
           <p className={styles.footerCopy}>© {new Date().getFullYear()} Todos los derechos reservados.</p>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

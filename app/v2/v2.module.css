@@ -122,8 +122,8 @@
   text-align: center;
   color: var(--v2-text-secondary);
   font-size: 1.05rem;
-  max-width: 600px;
-  margin: 0 auto 48px;
+  max-width: 1000px;
+  margin: 0 auto 48px auto;
 }
 
 .v2GoldGradient {
@@ -348,6 +348,7 @@
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
   animation: v2Float 6s ease-in-out infinite;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 60px;
 }
 
 .heroLogos {
@@ -557,7 +558,8 @@
   right: 24px;
   font-size: 4rem;
   font-weight: 800;
-  color: rgba(249, 168, 37, 0.08);
+  color: var(--v2-gold);
+  opacity: 0.7;
   line-height: 1;
   user-select: none;
   pointer-events: none;
@@ -689,6 +691,10 @@
 
 .ctaContent {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .ctaContent h2 {
@@ -705,11 +711,13 @@
 
 .ctaBenefits {
   list-style: none;
-  margin: 0 0 32px 0;
+  margin: 0 auto 32px auto;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  text-align: left;
+  width: fit-content;
 }
 
 .ctaBenefits li {
@@ -1020,4 +1028,64 @@
   .heroLogoVentu {
     max-width: 45px;
   }
+}
+
+/* ===== FLOATING BUTTONS ===== */
+.floatingWhatsapp {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 99;
+  transition: transform var(--v2-transition-base), background-color var(--v2-transition-base);
+}
+
+.floatingWhatsapp:hover {
+  transform: scale(1.1);
+  background-color: #1ebe57;
+  color: white;
+}
+
+.floatingBackToTop {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--v2-bg-glass);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--v2-border);
+  color: var(--v2-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 99;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all var(--v2-transition-base);
+}
+
+.showBackToTop {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.floatingBackToTop:hover {
+  background-color: var(--v2-bg-secondary);
+  color: var(--v2-text);
+  transform: translateY(-4px);
 }
