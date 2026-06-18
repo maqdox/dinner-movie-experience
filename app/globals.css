@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ===== DESIGN TOKENS (ARCTIC SILVER REFINED) ===== */
+/* ===== DESIGN TOKENS (BLOCKBUSTER SUMMER V2) ===== */
 :root {
-  --color-bg: #0a0a0d;
-  --color-bg-secondary: #121217;
-  --color-bg-card: #181822;
-  --color-bg-card-hover: #1e1e2b;
-  --color-bg-glass: rgba(18, 18, 23, 0.7);
-  --color-gold: #e2e8f0;         /* Silver principal */
-  --color-gold-light: #ffffff;   /* Silver claro / Blanco */
-  --color-gold-dark: #94a3b8;    /* Silver medio / Acero */
+  --color-bg: #0043d2;
+  --color-bg-secondary: #0036a8;
+  --color-bg-card: #002b8f;
+  --color-bg-card-hover: #0036a8;
+  --color-bg-glass: rgba(0, 67, 210, 0.85);
+  --color-gold: #ffab03;
+  --color-gold-light: #ffbb33;
+  --color-gold-dark: #cc8902;
   --color-red: #ef4444;
   --color-red-light: #f87171;
   --color-green: #10b981;
   --color-green-dark: #059669;
   --color-text: #ffffff;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-border: rgba(148, 163, 184, 0.15);
-  --color-border-light: rgba(226, 232, 240, 0.08);
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-border: rgba(255, 171, 3, 0.25);
+  --color-border-light: rgba(255, 255, 255, 0.1);
 
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', -apple-system, sans-serif;
