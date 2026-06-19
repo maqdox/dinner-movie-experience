@@ -282,10 +282,10 @@ export default function HomeV2() {
       {/* Estrenos / Experiencias */}
       <section id="estrenos" className={`${styles.v2Section} ${styles.experiences}`}>
         <div className={styles.v2Container}>
-          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center" }}>
+          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center", width: "100%", display: "block" }}>
             Grandes Estrenos del <span className={styles.v2GoldGradient}>Verano</span>
           </h2>
-          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", maxWidth: "800px" }}>
+          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", maxWidth: "800px", display: "block" }}>
             Este verano, cada estreno tiene una segunda función.<br/>Después de la película, vive nuevas experiencias, sabores y momentos en Ventu.
           </p>
           <div className={styles.experienceGrid}>
@@ -306,10 +306,10 @@ export default function HomeV2() {
       {/* Restaurantes */}
       <section id="restaurantes" className={`${styles.v2Section} ${styles.restaurants}`}>
         <div className={styles.v2Container}>
-          <h2 className={styles.v2SectionTitle}>
+          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center", width: "100%", display: "block" }}>
             Restaurantes <span className={styles.v2GoldGradient}>Participantes</span>
           </h2>
-          <p className={styles.v2SectionSubtitle}>10 experiencias gastronómicas donde podrás disfrutar hasta un 30% de descuento al presentar tu Movie Pass.</p>
+          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", display: "block" }}>10 experiencias gastronómicas donde podrás disfrutar hasta un 30% de descuento al presentar tu Movie Pass.</p>
           <div className={styles.restaurantGrid}>
             {RESTAURANTS.map((r, i) => (
               <div key={i} className={`${styles.v2GlassCard} ${styles.restaurantCard}`}>
@@ -345,7 +345,7 @@ export default function HomeV2() {
       {/* Cómo Funciona */}
       <section id="como-funciona" className={`${styles.v2Section} ${styles.howItWorks}`}>
         <div className={styles.v2Container}>
-          <h2 className={styles.v2SectionTitle}>
+          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center", width: "100%", display: "block" }}>
             ¿Cómo <span className={styles.v2GoldGradient}>Funciona</span>?
           </h2>
           <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", display: "block" }}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
@@ -402,10 +402,10 @@ export default function HomeV2() {
       {/* FAQ */}
       <section id="faq" className={`${styles.v2Section} ${styles.faqSection}`}>
         <div className={styles.v2Container}>
-          <h2 className={styles.v2SectionTitle}>
+          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center", width: "100%", display: "block" }}>
             Preguntas <span className={styles.v2GoldGradient}>Frecuentes</span>
           </h2>
-          <p className={styles.v2SectionSubtitle}>Todo lo que necesitas saber sobre Blockbuster Summer.</p>
+          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", display: "block" }}>Todo lo que necesitas saber sobre Blockbuster Summer.</p>
           <div className={styles.faqList}>
             {FAQ_ITEMS.map((item, i) => (
               <FAQItem
