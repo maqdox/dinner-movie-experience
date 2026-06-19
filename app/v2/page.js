@@ -438,7 +438,7 @@ export default function HomeV2() {
           <div className={styles.footerLogos}>
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
             <div className={styles.footerSeparator} />
-            <Image src="/logos/VIZION_logo_transparente_corregido_FINAL.png" alt="Vizion Development" width={140} height={45} className={styles.logoVizionFooter} style={{ objectFit: "contain", margin: "0 15px", maxHeight: "45px", width: "auto" }} />
+            <Image src="/logos/VIZION_logo_transparente_corregido_FINAL.png" alt="Vizion Development" width={160} height={52} className={styles.logoVizionFooter} style={{ objectFit: "contain", margin: "0 15px", maxHeight: "52px", width: "auto" }} />
             <div className={styles.footerSeparator} />
             <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
           </div>
