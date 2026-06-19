@@ -251,17 +251,17 @@ export default function HomeV2() {
             <div className={styles.heroStats}>
               <div className={styles.heroStat}>
                 <span className={styles.heroStatNumber}>10</span>
-                <span className={styles.heroStatLabel}>Restaurantes<br/>participantes</span>
+                <span className={styles.heroStatLabel} style={{ textAlign: "center", display: "block", width: "100%" }}>Restaurantes<br/>participantes</span>
               </div>
               <div className={styles.heroStatDivider} />
               <div className={styles.heroStat}>
                 <span className={styles.heroStatNumber}>31</span>
-                <span className={styles.heroStatLabel}>Hasta 31<br/>de agosto</span>
+                <span className={styles.heroStatLabel} style={{ textAlign: "center", display: "block", width: "100%" }}>Hasta 31<br/>de agosto</span>
               </div>
               <div className={styles.heroStatDivider} />
               <div className={styles.heroStat}>
                 <span className={styles.heroStatNumber}>+</span>
-                <span className={styles.heroStatLabel}>Beneficios<br/>exclusivos</span>
+                <span className={styles.heroStatLabel} style={{ textAlign: "center", display: "block", width: "100%" }}>Beneficios<br/>exclusivos</span>
               </div>
             </div>
           </div>
@@ -348,7 +348,7 @@ export default function HomeV2() {
           <h2 className={styles.v2SectionTitle}>
             ¿Cómo <span className={styles.v2GoldGradient}>Funciona</span>?
           </h2>
-          <p className={styles.v2SectionSubtitle}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
+          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", display: "block" }}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
           <div className={styles.steps}>
             {[
               { num: "1", icon: <PopcornIcon size={44} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas" },
