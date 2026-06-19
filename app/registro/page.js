@@ -100,7 +100,7 @@ export default function RegistroPage() {
     if (!form.restaurante) return "Selecciona un restaurante";
     if (!form.fecha_ticket) return "Ingresa la fecha de tu ticket";
     
-    // Validar que la fecha no sea de hace más de 10 días ni en el futuro
+    // Validar que la fecha no sea de hace más de 5 días ni en el futuro
     const ticketDate = new Date(form.fecha_ticket);
     const now = new Date();
     // Ajustar horas para comparar solo fechas
@@ -113,8 +113,8 @@ export default function RegistroPage() {
     if (diffDays < 0) {
       return "La fecha del ticket no puede ser en el futuro";
     }
-    if (diffDays > 10) {
-      return "El ticket no puede tener más de 10 días de antigüedad";
+    if (diffDays > 5) {
+      return "El ticket no puede tener más de 5 días de antigüedad";
     }
     
     if (!form.numero_transaccion.trim()) return "El número de transacción no fue detectado, por favor ingrésalo manualmente";
@@ -294,7 +294,7 @@ export default function RegistroPage() {
                   <strong>⚠️ Importante:</strong> Esta promoción es válida únicamente presentando tickets de <strong>Metrocinemas Plaza América, Novacentro o Plaza Miraflores</strong>.
                 </p>
                 <p style={{ color: "var(--color-gold)", fontSize: "0.85rem", margin: 0 }}>
-                  Tu ticket debe tener <strong>máximo 10 días de antigüedad</strong>.
+                  Tu ticket debe tener <strong>máximo 5 días de antigüedad</strong>.
                 </p>
               </div>
 
