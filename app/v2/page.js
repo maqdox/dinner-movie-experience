@@ -291,13 +291,10 @@ export default function HomeV2() {
           <div className={styles.experienceGrid}>
             {EXPERIENCE_IMAGES.map((img, i) => (
               <div key={i} className={styles.experienceCard}>
-                <Image
+                <img
                   src={img.src}
                   alt={img.alt}
-                  width={600}
-                  height={800}
                   className={styles.experienceImg}
-                  unoptimized
                 />
                 <div className={styles.experienceOverlay} />
               </div>
@@ -441,7 +438,7 @@ export default function HomeV2() {
           <div className={styles.footerLogos}>
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
             <div className={styles.footerSeparator} />
-            <Image src="/logos/VIZION_logo_transparente_corregido_FINAL.png" alt="Vizion Development" width={110} height={40} className={styles.logoVizionFooter} style={{ objectFit: "contain", margin: "0 10px" }} />
+            <Image src="/logos/VIZION_logo_transparente_corregido_FINAL.png" alt="Vizion Development" width={80} height={30} className={styles.logoVizionFooter} style={{ objectFit: "contain", margin: "0 15px", maxHeight: "30px", width: "auto" }} />
             <div className={styles.footerSeparator} />
             <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
           </div>
