@@ -152,7 +152,7 @@ const FAQ_ITEMS = [
 
 const EXPERIENCE_IMAGES = [
   { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/hero-second-pic.jpg", alt: "Experiencia con Amigos" },
+  { src: "/images/Gemini_Generated_Image_qbiqfqbiqfqbiqfq.png", alt: "Experiencia con Amigos" },
 ];
 
 const BENEFITS = [
