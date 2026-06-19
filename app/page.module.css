@@ -494,8 +494,8 @@
 }
 
 .experienceGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: center;
   gap: 24px;
 }
 
@@ -505,6 +505,8 @@
   overflow: hidden;
   aspect-ratio: 3 / 4;
   cursor: pointer;
+  max-width: 450px;
+  width: 100%;
   transition: transform var(--v2-transition-base), box-shadow var(--v2-transition-base);
 }
 

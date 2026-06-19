@@ -152,7 +152,6 @@ const FAQ_ITEMS = [
 
 const EXPERIENCE_IMAGES = [
   { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/experience-ventu-group.png", alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
@@ -234,16 +233,9 @@ export default function HomeV2() {
         
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
-            <div style={{ marginBottom: "24px" }}>
+            <div style={{ marginTop: "40px", marginBottom: "24px" }}>
               <Image src="/images/PROMOBLOCKBUSTER.png" alt="Blockbuster Summer" width={450} height={200} style={{ objectFit: "contain", maxWidth: "100%", height: "auto" }} priority />
             </div>
-            <h1 className={styles.heroTitle}>
-              Tu boleto vale <br />
-              <span className={styles.v2GoldGradient}>más en Ventu</span>
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Hasta un <strong>30% de descuento</strong> en restaurantes participantes de Ventu
-            </p>
             
             <div className={styles.heroCtas}>
               <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
@@ -446,7 +438,11 @@ export default function HomeV2() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
+            <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
+            <div className={styles.footerSeparator} />
             <Image src="/logos/LOGO VIZION.png" alt="Vizion Development" width={140} height={140} className={styles.logoVizionFooter} style={{ objectFit: "contain" }} />
+            <div className={styles.footerSeparator} />
+            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
           </div>
           <p className={styles.footerText}>Blockbuster Summer 2026 — Presentado por Vizion Development</p>
           <p className={styles.footerLinks}>
