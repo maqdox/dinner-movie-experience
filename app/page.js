@@ -4,8 +4,6 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import MukaImg from "../public/images/experience-muka.png";
-import AmigosImg from "../public/images/hero-second-pic.jpg";
 
 const WhatsappIcon = ({ size = 24 }) => (
   <svg viewBox="0 0 24 24" fill="white" width={size} height={size}>
@@ -153,8 +151,8 @@ const FAQ_ITEMS = [
 ];
 
 const EXPERIENCE_IMAGES = [
-  { src: MukaImg, alt: "Experiencia Muka Café" },
-  { src: AmigosImg, alt: "Experiencia con Amigos en Ventu" },
+  { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
+  { src: "/images/hero-second-pic.jpg", alt: "Experiencia con Amigos" },
 ];
 
 const BENEFITS = [
@@ -293,13 +291,10 @@ export default function HomeV2() {
           <div className={styles.experienceGrid}>
             {EXPERIENCE_IMAGES.map((img, i) => (
               <div key={i} className={styles.experienceCard}>
-                <Image
+                <img
                   src={img.src}
                   alt={img.alt}
-                  width={600}
-                  height={800}
                   className={styles.experienceImg}
-                  unoptimized
                 />
                 <div className={styles.experienceOverlay} />
               </div>
