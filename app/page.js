@@ -152,7 +152,7 @@ const FAQ_ITEMS = [
 
 const EXPERIENCE_IMAGES = [
   { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/IMG_6120.JPG", alt: "Experiencia con Amigos en Ventu" },
+  { src: "/images/experience-amigos.jpg", alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
@@ -234,7 +234,7 @@ export default function HomeV2() {
         
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
-            <div style={{ marginBottom: "24px" }}>
+            <div style={{ marginTop: "80px", marginBottom: "24px" }}>
               <Image src="/images/PROMOBLOCKBUSTER.png" alt="Blockbuster Summer" width={450} height={200} style={{ objectFit: "contain", maxWidth: "100%", height: "auto" }} priority />
             </div>
             
@@ -441,12 +441,7 @@ export default function HomeV2() {
           <div className={styles.footerLogos}>
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
             <div className={styles.footerSeparator} />
-            <svg className={styles.logoVizionFooter} viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg" width={80} height={100} style={{ margin: "0 10px" }}>
-              <rect x="20" y="10" width="140" height="140" rx="12" fill="#D42B2B" />
-              <path d="M90 120L55 40H75L90 80L105 40H125L90 120Z" fill="white" strokeWidth="2" />
-              <text x="90" y="175" textAnchor="middle" fill="#94a3b8" fontFamily="'Montserrat', sans-serif" fontSize="18" fontWeight="700" letterSpacing="3">VIZION</text>
-              <text x="90" y="200" textAnchor="middle" fill="#94a3b8" fontFamily="'Montserrat', sans-serif" fontSize="13" fontWeight="500" letterSpacing="2">DEVELOPMENT</text>
-            </svg>
+            <Image src="/logos/VIZION_logo_transparente_corregido_FINAL.png" alt="Vizion Development" width={110} height={40} className={styles.logoVizionFooter} style={{ objectFit: "contain", margin: "0 10px" }} />
             <div className={styles.footerSeparator} />
             <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
           </div>
