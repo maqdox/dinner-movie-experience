@@ -152,7 +152,7 @@ const FAQ_ITEMS = [
 
 const EXPERIENCE_IMAGES = [
   { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/promo-ventu-group.jpg", alt: "Experiencia Ventu Group" },
+  { src: "/images/experience-ventu-group.png", alt: "Amigos disfrutando en Ventu" },
 ];
 
 const BENEFITS = [
