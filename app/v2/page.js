@@ -420,7 +420,7 @@ export default function HomeV2() {
       </section>
 
       {/* Floating Buttons */}
-      <a href="https://wa.me/50431861032" target="_blank" rel="noopener noreferrer" className={styles.floatingWhatsapp} aria-label="WhatsApp">
+      <a href="https://wa.me/50431743391" target="_blank" rel="noopener noreferrer" className={styles.floatingWhatsapp} aria-label="WhatsApp">
         <WhatsappIcon size={32} />
       </a>
       
