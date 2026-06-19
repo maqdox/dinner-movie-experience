@@ -29,10 +29,10 @@
   --v2-bg-secondary: #0036a8;
   --v2-bg-card: #002b8f;
   --v2-bg-glass: rgba(0, 67, 210, 0.85);
-  --v2-gold: #ffab03;
-  --v2-gold-light: #ffbb33;
-  --v2-gold-dark: #cc8902;
-  --v2-accent: #ffab03;
+  --v2-gold: #FFC107;
+  --v2-gold-light: #FFD54F;
+  --v2-gold-dark: #FFA000;
+  --v2-accent: #FFC107;
   --v2-text: #ffffff;
   --v2-text-secondary: rgba(255, 255, 255, 0.8);
   --v2-text-muted: rgba(255, 255, 255, 0.6);
@@ -572,7 +572,6 @@
   font-size: 4rem;
   font-weight: 800;
   color: var(--v2-gold);
-  opacity: 0.7;
   line-height: 1;
   user-select: none;
   pointer-events: none;

@@ -234,9 +234,9 @@ export default function HomeV2() {
         
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
-            <p className={styles.heroCampaignLabel}>
-              <span className={styles.blockbusterStars}>★ </span>BLOCKBUSTER<br/>SUMMER<span className={styles.blockbusterStars}> ★</span>
-            </p>
+            <div style={{ marginBottom: "24px" }}>
+              <Image src="/images/PROMOBLOCKBUSTER.png" alt="Blockbuster Summer" width={450} height={200} style={{ objectFit: "contain", maxWidth: "100%", height: "auto" }} priority />
+            </div>
             <h1 className={styles.heroTitle}>
               Tu boleto vale <br />
               <span className={styles.v2GoldGradient}>más en Ventu</span>
@@ -446,19 +446,9 @@ export default function HomeV2() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
-            <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
-            <div className={styles.footerSeparator} />
-            <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
-            <div className={styles.footerSeparator} />
-            {/* Vizion Development Logo (SVG) */}
-            <svg className={styles.logoVizionFooter} viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="20" y="10" width="140" height="140" rx="12" fill="#D42B2B" />
-              <path d="M90 120L55 40H75L90 80L105 40H125L90 120Z" fill="white" strokeWidth="2" />
-              <text x="90" y="175" textAnchor="middle" fill="#94a3b8" fontFamily="'Montserrat', sans-serif" fontSize="18" fontWeight="700" letterSpacing="3">VIZION</text>
-              <text x="90" y="200" textAnchor="middle" fill="#94a3b8" fontFamily="'Montserrat', sans-serif" fontSize="13" fontWeight="500" letterSpacing="2">DEVELOPMENT</text>
-            </svg>
+            <Image src="/logos/LOGO VIZION.png" alt="Vizion Development" width={140} height={140} className={styles.logoVizionFooter} style={{ objectFit: "contain" }} />
           </div>
-          <p className={styles.footerText}>Blockbuster Summer 2026 — Una alianza Metrocinemas × Ventu × Vizion Development</p>
+          <p className={styles.footerText}>Blockbuster Summer 2026 — Presentado por Vizion Development</p>
           <p className={styles.footerLinks}>
             <a href="mailto:info@ventuhn.com">info@ventuhn.com</a>
           </p>
