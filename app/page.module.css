@@ -375,13 +375,26 @@
 }
 
 .heroCampaignLabel {
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.06em;
   color: var(--v2-gold);
-  margin-bottom: 24px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+  text-shadow:
+    0 0 20px rgba(255, 171, 3, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.7);
+  line-height: 1.15;
+  position: relative;
+  display: inline-block;
+}
+
+.blockbusterStars {
+  color: var(--v2-gold);
+  font-size: 0.6em;
+  vertical-align: middle;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px rgba(255, 171, 3, 0.6));
 }
 
 .heroLogoVentu {
@@ -482,8 +495,8 @@
 
 .experienceGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
 .experienceCard {
@@ -566,22 +579,39 @@
 }
 
 .stepIcon {
-  height: 64px;
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255, 171, 3, 0.2), rgba(255, 171, 3, 0.05));
+  border: 2px solid rgba(255, 171, 3, 0.3);
+  box-shadow:
+    0 8px 32px rgba(255, 171, 3, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all var(--v2-transition-base);
+}
+
+.stepCard:hover .stepIcon {
+  background: linear-gradient(145deg, rgba(255, 171, 3, 0.35), rgba(255, 171, 3, 0.1));
+  box-shadow:
+    0 12px 40px rgba(255, 171, 3, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
 }
 
 .stepSvg {
   color: var(--v2-gold);
-  filter: drop-shadow(0 2px 8px rgba(249, 168, 37, 0.2));
+  filter: drop-shadow(0 4px 12px rgba(249, 168, 37, 0.4));
   transition: transform var(--v2-transition-base), color var(--v2-transition-base);
 }
 
 .stepCard:hover .stepSvg {
-  transform: scale(1.1) rotate(2deg);
+  transform: scale(1.15);
   color: var(--v2-gold-light);
+  filter: drop-shadow(0 6px 16px rgba(249, 168, 37, 0.5));
 }
 
 /* ===== RESTAURANTS ===== */
@@ -598,15 +628,27 @@
 .restaurantCard {
   padding: 28px 24px;
   text-align: center;
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: var(--v2-radius-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.restaurantCard:hover {
+  border-color: rgba(255, 171, 3, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .restaurantLogoContainer {
-  height: 80px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   margin-bottom: 16px;
+  padding: 12px;
 }
 
 .restaurantLogoPlaceholder {
@@ -639,10 +681,11 @@
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 6px;
+  color: #1a1a2e;
 }
 
 .restaurantType {
-  color: var(--v2-text-secondary);
+  color: #666;
   font-size: 0.85rem;
   margin-bottom: 16px;
 }
@@ -656,7 +699,7 @@
 
 .restaurantLocation {
   font-size: 0.8rem;
-  color: var(--v2-text-muted);
+  color: #888;
 }
 
 /* ===== CTA SECTION ===== */
@@ -834,12 +877,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 24px;
   margin-bottom: 20px;
 }
 
+.footerSeparator {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .logoMetroFooter {
-  height: 24px;
+  height: 28px;
   width: auto;
   object-fit: contain;
 }
@@ -848,6 +897,11 @@
   height: 48px;
   width: auto;
   object-fit: contain;
+}
+
+.logoVizionFooter {
+  height: 40px;
+  width: auto;
 }
 
 .footerText {
@@ -1019,8 +1073,8 @@
   }
 
   .experienceGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .heroTitle {
@@ -1039,8 +1093,8 @@
   }
 
   .experienceGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .heroLogos {

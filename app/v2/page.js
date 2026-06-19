@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./v2.module.css";
+import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -151,10 +151,8 @@ const FAQ_ITEMS = [
 ];
 
 const EXPERIENCE_IMAGES = [
-  { src: "/images/Gemini_Generated_Image_3pr1qs3pr1qs3pr1.png", alt: "Estreno 1" },
-  { src: "/images/Gemini_Generated_Image_9wdtan9wdtan9wdt.png", alt: "Estreno 2" },
-  { src: "/images/Gemini_Generated_Image_giq6zkgiq6zkgiq6.png", alt: "Estreno 3" },
-  { src: "/images/Gemini_Generated_Image_qbiqfqbiqfqbiqfq.png", alt: "Estreno 4" },
+  { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
+  { src: "/images/experience-ventu-group.png", alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
@@ -237,7 +235,7 @@ export default function HomeV2() {
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
             <p className={styles.heroCampaignLabel}>
-              BLOCKBUSTER SUMMER
+              <span className={styles.blockbusterStars}>★ </span>BLOCKBUSTER<br/>SUMMER<span className={styles.blockbusterStars}> ★</span>
             </p>
             <h1 className={styles.heroTitle}>
               Tu boleto vale <br />
@@ -329,7 +327,7 @@ export default function HomeV2() {
                   {r.logos && r.logos.length > 0 ? (
                     <div style={{ display: "flex", gap: "8px", alignItems: "center", justifyContent: "center", height: "100%", width: "100%" }}>
                       {r.logos.map((logo, idx) => (
-                        <img key={idx} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain", filter: r.invert && r.invert[idx] ? "brightness(0) invert(1)" : "none" }} />
+                        <img key={idx} src={logo} alt={r.name} style={{ maxHeight: "100%", maxWidth: r.logos.length > 1 ? "45%" : "100%", objectFit: "contain" }} />
                       ))}
                     </div>
                   ) : (
@@ -345,7 +343,7 @@ export default function HomeV2() {
                   <span className={styles.v2Badge}>30% OFF</span>
                   <span className={styles.restaurantLocation}>📍 Nivel {r.location}</span>
                 </div>
-                <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", textAlign: "center", marginTop: "12px", width: "100%", fontStyle: "italic" }}>
+                <p style={{ fontSize: "0.75rem", color: "#999", textAlign: "center", marginTop: "12px", width: "100%", fontStyle: "italic" }}>
                   * Aplican restricciones en cada comercio.
                 </p>
               </div>
@@ -363,9 +361,9 @@ export default function HomeV2() {
           <p className={styles.v2SectionSubtitle}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
           <div className={styles.steps}>
             {[
-              { num: "1", icon: <PopcornIcon size={32} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas" },
-              { num: "2", icon: <TicketIcon size={32} className={styles.stepSvg} />, title: "Obtén tu Movie Pass", desc: "Sube tu factura y selecciona restaurante" },
-              { num: "3", icon: <PlateCutleryIcon size={32} className={styles.stepSvg} />, title: "Disfruta tu Descuento", desc: "Presenta tu Movie Pass y recibe hasta un 30% de descuento en restaurantes de Ventu." },
+              { num: "1", icon: <PopcornIcon size={44} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas" },
+              { num: "2", icon: <TicketIcon size={44} className={styles.stepSvg} />, title: "Obtén tu Movie Pass", desc: "Sube tu factura y selecciona restaurante" },
+              { num: "3", icon: <PlateCutleryIcon size={44} className={styles.stepSvg} />, title: "Disfruta tu Descuento", desc: "Presenta tu Movie Pass y recibe hasta un 30% de descuento en restaurantes de Ventu." },
             ].map((step, i) => (
               <div key={i} className={`${styles.v2GlassCard} ${styles.stepCard}`}>
                 <div className={styles.stepNum}>{step.num}</div>
@@ -449,10 +447,18 @@ export default function HomeV2() {
         <div className={styles.footerInner}>
           <div className={styles.footerLogos}>
             <Image src="/logos/metrocinemas-blanco.png" alt="Metrocinemas" width={120} height={32} className={styles.logoMetroFooter} />
-            <span className={styles.headerX}>×</span>
+            <div className={styles.footerSeparator} />
             <Image src="/logos/ventu.png" alt="Ventu" width={48} height={52} className={styles.logoVentuFooter} />
+            <div className={styles.footerSeparator} />
+            {/* Vizion Development Logo (SVG) */}
+            <svg className={styles.logoVizionFooter} viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="10" width="140" height="140" rx="12" fill="#D42B2B" />
+              <path d="M90 120L55 40H75L90 80L105 40H125L90 120Z" fill="white" strokeWidth="2" />
+              <text x="90" y="175" textAnchor="middle" fill="#94a3b8" fontFamily="'Montserrat', sans-serif" fontSize="18" fontWeight="700" letterSpacing="3">VIZION</text>
+              <text x="90" y="200" textAnchor="middle" fill="#94a3b8" fontFamily="'Montserrat', sans-serif" fontSize="13" fontWeight="500" letterSpacing="2">DEVELOPMENT</text>
+            </svg>
           </div>
-          <p className={styles.footerText}>Blockbuster Summer 2026 — Una alianza Metrocinemas × Ventu</p>
+          <p className={styles.footerText}>Blockbuster Summer 2026 — Una alianza Metrocinemas × Ventu × Vizion Development</p>
           <p className={styles.footerLinks}>
             <a href="mailto:info@ventuhn.com">info@ventuhn.com</a>
           </p>
