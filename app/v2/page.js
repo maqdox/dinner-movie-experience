@@ -4,6 +4,8 @@ import styles from "./v2.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import MukaImg from "../../public/images/experience-muka.png";
+import AmigosImg from "../../public/images/hero-second-pic.jpg";
 
 const WhatsappIcon = ({ size = 24 }) => (
   <svg viewBox="0 0 24 24" fill="white" width={size} height={size}>
@@ -151,8 +153,8 @@ const FAQ_ITEMS = [
 ];
 
 const EXPERIENCE_IMAGES = [
-  { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/experience-ventu-group.png", alt: "Amigos disfrutando en Ventu" },
+  { src: MukaImg, alt: "Experiencia Muka Café" },
+  { src: AmigosImg, alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
