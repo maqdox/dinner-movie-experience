@@ -151,8 +151,8 @@ const FAQ_ITEMS = [
 ];
 
 const EXPERIENCE_IMAGES = [
-  { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/experience-amigos.png", alt: "Experiencia con Amigos en Ventu" },
+  { src: "/images/experience-muka.png?v=2", alt: "Experiencia Muka Café" },
+  { src: "/images/experience-amigos-final.jpg?v=2", alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
@@ -282,11 +282,11 @@ export default function HomeV2() {
       {/* Estrenos / Experiencias */}
       <section id="estrenos" className={`${styles.v2Section} ${styles.experiences}`}>
         <div className={styles.v2Container}>
-          <h2 className={styles.v2SectionTitle}>
+          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center" }}>
             Grandes Estrenos del <span className={styles.v2GoldGradient}>Verano</span>
           </h2>
-          <p className={styles.v2SectionSubtitle}>
-            Este verano, cada estreno tiene una segunda función. <br/>Después de la película, vive nuevas experiencias, sabores y momentos en Ventu.
+          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", maxWidth: "800px" }}>
+            Este verano, cada estreno tiene una segunda función.<br/>Después de la película, vive nuevas experiencias, sabores y momentos en Ventu.
           </p>
           <div className={styles.experienceGrid}>
             {EXPERIENCE_IMAGES.map((img, i) => (
