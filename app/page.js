@@ -151,8 +151,8 @@ const FAQ_ITEMS = [
 ];
 
 const EXPERIENCE_IMAGES = [
-  { src: "/images/experience-muka.png?v=3", alt: "Experiencia Muka Café" },
-  { src: "/images/experience-amigos-ventu.png?v=3", alt: "Experiencia con Amigos en Ventu" },
+  { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
+  { src: "/images/experience-amigos-ventu.png", alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
@@ -291,10 +291,13 @@ export default function HomeV2() {
           <div className={styles.experienceGrid}>
             {EXPERIENCE_IMAGES.map((img, i) => (
               <div key={i} className={styles.experienceCard}>
-                <img
+                <Image
                   src={img.src}
                   alt={img.alt}
+                  width={600}
+                  height={800}
                   className={styles.experienceImg}
+                  unoptimized
                 />
                 <div className={styles.experienceOverlay} />
               </div>
