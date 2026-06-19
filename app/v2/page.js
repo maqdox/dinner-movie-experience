@@ -152,7 +152,7 @@ const FAQ_ITEMS = [
 
 const EXPERIENCE_IMAGES = [
   { src: "/images/experience-muka.png", alt: "Experiencia Muka Café" },
-  { src: "/images/IMG_6120.JPG", alt: "Experiencia con Amigos en Ventu" },
+  { src: "/images/amigos.webp", alt: "Experiencia con Amigos en Ventu" },
 ];
 
 const BENEFITS = [
@@ -297,6 +297,7 @@ export default function HomeV2() {
                   width={600}
                   height={800}
                   className={styles.experienceImg}
+                  unoptimized
                 />
                 <div className={styles.experienceOverlay} />
               </div>
