@@ -1,4 +1,5 @@
 import "./globals.css";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata = {
   title: "Dinner & Movie Experience | Metrocinemas × Ventu",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>{children}</body>
+      <GoogleAnalytics gaId="G-51NK5ECBCL" />
     </html>
   );
 }
