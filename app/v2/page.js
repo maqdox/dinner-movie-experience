@@ -438,7 +438,7 @@ export default function HomeV2() {
           <p className={styles.footerLinks}>
             <a href="mailto:info@ventuhn.com">info@ventuhn.com</a>
             <span style={{ margin: "0 10px", opacity: 0.5 }}>|</span>
-            <a href="/terminos-y-condiciones" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+            <a href="/terminos-y-condiciones">Términos y Condiciones</a>
           </p>
           <p className={styles.footerCopy}>© {new Date().getFullYear()} Todos los derechos reservados.</p>
         </div>
