@@ -327,8 +327,9 @@
 }
 
 .heroContentText {
-  flex: 1;
+  width: 100%;
   max-width: 650px;
+  margin: 0 auto;
   animation: v2FadeInUp 0.8s ease;
   text-align: center;
   display: flex;

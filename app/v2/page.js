@@ -211,9 +211,7 @@ export default function HomeV2() {
             <a href="#estrenos">Experiencias</a>
             <a href="#como-funciona">Cómo Funciona</a>
             <a href="#restaurantes">Restaurantes</a>
-            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`} style={{ padding: "10px 24px", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
-              Obtener Movie Pass
-            </Link>
+            
           </nav>
         </div>
       </header>
@@ -262,16 +260,7 @@ export default function HomeV2() {
                 <span className={styles.heroStatLabel} style={{ textAlign: "center", display: "block", width: "100%" }}>Beneficios<br/>exclusivos</span>
               </div>
             </div>
-          </div>
-          
-          
-        
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
-            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
-              <TicketIcon size={18} className={styles.btnIcon} /> Obtener Movie Pass
-            </Link>
-          </div>
-        </div>
+          </div></div>
       </section>
 
       {/* Cómo Funciona */}
