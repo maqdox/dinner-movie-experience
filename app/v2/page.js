@@ -232,7 +232,7 @@ export default function HomeV2() {
         
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
-            <div style={{ marginTop: "80px", marginBottom: "24px", display: "flex", justifyContent: "center" }}>
+            <div style={{ marginTop: "140px", marginBottom: "24px", display: "flex", justifyContent: "center" }}>
               <Image src="/images/PROMOBLOCKBUSTER.png" alt="Blockbuster Summer" width={450} height={200} style={{ objectFit: "contain", maxWidth: "100%", height: "auto" }} priority />
             </div>
             
