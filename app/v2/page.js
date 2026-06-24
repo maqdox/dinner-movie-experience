@@ -234,7 +234,7 @@ export default function HomeV2() {
         
         <div className={styles.heroContentWrapper}>
           <div className={styles.heroContentText}>
-            <div style={{ marginTop: "80px", marginBottom: "24px" }}>
+            <div style={{ marginTop: "80px", marginBottom: "24px", display: "flex", justifyContent: "center" }}>
               <Image src="/images/PROMOBLOCKBUSTER.png" alt="Blockbuster Summer" width={450} height={200} style={{ objectFit: "contain", maxWidth: "100%", height: "auto" }} priority />
             </div>
             
@@ -243,9 +243,7 @@ export default function HomeV2() {
                 <TicketIcon size={18} className={styles.btnIcon} />
                 Obtener Movie Pass
               </Link>
-              <a href="#restaurantes" className={`${styles.v2Btn} ${styles.v2BtnSecondary}`}>
-                Ver Restaurantes
-              </a>
+              
             </div>
 
             <div className={styles.heroStats}>
