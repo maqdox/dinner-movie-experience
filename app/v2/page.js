@@ -266,15 +266,42 @@ export default function HomeV2() {
             </div>
           </div>
           
-          <div className={styles.heroContentImage}>
-            <Image 
-              src="/images/toystory-promo.jpg" 
-              alt="Toy Story Promo" 
-              width={1856} 
-              height={2304} 
-              className={styles.heroPromoImage}
-              priority
-            />
+          
+        
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
+            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
+              <TicketIcon size={18} className={styles.btnIcon} /> Obtener Movie Pass
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Cómo Funciona */}
+      <section id="como-funciona" className={`${styles.v2Section} ${styles.howItWorks}`}>
+        <div className={styles.v2Container}>
+          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center", width: "100%", display: "block" }}>
+            ¿Cómo <span className={styles.v2GoldGradient}>Funciona</span>?
+          </h2>
+          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", display: "block" }}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
+          <div className={styles.steps}>
+            {[
+              { num: "1", icon: <PopcornIcon size={44} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas" },
+              { num: "2", icon: <TicketIcon size={44} className={styles.stepSvg} />, title: "Obtén tu Movie Pass", desc: "Sube tu factura y selecciona restaurante" },
+              { num: "3", icon: <PlateCutleryIcon size={44} className={styles.stepSvg} />, title: "Disfruta tu Descuento", desc: "Presenta tu Movie Pass y recibe hasta un 30% de descuento en restaurantes de Ventu." },
+            ].map((step, i) => (
+              <div key={i} className={`${styles.v2GlassCard} ${styles.stepCard}`}>
+                <div className={styles.stepNum}>{step.num}</div>
+                <div className={styles.stepIcon}>{step.icon}</div>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
+            <Link href="/registro" className={`${styles.v2Btn} ${styles.v2BtnPrimary}`}>
+              <TicketIcon size={18} className={styles.btnIcon} /> Obtener Movie Pass
+            </Link>
           </div>
         </div>
       </section>
@@ -342,29 +369,7 @@ export default function HomeV2() {
         </div>
       </section>
 
-      {/* Cómo Funciona */}
-      <section id="como-funciona" className={`${styles.v2Section} ${styles.howItWorks}`}>
-        <div className={styles.v2Container}>
-          <h2 className={styles.v2SectionTitle} style={{ textAlign: "center", width: "100%", display: "block" }}>
-            ¿Cómo <span className={styles.v2GoldGradient}>Funciona</span>?
-          </h2>
-          <p className={styles.v2SectionSubtitle} style={{ textAlign: "center", margin: "0 auto 48px auto", width: "100%", display: "block" }}>En solo 3 pasos simples, tu noche de cine se transforma en una experiencia gastronómica.</p>
-          <div className={styles.steps}>
-            {[
-              { num: "1", icon: <PopcornIcon size={44} className={styles.stepSvg} />, title: "Ve al Cine", desc: "Disfruta cualquier película en Metrocinemas" },
-              { num: "2", icon: <TicketIcon size={44} className={styles.stepSvg} />, title: "Obtén tu Movie Pass", desc: "Sube tu factura y selecciona restaurante" },
-              { num: "3", icon: <PlateCutleryIcon size={44} className={styles.stepSvg} />, title: "Disfruta tu Descuento", desc: "Presenta tu Movie Pass y recibe hasta un 30% de descuento en restaurantes de Ventu." },
-            ].map((step, i) => (
-              <div key={i} className={`${styles.v2GlassCard} ${styles.stepCard}`}>
-                <div className={styles.stepNum}>{step.num}</div>
-                <div className={styles.stepIcon}>{step.icon}</div>
-                <h3>{step.title}</h3>
-                <p>{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* CTA Final — Movie Pass */}
       <section className={styles.ctaSection}>
@@ -445,6 +450,8 @@ export default function HomeV2() {
           <p className={styles.footerText}>Blockbuster Summer 2026 — Presentado por Vizion Development</p>
           <p className={styles.footerLinks}>
             <a href="mailto:info@ventuhn.com">info@ventuhn.com</a>
+            <span style={{ margin: "0 10px", opacity: 0.5 }}>|</span>
+            <a href="https://docs.google.com/document/d/1kgMoKSal2Pea5Pp_debRsCZIwtr-tqu6fYhn81hxcGk/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
           </p>
           <p className={styles.footerCopy}>© {new Date().getFullYear()} Todos los derechos reservados.</p>
         </div>
