@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import { db, storage } from "@/lib/firebase";
 import { doc, setDoc, collection, getDocs, runTransaction, query, where } from "firebase/firestore";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { adminDb } from "@/lib/firebase-admin";
 
 export const dynamic = 'force-dynamic';
 
 async function generateSequentialPassId() {
-  const counterRef = doc(db, "counters", "movie_passes");
+  const counterRef = adminDb.collection("counters").doc("movie_passes");
   try {
-    const newCount = await runTransaction(db, async (transaction) => {
+    const newCount = await adminDb.runTransaction(async (transaction) => {
       const counterDoc = await transaction.get(counterRef);
-      if (!counterDoc.exists()) {
+      if (!counterDoc.exists) {
         transaction.set(counterRef, { count: 1 });
         return 1;
       }
@@ -30,7 +31,7 @@ async function generateSequentialPassId() {
 
 export async function GET() {
   try {
-    const querySnapshot = await getDocs(collection(db, "movie_passes"));
+    const querySnapshot = await adminDb.collection("movie_passes").get();
     const passes = [];
     querySnapshot.forEach((doc) => {
       passes.push(doc.data());
@@ -53,8 +54,8 @@ export async function POST(request) {
     }
 
     // Check for duplicate numero_transaccion
-    const duplicateQuery = query(collection(db, "movie_passes"), where("numero_transaccion", "==", numero_transaccion));
-    const duplicateSnapshot = await getDocs(duplicateQuery);
+    const duplicateQuery = adminDb.collection("movie_passes").where("numero_transaccion", "==", numero_transaccion);
+    const duplicateSnapshot = await duplicateQuery.get();
     if (!duplicateSnapshot.empty) {
       return NextResponse.json({ error: "Este ticket o factura ya fue utilizado para generar un Movie Pass anteriormente." }, { status: 400 });
     }
@@ -78,9 +79,19 @@ export async function POST(request) {
     // Upload image to Firebase Storage
     if (ticket_base64) {
       try {
-        const storageRef = ref(storage, `tickets/${passId}`);
-        await uploadString(storageRef, ticket_base64, 'data_url');
-        ticketUrl = await getDownloadURL(storageRef);
+        const { adminStorage } = require("@/lib/firebase-admin");
+        const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+        const bucket = adminStorage.bucket(bucketName);
+        const file = bucket.file(`tickets/${passId}`);
+        const base64Data = ticket_base64.replace(/^data:image\/\w+;base64,/, '');
+        const buffer = Buffer.from(base64Data, 'base64');
+        
+        await file.save(buffer, {
+          metadata: { contentType: 'image/jpeg' }
+        });
+        await file.makePublic();
+        
+        ticketUrl = `https://storage.googleapis.com/${bucketName}/tickets/${passId}`;
       } catch (uploadErr) {
         console.error("Error subiendo imagen:", uploadErr);
         ticketUrl = "upload_failed";
@@ -112,7 +123,7 @@ export async function POST(request) {
     };
 
     // Save to Firestore
-    await setDoc(doc(db, "movie_passes", passId), pass);
+    await adminDb.collection("movie_passes").doc(passId).set(pass);
 
     return NextResponse.json({
       success: true,
