@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
     setError("");
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
       const user = userCredential.user;
 
       // Buscar el perfil del usuario en Firestore
