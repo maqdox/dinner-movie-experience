@@ -35,16 +35,47 @@ export default function RegistroPage() {
     setError("");
   };
 
-  const handleFile = (e) => {
+  const handleFile = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 3 * 1024 * 1024) {
-        setError("El archivo no debe exceder 3MB");
+      if (file.size > 15 * 1024 * 1024) {
+        setError("El archivo no debe exceder 15MB");
         return;
       }
-      setForm({ ...form, ticket: file, pelicula: "", fecha_ticket: "", numero_transaccion: "" });
-      setFileName(file.name);
+
+      setAnalyzing(true);
       setError("");
+
+      let processedFile = file;
+
+      // Comprimir inmediatamente si es imagen
+      if (file.type.startsWith("image/")) {
+        const options = {
+          maxSizeMB: 0.2, // Max 200KB
+          maxWidthOrHeight: 1200,
+          useWebWorker: true,
+        };
+        try {
+          processedFile = await imageCompression(file, options);
+        } catch (error) {
+          console.error("Error al comprimir la imagen:", error);
+          if (file.size > 4 * 1024 * 1024) {
+            setError("No pudimos optimizar tu imagen y es muy grande. Intenta con una foto menos pesada.");
+            setAnalyzing(false);
+            return;
+          }
+        }
+      } else {
+        // Si es PDF y pesa más de 4MB
+        if (file.size > 4 * 1024 * 1024) {
+          setError("Los archivos PDF no deben exceder 4MB. Intenta subir una foto o captura de pantalla.");
+          setAnalyzing(false);
+          return;
+        }
+      }
+
+      setForm({ ...form, ticket: processedFile, pelicula: "", fecha_ticket: "", numero_transaccion: "" });
+      setFileName(file.name);
 
       const reader = new FileReader();
       reader.onload = async (ev) => {
@@ -52,7 +83,6 @@ export default function RegistroPage() {
         setFilePreview(base64Image);
         
         // Iniciar análisis de IA
-        setAnalyzing(true);
         setAiWarning("");
         try {
           const res = await fetch("/api/analyze-ticket", {
@@ -84,7 +114,7 @@ export default function RegistroPage() {
           setAnalyzing(false);
         }
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(processedFile);
     }
   };
 
@@ -145,20 +175,8 @@ export default function RegistroPage() {
     setError("");
 
     try {
-      // Comprimir la imagen si es archivo de tipo imagen
+      // El archivo ya fue comprimido en handleFile, solo lo convertimos a base64
       let fileToConvert = form.ticket;
-      if (fileToConvert.type.startsWith("image/")) {
-        const options = {
-          maxSizeMB: 0.15, // Max 150KB
-          maxWidthOrHeight: 1200,
-          useWebWorker: true,
-        };
-        try {
-          fileToConvert = await imageCompression(fileToConvert, options);
-        } catch (error) {
-          console.error("Error al comprimir la imagen:", error);
-        }
-      }
 
       // Convert ticket to base64
       const toBase64 = (file) =>
@@ -327,7 +345,7 @@ export default function RegistroPage() {
                       <p className="file-upload-text">
                         <strong>Toca para subir</strong> tu ticket
                         <br />
-                        Foto, screenshot o PDF (máx 3MB)
+                        Foto, screenshot o PDF (máx 15MB)
                       </p>
                     </>
                   )}
