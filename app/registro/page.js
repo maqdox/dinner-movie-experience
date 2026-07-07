@@ -38,8 +38,8 @@ export default function RegistroPage() {
   const handleFile = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        setError("El archivo no debe exceder 5MB");
+      if (file.size > 3 * 1024 * 1024) {
+        setError("El archivo no debe exceder 3MB");
         return;
       }
       setForm({ ...form, ticket: file, pelicula: "", fecha_ticket: "", numero_transaccion: "" });
@@ -327,7 +327,7 @@ export default function RegistroPage() {
                       <p className="file-upload-text">
                         <strong>Toca para subir</strong> tu ticket
                         <br />
-                        Foto, screenshot o PDF (máx 5MB)
+                        Foto, screenshot o PDF (máx 3MB)
                       </p>
                     </>
                   )}

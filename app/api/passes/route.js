@@ -58,7 +58,13 @@ export async function POST(request) {
     const duplicateQuery = adminDb.collection("movie_passes").where("numero_transaccion", "==", numero_transaccion);
     const duplicateSnapshot = await duplicateQuery.get();
     if (!duplicateSnapshot.empty) {
-      return NextResponse.json({ error: "Este ticket o factura ya fue utilizado para generar un Movie Pass anteriormente." }, { status: 400 });
+      const existingPass = duplicateSnapshot.docs[0].data();
+      return NextResponse.json({
+        success: true,
+        id: existingPass.id,
+        expiration: existingPass.fecha_expiracion,
+        message: "Pass recuperado exitosamente"
+      });
     }
 
     // Validar fecha del ticket
