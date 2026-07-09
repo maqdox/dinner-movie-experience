@@ -143,9 +143,6 @@ export default function RegistroPage() {
     if (diffDays < 0) {
       return "La fecha del ticket no puede ser en el futuro";
     }
-    if (diffDays > 5) {
-      return "El ticket no puede tener más de 5 días de antigüedad";
-    }
     
     if (!form.numero_transaccion.trim()) return "El número de transacción no fue detectado, por favor ingrésalo manualmente";
 
@@ -312,7 +309,7 @@ export default function RegistroPage() {
                   <strong>⚠️ Importante:</strong> Esta promoción es válida únicamente presentando tickets de <strong>Metrocinemas Plaza América, Novacentro o Plaza Miraflores</strong>.
                 </p>
                 <p style={{ color: "var(--color-gold)", fontSize: "0.85rem", margin: 0 }}>
-                  Tu ticket debe tener <strong>máximo 5 días de antigüedad</strong>.
+                  Asegúrate de ingresar la información tal como aparece en tu comprobante.
                 </p>
               </div>
 

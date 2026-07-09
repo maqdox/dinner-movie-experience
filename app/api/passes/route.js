@@ -84,8 +84,8 @@ export async function POST(request) {
     const diffTime = today - ticketDate;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays < 0 || diffDays > 10) {
-      return NextResponse.json({ error: "La fecha del ticket no es válida o excede los 10 días de antigüedad" }, { status: 400 });
+    if (diffDays < 0) {
+      return NextResponse.json({ error: "La fecha del ticket no puede ser en el futuro" }, { status: 400 });
     }
 
     const passId = await generateSequentialPassId();
@@ -113,7 +113,8 @@ export async function POST(request) {
     }
 
     const now = new Date();
-    const expiration = new Date(now.getTime() + 48 * 60 * 60 * 1000); // 48 hours
+    // Expiración a largo plazo (1 año) en lugar de 48 horas
+    const expiration = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
 
     const pass = {
       id: passId,
