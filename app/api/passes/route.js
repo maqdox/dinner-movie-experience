@@ -54,8 +54,16 @@ export async function POST(request) {
       return NextResponse.json({ error: "Todos los campos son obligatorios, incluyendo el número de transacción" }, { status: 400 });
     }
 
+    // Normalize numero_transaccion to prevent bypassing (e.g. FAC-123456 vs 123456)
+    const normalizeTx = (tx) => {
+      if (!tx) return "";
+      const digits = tx.replace(/\D/g, "");
+      return digits.length > 5 ? digits.slice(-6) : digits;
+    };
+    const txNorm = normalizeTx(numero_transaccion);
+
     // Check for duplicate numero_transaccion
-    const duplicateQuery = adminDb.collection("movie_passes").where("numero_transaccion", "==", numero_transaccion);
+    const duplicateQuery = adminDb.collection("movie_passes").where("numero_transaccion_normalizado", "==", txNorm);
     const duplicateSnapshot = await duplicateQuery.get();
     if (!duplicateSnapshot.empty) {
       const existingPass = duplicateSnapshot.docs[0].data();
@@ -118,6 +126,7 @@ export async function POST(request) {
       restaurante_nombre,
       ticket_imagen: ticketUrl,
       numero_transaccion,
+      numero_transaccion_normalizado: txNorm,
       estado: "activo",
       fecha_ticket,
       fecha_creacion: now.toISOString(),
