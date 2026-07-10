@@ -27,7 +27,8 @@ export async function POST(request) {
         "pelicula": "Nombre de la película",
         "fecha": "Fecha del ticket en formato YYYY-MM-DD",
         "cine": "Nombre exacto de la sucursal del cine",
-        "numero_transaccion": "El número de transacción, número de factura, boleto o recibo único que identifique este pago."
+        "numero_transaccion": "El número de transacción, número de factura, boleto o recibo único que identifique este pago.",
+        "monto": "El total pagado en la factura (solo el número, ej. 250.00)"
       }
       
       Reglas:
@@ -35,14 +36,16 @@ export async function POST(request) {
       2. "fecha": La fecha del ticket o de la función en formato "YYYY-MM-DD". Si no encuentras fecha explícita pero es obvia, infiérela.
       3. "cine": El nombre de la sucursal del cine (ej. "Metrocinemas Plaza América", "Metrocinemas Novacentro", "Metrocinemas Metromall", etc.).
       4. "numero_transaccion": El número de transacción, número de factura, boleto o recibo único que identifique este pago.
+      5. "monto": El total pagado en la factura, como un string numérico (ej. "250.00"). Ignora símbolos de moneda.
 
-      Devuelve ÚNICAMENTE un objeto JSON válido con estas 4 llaves. Nada de explicaciones, ni Markdown extra.
+      Devuelve ÚNICAMENTE un objeto JSON válido con estas 5 llaves. Nada de explicaciones, ni Markdown extra.
       Ejemplo de salida:
       {
         "pelicula": "Inside Out 3",
         "fecha": "2024-06-08",
         "cine": "Metrocinemas Novacentro",
-        "numero_transaccion": "FAC-00012345"
+        "numero_transaccion": "FAC-00012345",
+        "monto": "250.00"
       }
     `;
 

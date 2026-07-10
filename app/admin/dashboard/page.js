@@ -320,7 +320,7 @@ export default function AdminDashboard() {
               <table className={styles.passesTable}>
                 <thead>
                   <tr>
-                    <th>Código</th><th>Cliente</th><th>Factura/Ticket</th><th>Película</th><th>Restaurante</th><th>Fecha</th><th>Estado</th><th>Ticket</th><th>Movie Pass</th>
+                    <th>Código</th><th>Cliente</th><th>Factura/Ticket</th><th>Monto</th><th>Película</th><th>Restaurante</th><th>Fecha</th><th>Estado</th><th>Ticket</th><th>Movie Pass</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -329,6 +329,7 @@ export default function AdminDashboard() {
                       <td><code className={styles.codeCell}>{p.id}</code></td>
                       <td>{p.nombre}</td>
                       <td><code className={styles.codeCell}>{p.numero_transaccion}</code></td>
+                      <td>{p.monto_ticket ? `L. ${parseFloat(p.monto_ticket).toFixed(2)}` : "—"}</td>
                       <td>{p.pelicula}</td>
                       <td>{p.restaurante_nombre}</td>
                       <td className={styles.dateCell}>{new Date(p.fecha_creacion).toLocaleDateString("es-HN")}</td>

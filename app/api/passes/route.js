@@ -47,11 +47,11 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { nombre, email, telefono, pelicula, personas, restaurante_id, restaurante_nombre, fecha_ticket, numero_transaccion, ticket_base64 } = body;
+    const { nombre, email, telefono, pelicula, personas, restaurante_id, restaurante_nombre, fecha_ticket, numero_transaccion, monto_ticket, ticket_base64 } = body;
 
     // Validate required fields
-    if (!nombre || !email || !telefono || !pelicula || !restaurante_id || !fecha_ticket || !numero_transaccion) {
-      return NextResponse.json({ error: "Todos los campos son obligatorios, incluyendo el número de transacción" }, { status: 400 });
+    if (!nombre || !email || !telefono || !pelicula || !restaurante_id || !fecha_ticket || !numero_transaccion || !monto_ticket) {
+      return NextResponse.json({ error: "Todos los campos son obligatorios, incluyendo el número de transacción y monto" }, { status: 400 });
     }
 
     // Normalize numero_transaccion to prevent bypassing (e.g. FAC-123456 vs 123456)
@@ -73,6 +73,17 @@ export async function POST(request) {
         expiration: existingPass.fecha_expiracion,
         message: "Pass recuperado exitosamente"
       });
+    }
+
+    // Check Option A: Duplicate by Name + Date + Amount (to prevent bypassing with random invoice numbers)
+    const suspiciousQuery = adminDb.collection("movie_passes")
+      .where("nombre", "==", nombre)
+      .where("fecha_ticket", "==", fecha_ticket)
+      .where("monto_ticket", "==", parseFloat(monto_ticket));
+    const suspiciousSnapshot = await suspiciousQuery.get();
+    
+    if (!suspiciousSnapshot.empty) {
+      return NextResponse.json({ error: "Ya existe un ticket registrado a tu nombre en esta misma fecha y por este mismo monto." }, { status: 400 });
     }
 
     // Validar fecha del ticket
@@ -128,6 +139,7 @@ export async function POST(request) {
       ticket_imagen: ticketUrl,
       numero_transaccion,
       numero_transaccion_normalizado: txNorm,
+      monto_ticket: parseFloat(monto_ticket),
       estado: "activo",
       fecha_ticket,
       fecha_creacion: now.toISOString(),

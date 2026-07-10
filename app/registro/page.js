@@ -27,6 +27,7 @@ export default function RegistroPage() {
     restaurante: "",
     fecha_ticket: "",
     numero_transaccion: "",
+    monto_ticket: "",
     ticket: null,
   });
 
@@ -92,14 +93,15 @@ export default function RegistroPage() {
           });
           const data = await res.json();
           if (res.ok && data.success && data.data) {
-            const { pelicula, fecha, cine, numero_transaccion } = data.data;
+            const { pelicula, fecha, cine, numero_transaccion, monto } = data.data;
             
             // Autocompletar form
             setForm(prev => ({
               ...prev,
               pelicula: pelicula || prev.pelicula,
               fecha_ticket: fecha || prev.fecha_ticket,
-              numero_transaccion: numero_transaccion || prev.numero_transaccion
+              numero_transaccion: numero_transaccion || prev.numero_transaccion,
+              monto_ticket: monto || prev.monto_ticket
             }));
             
             // Validar cine
@@ -145,6 +147,7 @@ export default function RegistroPage() {
     }
     
     if (!form.numero_transaccion.trim()) return "El número de transacción no fue detectado, por favor ingrésalo manualmente";
+    if (!form.monto_ticket || isNaN(form.monto_ticket) || parseFloat(form.monto_ticket) <= 0) return "Ingresa un monto de ticket válido";
 
     if (!form.ticket) return "Sube tu ticket de Metrocinemas";
     return null;
@@ -200,6 +203,7 @@ export default function RegistroPage() {
           restaurante_nombre: restaurant?.name || "",
           fecha_ticket: form.fecha_ticket,
           numero_transaccion: form.numero_transaccion,
+          monto_ticket: form.monto_ticket,
           ticket_base64: ticketBase64,
         }),
       });
@@ -395,7 +399,21 @@ export default function RegistroPage() {
                   value={form.numero_transaccion}
                   onChange={handleChange}
                 />
-                <p style={{ color: "var(--color-gold)", fontSize: "0.8rem", marginTop: "4px" }}>Este dato es necesario para evitar duplicados.</p>
+                <p style={{ color: "var(--color-gold)", fontSize: "0.8rem", margin: "4px 0 16px 0" }}>Este dato es necesario para evitar duplicados.</p>
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="monto_ticket">Monto Total del Ticket (L.)</label>
+                <input
+                  id="monto_ticket"
+                  name="monto_ticket"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  className="form-input"
+                  placeholder="Ej: 250.00"
+                  value={form.monto_ticket}
+                  onChange={handleChange}
+                />
               </div>
               <div className="form-group" style={{ display: "none" }}>
                 <label className="form-label" htmlFor="personas">Cantidad de Personas</label>
