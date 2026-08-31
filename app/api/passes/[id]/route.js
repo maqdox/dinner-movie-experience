@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { adminDb } from "@/lib/firebase-admin";
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
     
-    const docRef = doc(db, "movie_passes", id);
-    const docSnap = await getDoc(docRef);
+    const docRef = adminDb.collection("movie_passes").doc(id);
+    const docSnap = await docRef.get();
 
-    if (!docSnap.exists()) {
+    if (!docSnap.exists) {
       return NextResponse.json({ error: "Pass no encontrado" }, { status: 404 });
     }
 
@@ -18,12 +19,16 @@ export async function GET(request, { params }) {
     // Check expiration
     if (pass.estado === "activo" && new Date(pass.fecha_expiracion) < new Date()) {
       pass.estado = "expirado";
-      await updateDoc(docRef, { estado: "expirado" });
+      try {
+        await docRef.update({ estado: "expirado" });
+      } catch (updateErr) {
+        console.warn("Failed to update expired status in DB, but continuing:", updateErr);
+      }
     }
 
     return NextResponse.json({ pass });
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching pass:", err);
     return NextResponse.json({ error: "Error al buscar pass" }, { status: 500 });
   }
 }
@@ -33,10 +38,10 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const body = await request.json();
     
-    const docRef = doc(db, "movie_passes", id);
-    const docSnap = await getDoc(docRef);
+    const docRef = adminDb.collection("movie_passes").doc(id);
+    const docSnap = await docRef.get();
 
-    if (!docSnap.exists()) {
+    if (!docSnap.exists) {
       return NextResponse.json({ error: "Pass no encontrado" }, { status: 404 });
     }
 
@@ -58,7 +63,7 @@ export async function PUT(request, { params }) {
       personas_redencion: body.personas_redencion || null,
     };
 
-    await updateDoc(docRef, updates);
+    await docRef.update(updates);
 
     return NextResponse.json({ success: true, pass: { ...pass, ...updates } });
   } catch (err) {

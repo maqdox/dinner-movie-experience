@@ -26,7 +26,7 @@ export default function TerminosYCondiciones() {
 
           <div>
             <h3 style={{ color: "#fff", marginBottom: "8px" }}>1. Vigencia de la Promoción</h3>
-            <p>La Promoción estará vigente y será válida todos los días de la semana, iniciando el 19 de junio de 2026 y finalizando el 31 de agosto de 2026.</p>
+            <p>La Promoción estará vigente para la emisión de Movie Passes hasta el 4 de octubre de 2026. Los participantes podrán redimir sus pases en los restaurantes participantes hasta el 25 de octubre de 2026.</p>
           </div>
 
           <div>

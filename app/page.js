@@ -94,7 +94,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "¿Cuál es la vigencia de la promoción?",
-    answer: "La promoción Blockbuster Summer estará vigente del 18 de junio al 31 de agosto de 2026."
+    answer: "La promoción Blockbuster Summer estará vigente para la emisión de Movie Passes hasta el 4 de octubre de 2026, y podrás redimir tus pases en los restaurantes participantes hasta el 25 de octubre de 2026."
   },
   {
     question: "¿La promoción aplica para cualquier película o estreno?",
@@ -160,7 +160,7 @@ const BENEFITS = [
   "10 restaurantes participantes",
   "Válido con tickets Metrocinemas",
   "Proceso digital en minutos",
-  "Vigente hasta 31 de agosto",
+  "Vigente hasta 4 de octubre",
 ];
 
 function FAQItem({ item, isOpen, onToggle }) {
@@ -251,8 +251,8 @@ export default function HomeV2() {
               </div>
               <div className={styles.heroStatDivider} />
               <div className={styles.heroStat}>
-                <span className={styles.heroStatNumber}>31</span>
-                <span className={styles.heroStatLabel} style={{ textAlign: "center", display: "block", width: "100%" }}>Hasta 31<br/>de agosto</span>
+                <span className={styles.heroStatNumber}>04</span>
+                <span className={styles.heroStatLabel} style={{ textAlign: "center", display: "block", width: "100%" }}>Hasta 4<br/>de octubre</span>
               </div>
               <div className={styles.heroStatDivider} />
               <div className={styles.heroStat}>

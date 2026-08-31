@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server";
-import { db, storage } from "@/lib/firebase";
-import { doc, setDoc, collection, getDocs, runTransaction, query, where } from "firebase/firestore";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { adminDb, adminStorage } from "@/lib/firebase-admin";
 
 
